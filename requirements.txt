@@ -1,0 +1,71 @@
+# Dependências para o curso de Tópicos de Big Data em Python
+# Professor: Vagner Cordeiro
+
+# Análise de Dados Fundamentais
+pandas>=1.5.0
+numpy>=1.21.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Processamento de Big Data
+pyspark>=3.3.0
+apache-beam>=2.40.0
+
+# Machine Learning
+scikit-learn>=1.1.0
+tensorflow>=2.10.0
+xgboost>=1.6.0
+lightgbm>=3.3.0
+
+# Visualização Avançada
+plotly>=5.10.0
+bokeh>=2.4.0
+altair>=4.2.0
+
+# Processamento de Dados
+openpyxl>=3.0.0
+xlsxwriter>=3.0.0
+requests>=2.28.0
+beautifulsoup4>=4.11.0
+
+# Big Data e Cloud
+boto3>=1.24.0  # AWS
+google-cloud-storage>=2.5.0  # Google Cloud
+azure-storage-blob>=12.12.0  # Azure
+
+# Desenvolvimento e Testes
+jupyter>=1.0.0
+jupyterlab>=3.4.0
+notebook>=6.4.0
+ipywidgets>=7.7.0
+
+# Dados e APIs
+sqlalchemy>=1.4.0
+pymongo>=4.2.0
+redis>=4.3.0
+kafka-python>=2.0.0
+
+# Utilidades
+tqdm>=4.64.0  # Barras de progresso
+python-dotenv>=0.20.0  # Variáveis de ambiente
+click>=8.1.0  # Interface de linha de comando
+
+# Análise de Texto
+nltk>=3.7.0
+spacy>=3.4.0
+textblob>=0.17.0
+
+# Imagens e Dados Binários
+pillow>=9.2.0
+opencv-python>=4.6.0
+
+# Desenvolvimento Web (para dashboards)
+streamlit>=1.12.0
+dash>=2.6.0
+flask>=2.2.0
+fastapi>=0.80.0
+
+# Qualidade de Código
+black>=22.6.0
+flake8>=5.0.0
+pylint>=2.14.0
