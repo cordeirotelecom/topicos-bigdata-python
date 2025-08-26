@@ -736,26 +736,31 @@ class DataAnalysisPipeline:
         n_samples = 1000
         
         data = {
-            'vendas': np.random.normal(500, 150, n_samples).astype(int),
+            'vendas': np.random.normal(500, 150, n_samples),
             'preco': np.random.uniform(10, 100, n_samples),
             'categoria': np.random.choice(['Eletrônicos', 'Roupas', 'Casa', 'Livros'], n_samples),
             'regiao': np.random.choice(['Norte', 'Sul', 'Leste', 'Oeste'], n_samples),
             'desconto': np.random.uniform(0, 0.3, n_samples),
             'avaliacao': np.random.uniform(1, 5, n_samples),
-            'idade_cliente': np.random.normal(35, 12, n_samples).astype(int),
+            'idade_cliente': np.random.normal(35, 12, n_samples),
             'data_compra': [datetime.now() - timedelta(days=np.random.randint(1, 365)) for _ in range(n_samples)]
         }
         
         # Criar correlações realistas
-        data['vendas'] = (data['preco'] * np.random.uniform(8, 12, n_samples) * 
-                         (1 - data['desconto']) * 
-                         np.random.normal(1, 0.2, n_samples)).astype(int)
-        
         # Adicionar alguns valores nulos
         missing_indices = np.random.choice(n_samples, size=int(0.05 * n_samples), replace=False)
         for idx in missing_indices:
             col = np.random.choice(['preco', 'avaliacao', 'idade_cliente'])
             data[col][idx] = np.nan
+        
+        # Calcular vendas DEPOIS de adicionar NaN para evitar erro de conversão
+        data['vendas'] = (data['preco'] * np.random.uniform(8, 12, n_samples) * 
+                         (1 - data['desconto']) * 
+                         np.random.normal(1, 0.2, n_samples))
+        
+        # Converter para int apenas onde não há NaN
+        mask = ~np.isnan(data['vendas'])
+        data['vendas'][mask] = data['vendas'][mask].astype(int)
         
         return pandas.DataFrame(data) if pandas else {"message": "Dados simulados gerados", "rows": n_samples}
 
