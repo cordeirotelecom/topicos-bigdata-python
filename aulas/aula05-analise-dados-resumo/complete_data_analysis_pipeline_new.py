@@ -10,13 +10,18 @@ desde a coleta até insights finais, com boas práticas e ferramentas modernas.
 
 # Importações com tratamento de erros
 try:
-    import pandas as pd
+    import pandas
     import numpy as np
     PANDAS_AVAILABLE = True
     print("✅ Pandas e NumPy disponíveis")
 except ImportError:
     print("⚠️ Pandas/NumPy não está instalado. Usando simulação de conceitos.")
     PANDAS_AVAILABLE = False
+    # Criando stubs para tipos
+    pandas = None
+    class pd:
+        class DataFrame:
+            pass
 
 try:
     import matplotlib.pyplot as plt
@@ -72,8 +77,8 @@ class DataAnalysisPipeline:
     
     def __init__(self, name: str = "Data Analysis Pipeline"):
         self.name = name
-        self.data: Optional[Any] = None
-        self.cleaned_data: Optional[Any] = None
+        self.data: Any = None  # Pode ser DataFrame ou dict para simulação
+        self.cleaned_data: Any = None  # Pode ser DataFrame ou dict para simulação
         self.analysis_results: Dict[str, Any] = {}
         self.insights: List[str] = []
         
@@ -91,13 +96,13 @@ class DataAnalysisPipeline:
             if source_type == "dataframe":
                 self.data = data_source
             elif source_type == "csv":
-                self.data = pd.read_csv(data_source)
+                self.data = pandas.read_csv(data_source) if pandas else None
             elif source_type == "json":
-                self.data = pd.read_json(data_source)
+                self.data = pandas.read_json(data_source) if pandas else None
             elif source_type == "sql":
                 # data_source seria uma tupla (connection, query)
                 conn, query = data_source
-                self.data = pd.read_sql_query(query, conn)
+                self.data = pandas.read_sql_query(query, conn) if pandas else None
             
             if self.data is not None and hasattr(self.data, 'shape'):
                 print(f"✅ Dados carregados: {self.data.shape[0]} linhas, {self.data.shape[1]} colunas")
@@ -253,6 +258,14 @@ class DataAnalysisPipeline:
             return
             
         try:
+            if self.cleaned_data is None:
+                print("   ⚠️ Dados não disponíveis para remoção de outliers")
+                return
+                
+            if not hasattr(self.cleaned_data, 'select_dtypes'):
+                print("   ⚠️ Utilizando simulação para remoção de outliers")
+                return
+                
             numeric_cols = self.cleaned_data.select_dtypes(include=[np.number]).columns
             initial_size = len(self.cleaned_data)
             
@@ -278,6 +291,7 @@ class DataAnalysisPipeline:
                 
         except Exception as e:
             print(f"   ❌ Erro na remoção de outliers: {e}")
+            print("   🔄 Utilizando simulação de remoção de outliers")
     
     def analyze_correlations(self, target_column: Optional[str] = None) -> None:
         """Analisa correlações entre variáveis"""
@@ -721,46 +735,29 @@ class DataAnalysisPipeline:
         np.random.seed(42)
         n_samples = 1000
         
-        # Primeiro gerar dados base
-        vendas_base = np.random.normal(500, 150, n_samples)
-        preco = np.random.uniform(10, 100, n_samples)
-        categoria = np.random.choice(['Eletrônicos', 'Roupas', 'Casa', 'Livros'], n_samples)
-        regiao = np.random.choice(['Norte', 'Sul', 'Leste', 'Oeste'], n_samples)
-        desconto = np.random.uniform(0, 0.3, n_samples)
-        avaliacao = np.random.uniform(1, 5, n_samples)
-        idade_cliente = np.random.normal(35, 12, n_samples)
-        data_compra = [datetime.now() - timedelta(days=np.random.randint(1, 365)) for _ in range(n_samples)]
-        
-        # Criar correlações realistas para vendas
-        vendas_correlated = (preco * np.random.uniform(8, 12, n_samples) * 
-                           (1 - desconto) * 
-                           np.random.normal(1, 0.2, n_samples))
-        
-        # Garantir valores positivos e converter para int
-        vendas_final = np.maximum(vendas_correlated, 50).astype(int)
-        idade_final = np.maximum(idade_cliente, 18).astype(int)
-        
         data = {
-            'vendas': vendas_final,
-            'preco': preco,
-            'categoria': categoria,
-            'regiao': regiao,
-            'desconto': desconto,
-            'avaliacao': avaliacao,
-            'idade_cliente': idade_final,
-            'data_compra': data_compra
+            'vendas': np.random.normal(500, 150, n_samples).astype(int),
+            'preco': np.random.uniform(10, 100, n_samples),
+            'categoria': np.random.choice(['Eletrônicos', 'Roupas', 'Casa', 'Livros'], n_samples),
+            'regiao': np.random.choice(['Norte', 'Sul', 'Leste', 'Oeste'], n_samples),
+            'desconto': np.random.uniform(0, 0.3, n_samples),
+            'avaliacao': np.random.uniform(1, 5, n_samples),
+            'idade_cliente': np.random.normal(35, 12, n_samples).astype(int),
+            'data_compra': [datetime.now() - timedelta(days=np.random.randint(1, 365)) for _ in range(n_samples)]
         }
         
-        # Criar DataFrame primeiro
-        df = pd.DataFrame(data)
+        # Criar correlações realistas
+        data['vendas'] = (data['preco'] * np.random.uniform(8, 12, n_samples) * 
+                         (1 - data['desconto']) * 
+                         np.random.normal(1, 0.2, n_samples)).astype(int)
         
-        # Adicionar alguns valores nulos DEPOIS de criar o DataFrame
+        # Adicionar alguns valores nulos
         missing_indices = np.random.choice(n_samples, size=int(0.05 * n_samples), replace=False)
         for idx in missing_indices:
-            col = np.random.choice(['preco', 'avaliacao'])  # Não incluir idade_cliente
-            df.iloc[idx, df.columns.get_loc(col)] = np.nan
+            col = np.random.choice(['preco', 'avaliacao', 'idade_cliente'])
+            data[col][idx] = np.nan
         
-        return df
+        return pandas.DataFrame(data) if pandas else {"message": "Dados simulados gerados", "rows": n_samples}
 
 
 def demonstrate_pipeline():

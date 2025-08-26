@@ -2,6 +2,8 @@
 """
 Apache Kafka Streaming Implementation
 Sistema completo de streaming de dados em tempo real
+Professor: Vagner Cordeiro
+Curso: Tópicos de Big Data em Python
 """
 
 import os
@@ -12,23 +14,34 @@ import threading
 import logging
 import random
 from datetime import datetime, timedelta
-from typing import Dict, List, Any
+from typing import Dict, List, Any, Optional
 import asyncio
 from dataclasses import dataclass, asdict
+import queue
+import uuid
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# Importações com tratamento de erros
 try:
     from kafka import KafkaProducer, KafkaConsumer, KafkaAdminClient
     from kafka.admin import NewTopic, ConfigResource, ConfigResourceType
     from kafka.errors import TopicAlreadyExistsError
+    KAFKA_AVAILABLE = True
+    print("✅ Kafka-python disponível")
+except ImportError:
+    print("⚠️ Kafka-python não está instalado. Usando simulação.")
+    KAFKA_AVAILABLE = False
+
+try:
     import redis
-except ImportError as e:
-    logger.error(f"Dependências não instaladas: {e}")
-    logger.error("Execute: pip install kafka-python redis")
-    sys.exit(1)
+    REDIS_AVAILABLE = True
+    print("✅ Redis disponível")
+except ImportError:
+    print("⚠️ Redis não está instalado. Usando simulação.")
+    REDIS_AVAILABLE = False
 
 @dataclass
 class IoTSensorReading:
@@ -48,672 +61,659 @@ class UserActivityEvent:
     user_id: str
     session_id: str
     event_type: str
+    page_url: str
     timestamp: datetime
-    page: str
-    referrer: str
     user_agent: str
     ip_address: str
-    duration_ms: int
+    duration: int
 
 @dataclass
 class TransactionEvent:
-    """Estrutura de dados para evento de transação"""
+    """Estrutura de dados para transação financeira"""
     transaction_id: str
     user_id: str
+    merchant_id: str
     amount: float
     currency: str
-    merchant: str
     timestamp: datetime
-    location: Dict[str, str]
     payment_method: str
-    risk_score: float
+    status: str
 
-class KafkaManager:
-    """Gerenciador para operações Kafka"""
+class MockKafkaProducer:
+    """Simulação do KafkaProducer quando kafka não está disponível"""
     
-    def __init__(self, bootstrap_servers=['localhost:9092']):
-        self.bootstrap_servers = bootstrap_servers
-        self.admin_client = KafkaAdminClient(
-            bootstrap_servers=bootstrap_servers,
-            client_id='kafka_manager'
-        )
+    def __init__(self, **kwargs):
+        self.config = kwargs
+        self.sent_messages = []
+        print(f"🎭 Mock Kafka Producer criado com config: {kwargs}")
     
-    def create_topics(self, topics_config: Dict[str, Dict]):
-        """Criar topics com configurações específicas"""
-        topics = []
-        
-        for topic_name, config in topics_config.items():
-            topic = NewTopic(
-                name=topic_name,
-                num_partitions=config.get('partitions', 3),
-                replication_factor=config.get('replication_factor', 1),
-                topic_configs=config.get('configs', {})
-            )
-            topics.append(topic)
-        
-        try:
-            result = self.admin_client.create_topics(topics)
-            for topic_name, future in result.topic_futures.items():
-                try:
-                    future.result()
-                    logger.info(f"Topic '{topic_name}' criado com sucesso")
-                except TopicAlreadyExistsError:
-                    logger.info(f"Topic '{topic_name}' já existe")
-                except Exception as e:
-                    logger.error(f"Erro ao criar topic '{topic_name}': {e}")
-        except Exception as e:
-            logger.error(f"Erro geral na criação de topics: {e}")
-    
-    def list_topics(self):
-        """Listar todos os topics"""
-        metadata = self.admin_client.list_topics()
-        return metadata.topics
-    
-    def delete_topics(self, topic_names: List[str]):
-        """Deletar topics"""
-        try:
-            result = self.admin_client.delete_topics(topic_names)
-            for topic_name, future in result.topic_futures.items():
-                try:
-                    future.result()
-                    logger.info(f"Topic '{topic_name}' deletado")
-                except Exception as e:
-                    logger.error(f"Erro ao deletar topic '{topic_name}': {e}")
-        except Exception as e:
-            logger.error(f"Erro geral na deleção de topics: {e}")
-
-class IoTSensorProducer:
-    """Produtor para simular dados de sensores IoT"""
-    
-    def __init__(self, bootstrap_servers=['localhost:9092']):
-        self.producer = KafkaProducer(
-            bootstrap_servers=bootstrap_servers,
-            value_serializer=lambda v: json.dumps(v, default=str).encode('utf-8'),
-            key_serializer=lambda k: k.encode('utf-8') if k else None,
-            acks='all',  # Aguardar confirmação de todos os replicas
-            retries=3,
-            batch_size=16384,
-            linger_ms=10,
-            compression_type='gzip'
-        )
-        self.running = False
-        self.sensors = self._generate_sensor_config()
-    
-    def _generate_sensor_config(self):
-        """Gerar configuração de sensores"""
-        locations = [
-            {"lat": -23.5505, "lon": -46.6333, "city": "São Paulo"},
-            {"lat": -22.9068, "lon": -43.1729, "city": "Rio de Janeiro"},
-            {"lat": -19.9167, "lon": -43.9345, "city": "Belo Horizonte"},
-            {"lat": -15.7801, "lon": -47.9292, "city": "Brasília"},
-            {"lat": -12.9714, "lon": -38.5014, "city": "Salvador"}
-        ]
-        
-        sensors = []
-        for i in range(50):  # 50 sensores simulados
-            sensor = {
-                'sensor_id': f'SENSOR_{i:03d}',
-                'location': random.choice(locations),
-                'base_temp': random.uniform(15, 35),
-                'base_humidity': random.uniform(30, 80),
-                'base_pressure': random.uniform(980, 1020)
-            }
-            sensors.append(sensor)
-        
-        return sensors
-    
-    def generate_sensor_reading(self, sensor_config):
-        """Gerar leitura de sensor"""
-        # Adicionar variação realística
-        temp_variation = random.uniform(-5, 5)
-        humidity_variation = random.uniform(-10, 10)
-        pressure_variation = random.uniform(-5, 5)
-        
-        reading = IoTSensorReading(
-            sensor_id=sensor_config['sensor_id'],
-            timestamp=datetime.now(),
-            temperature=max(0, sensor_config['base_temp'] + temp_variation),
-            humidity=max(0, min(100, sensor_config['base_humidity'] + humidity_variation)),
-            pressure=max(0, sensor_config['base_pressure'] + pressure_variation),
-            location=sensor_config['location'],
-            device_status=random.choice(['online', 'online', 'online', 'warning', 'offline']),
-            battery_level=max(0, min(100, random.uniform(10, 100)))
-        )
-        
-        return reading
-    
-    def start_streaming(self, topic='iot-sensor-data', interval=1.0):
-        """Iniciar streaming de dados"""
-        self.running = True
-        logger.info(f"Iniciando streaming para topic '{topic}'")
-        
-        while self.running:
-            try:
-                # Gerar leituras para todos os sensores
-                for sensor_config in self.sensors:
-                    reading = self.generate_sensor_reading(sensor_config)
-                    
-                    # Enviar para Kafka
-                    future = self.producer.send(
-                        topic,
-                        key=reading.sensor_id,
-                        value=asdict(reading)
-                    )
-                    
-                    # Callback para tratar sucesso/erro
-                    future.add_callback(self._on_send_success)
-                    future.add_errback(self._on_send_error)
-                
-                self.producer.flush()
-                time.sleep(interval)
-                
-            except KeyboardInterrupt:
-                logger.info("Parando streaming...")
-                break
-            except Exception as e:
-                logger.error(f"Erro no streaming: {e}")
-                time.sleep(5)
-        
-        self.running = False
-        self.producer.close()
-    
-    def _on_send_success(self, record_metadata):
-        """Callback para envio bem-sucedido"""
-        logger.debug(f"Mensagem enviada para {record_metadata.topic}:{record_metadata.partition}:{record_metadata.offset}")
-    
-    def _on_send_error(self, exception):
-        """Callback para erro no envio"""
-        logger.error(f"Erro ao enviar mensagem: {exception}")
-
-class UserActivityProducer:
-    """Produtor para simular atividade de usuários"""
-    
-    def __init__(self, bootstrap_servers=['localhost:9092']):
-        self.producer = KafkaProducer(
-            bootstrap_servers=bootstrap_servers,
-            value_serializer=lambda v: json.dumps(v, default=str).encode('utf-8'),
-            key_serializer=lambda k: k.encode('utf-8') if k else None
-        )
-        self.running = False
-    
-    def generate_user_event(self):
-        """Gerar evento de usuário"""
-        event_types = ['page_view', 'click', 'scroll', 'form_submit', 'purchase', 'logout']
-        pages = ['/home', '/products', '/cart', '/checkout', '/profile', '/support']
-        referrers = ['google.com', 'facebook.com', 'direct', 'email', 'instagram.com']
-        
-        event = UserActivityEvent(
-            user_id=f"user_{random.randint(1, 10000)}",
-            session_id=f"session_{random.randint(1, 50000)}",
-            event_type=random.choice(event_types),
-            timestamp=datetime.now(),
-            page=random.choice(pages),
-            referrer=random.choice(referrers),
-            user_agent="Mozilla/5.0 (compatible)",
-            ip_address=f"192.168.{random.randint(1, 255)}.{random.randint(1, 255)}",
-            duration_ms=random.randint(100, 30000)
-        )
-        
-        return event
-    
-    def start_streaming(self, topic='user-activity', interval=0.1):
-        """Iniciar streaming de eventos de usuário"""
-        self.running = True
-        logger.info(f"Iniciando streaming de atividade para topic '{topic}'")
-        
-        while self.running:
-            try:
-                event = self.generate_user_event()
-                
-                self.producer.send(
-                    topic,
-                    key=event.user_id,
-                    value=asdict(event)
-                )
-                
-                time.sleep(interval)
-                
-            except KeyboardInterrupt:
-                break
-            except Exception as e:
-                logger.error(f"Erro no streaming de atividade: {e}")
-                time.sleep(1)
-        
-        self.running = False
-        self.producer.close()
-
-class RealTimeAnalyticsConsumer:
-    """Consumer para análise em tempo real"""
-    
-    def __init__(self, bootstrap_servers=['localhost:9092']):
-        self.bootstrap_servers = bootstrap_servers
-        self.redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-        self.running = False
-    
-    def consume_iot_data(self, topic='iot-sensor-data'):
-        """Consumir e processar dados IoT"""
-        consumer = KafkaConsumer(
-            topic,
-            bootstrap_servers=self.bootstrap_servers,
-            auto_offset_reset='latest',
-            enable_auto_commit=True,
-            group_id='iot-analytics-group',
-            value_deserializer=lambda m: json.loads(m.decode('utf-8'))
-        )
-        
-        logger.info(f"Iniciando consumo de dados IoT do topic '{topic}'")
-        
-        for message in consumer:
-            try:
-                sensor_data = message.value
-                self._process_iot_reading(sensor_data)
-                
-            except Exception as e:
-                logger.error(f"Erro ao processar dados IoT: {e}")
-        
-        consumer.close()
-    
-    def _process_iot_reading(self, data):
-        """Processar leitura de sensor"""
-        sensor_id = data['sensor_id']
-        timestamp = data['timestamp']
-        temperature = data['temperature']
-        humidity = data['humidity']
-        battery_level = data['battery_level']
-        device_status = data['device_status']
-        
-        # Armazenar métricas no Redis
-        current_hour = datetime.now().strftime('%Y-%m-%d-%H')
-        
-        # Contadores por hora
-        self.redis_client.incr(f"iot:readings:{current_hour}")
-        self.redis_client.incr(f"iot:sensor:{sensor_id}:readings:{current_hour}")
-        
-        # Valores atuais
-        self.redis_client.hset(f"iot:sensor:{sensor_id}:current", mapping={
-            'temperature': temperature,
-            'humidity': humidity,
-            'battery_level': battery_level,
-            'status': device_status,
-            'last_update': timestamp
-        })
-        
-        # Detectar anomalias
-        self._detect_anomalies(sensor_id, data)
-        
-        # Alertas críticos
-        if device_status == 'offline':
-            self._send_alert('DEVICE_OFFLINE', f"Sensor {sensor_id} está offline")
-        
-        if battery_level < 15:
-            self._send_alert('LOW_BATTERY', f"Sensor {sensor_id} com bateria baixa: {battery_level}%")
-        
-        if temperature > 50 or temperature < -10:
-            self._send_alert('TEMPERATURE_ALERT', f"Sensor {sensor_id} temperatura crítica: {temperature}°C")
-    
-    def _detect_anomalies(self, sensor_id, current_data):
-        """Detectar anomalias usando janela deslizante"""
-        # Buscar histórico recente
-        history_key = f"iot:sensor:{sensor_id}:history"
-        
-        # Adicionar leitura atual ao histórico
-        self.redis_client.lpush(
-            history_key,
-            json.dumps({
-                'timestamp': current_data['timestamp'],
-                'temperature': current_data['temperature'],
-                'humidity': current_data['humidity']
-            })
-        )
-        
-        # Manter apenas últimas 100 leituras
-        self.redis_client.ltrim(history_key, 0, 99)
-        
-        # Analisar se há 5+ leituras para detectar anomalias
-        history = self.redis_client.lrange(history_key, 0, 9)  # Últimas 10
-        
-        if len(history) >= 5:
-            temperatures = []
-            for reading_str in history:
-                reading = json.loads(reading_str)
-                temperatures.append(reading['temperature'])
-            
-            # Calcular média e desvio padrão
-            avg_temp = sum(temperatures) / len(temperatures)
-            variance = sum((t - avg_temp) ** 2 for t in temperatures) / len(temperatures)
-            std_dev = variance ** 0.5
-            
-            current_temp = current_data['temperature']
-            
-            # Alertar se atual está fora de 2 desvios padrão
-            if abs(current_temp - avg_temp) > 2 * std_dev and std_dev > 1:
-                self._send_alert(
-                    'TEMPERATURE_ANOMALY',
-                    f"Sensor {sensor_id} anomalia detectada: {current_temp}°C (média: {avg_temp:.1f}°C)"
-                )
-    
-    def _send_alert(self, alert_type, message):
-        """Enviar alerta para sistema de notificações"""
-        alert = {
-            'type': alert_type,
-            'message': message,
-            'timestamp': datetime.now().isoformat(),
-            'severity': self._get_alert_severity(alert_type)
+    def send(self, topic: str, value: bytes = None, key: bytes = None):
+        """Simula envio de mensagem"""
+        message = {
+            'topic': topic,
+            'key': key.decode() if key else None,
+            'value': value.decode() if value else None,
+            'timestamp': datetime.now().isoformat()
         }
-        
-        # Armazenar alerta no Redis
-        self.redis_client.lpush('alerts', json.dumps(alert))
-        self.redis_client.ltrim('alerts', 0, 999)  # Manter últimos 1000 alertas
-        
-        logger.warning(f"🚨 ALERTA {alert_type}: {message}")
+        self.sent_messages.append(message)
+        print(f"📤 Mock enviado para tópico '{topic}': {len(value)} bytes")
+        return MockFuture()
     
-    def _get_alert_severity(self, alert_type):
-        """Determinar severidade do alerta"""
-        severity_map = {
-            'DEVICE_OFFLINE': 'HIGH',
-            'LOW_BATTERY': 'MEDIUM',
-            'TEMPERATURE_ALERT': 'HIGH',
-            'TEMPERATURE_ANOMALY': 'MEDIUM'
-        }
-        return severity_map.get(alert_type, 'LOW')
+    def flush(self):
+        """Simula flush"""
+        print(f"🔄 Mock flush: {len(self.sent_messages)} mensagens enviadas")
     
-    def consume_user_activity(self, topic='user-activity'):
-        """Consumir e processar atividade de usuários"""
-        consumer = KafkaConsumer(
-            topic,
-            bootstrap_servers=self.bootstrap_servers,
-            auto_offset_reset='latest',
-            enable_auto_commit=True,
-            group_id='user-analytics-group',
-            value_deserializer=lambda m: json.loads(m.decode('utf-8'))
-        )
-        
-        logger.info(f"Iniciando consumo de atividade de usuários do topic '{topic}'")
-        
-        for message in consumer:
-            try:
-                event_data = message.value
-                self._process_user_event(event_data)
-                
-            except Exception as e:
-                logger.error(f"Erro ao processar evento de usuário: {e}")
-        
-        consumer.close()
-    
-    def _process_user_event(self, data):
-        """Processar evento de usuário"""
-        user_id = data['user_id']
-        session_id = data['session_id']
-        event_type = data['event_type']
-        page = data['page']
-        
-        current_minute = datetime.now().strftime('%Y-%m-%d-%H-%M')
-        
-        # Contadores em tempo real
-        self.redis_client.incr(f"user_activity:events:{current_minute}")
-        self.redis_client.incr(f"user_activity:event_type:{event_type}:{current_minute}")
-        self.redis_client.incr(f"user_activity:page:{page}:{current_minute}")
-        
-        # Atividade por usuário
-        self.redis_client.incr(f"user_activity:user:{user_id}:events")
-        
-        # Atividade por sessão
-        session_key = f"user_activity:session:{session_id}"
-        self.redis_client.incr(f"{session_key}:events")
-        self.redis_client.hset(f"{session_key}:info", mapping={
-            'user_id': user_id,
-            'last_event': event_type,
-            'last_page': page,
-            'last_activity': data['timestamp']
-        })
-        
-        # Detectar sessões muito ativas (possível bot)
-        session_events = int(self.redis_client.get(f"{session_key}:events") or 0)
-        if session_events > 100:
-            self._send_alert(
-                'SUSPICIOUS_ACTIVITY',
-                f"Sessão {session_id} com atividade suspeita: {session_events} eventos"
-            )
+    def close(self):
+        """Simula fechamento"""
+        print("🔒 Mock Producer fechado")
 
-class StreamAnalyticsDashboard:
-    """Dashboard para visualizar analytics em tempo real"""
+class MockFuture:
+    """Simula Future do Kafka"""
+    
+    def get(self, timeout=None):
+        return MockRecordMetadata()
+
+class MockRecordMetadata:
+    """Simula metadata de record"""
     
     def __init__(self):
-        self.redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True)
-    
-    def get_iot_metrics(self):
-        """Obter métricas IoT em tempo real"""
-        current_hour = datetime.now().strftime('%Y-%m-%d-%H')
-        
-        metrics = {
-            'total_readings': int(self.redis_client.get(f"iot:readings:{current_hour}") or 0),
-            'active_sensors': 0,
-            'offline_sensors': 0,
-            'low_battery_sensors': 0,
-            'recent_alerts': []
-        }
-        
-        # Verificar status dos sensores
-        sensor_keys = self.redis_client.keys("iot:sensor:*:current")
-        for key in sensor_keys:
-            sensor_data = self.redis_client.hgetall(key)
-            if sensor_data:
-                if sensor_data.get('status') == 'online':
-                    metrics['active_sensors'] += 1
-                elif sensor_data.get('status') == 'offline':
-                    metrics['offline_sensors'] += 1
-                
-                battery_level = float(sensor_data.get('battery_level', 100))
-                if battery_level < 20:
-                    metrics['low_battery_sensors'] += 1
-        
-        # Buscar alertas recentes
-        recent_alerts = self.redis_client.lrange('alerts', 0, 9)
-        for alert_str in recent_alerts:
-            alert = json.loads(alert_str)
-            metrics['recent_alerts'].append(alert)
-        
-        return metrics
-    
-    def get_user_activity_metrics(self):
-        """Obter métricas de atividade de usuários"""
-        current_minute = datetime.now().strftime('%Y-%m-%d-%H-%M')
-        
-        metrics = {
-            'events_per_minute': int(self.redis_client.get(f"user_activity:events:{current_minute}") or 0),
-            'event_types': {},
-            'popular_pages': {},
-            'active_sessions': 0
-        }
-        
-        # Eventos por tipo
-        event_types = ['page_view', 'click', 'scroll', 'form_submit', 'purchase', 'logout']
-        for event_type in event_types:
-            count = int(self.redis_client.get(f"user_activity:event_type:{event_type}:{current_minute}") or 0)
-            metrics['event_types'][event_type] = count
-        
-        # Páginas populares
-        pages = ['/home', '/products', '/cart', '/checkout', '/profile', '/support']
-        for page in pages:
-            count = int(self.redis_client.get(f"user_activity:page:{page}:{current_minute}") or 0)
-            if count > 0:
-                metrics['popular_pages'][page] = count
-        
-        # Sessões ativas (aproximação)
-        session_keys = self.redis_client.keys("user_activity:session:*:events")
-        metrics['active_sessions'] = len(session_keys)
-        
-        return metrics
-    
-    def display_dashboard(self):
-        """Exibir dashboard no terminal"""
-        while True:
-            try:
-                os.system('clear' if os.name == 'posix' else 'cls')
-                
-                print("🚀 REAL-TIME ANALYTICS DASHBOARD")
-                print("=" * 60)
-                
-                # Métricas IoT
-                iot_metrics = self.get_iot_metrics()
-                print(f"\n📡 IoT SENSORS")
-                print(f"Total Readings (this hour): {iot_metrics['total_readings']:,}")
-                print(f"Active Sensors: {iot_metrics['active_sensors']}")
-                print(f"Offline Sensors: {iot_metrics['offline_sensors']}")
-                print(f"Low Battery Sensors: {iot_metrics['low_battery_sensors']}")
-                
-                # Alertas recentes
-                if iot_metrics['recent_alerts']:
-                    print(f"\n🚨 RECENT ALERTS:")
-                    for alert in iot_metrics['recent_alerts'][:3]:
-                        timestamp = alert['timestamp'][:19]
-                        print(f"  [{timestamp}] {alert['type']}: {alert['message']}")
-                
-                # Métricas de usuários
-                user_metrics = self.get_user_activity_metrics()
-                print(f"\n👥 USER ACTIVITY")
-                print(f"Events per minute: {user_metrics['events_per_minute']:,}")
-                print(f"Active Sessions: {user_metrics['active_sessions']:,}")
-                
-                # Eventos por tipo
-                print(f"\n📊 EVENTS BY TYPE:")
-                for event_type, count in user_metrics['event_types'].items():
-                    if count > 0:
-                        print(f"  {event_type}: {count}")
-                
-                # Páginas populares
-                if user_metrics['popular_pages']:
-                    print(f"\n📄 POPULAR PAGES:")
-                    for page, count in sorted(user_metrics['popular_pages'].items(), key=lambda x: x[1], reverse=True):
-                        print(f"  {page}: {count}")
-                
-                print(f"\n🕒 Last updated: {datetime.now().strftime('%H:%M:%S')}")
-                print("Press Ctrl+C to exit")
-                
-                time.sleep(5)
-                
-            except KeyboardInterrupt:
-                print("\n👋 Dashboard finalizado!")
-                break
-            except Exception as e:
-                logger.error(f"Erro no dashboard: {e}")
-                time.sleep(5)
+        self.topic = "mock_topic"
+        self.partition = 0
+        self.offset = random.randint(1000, 9999)
 
-def setup_kafka_topics():
-    """Configurar topics Kafka necessários"""
-    kafka_manager = KafkaManager()
+class MockKafkaConsumer:
+    """Simulação do KafkaConsumer quando kafka não está disponível"""
     
-    topics_config = {
-        'iot-sensor-data': {
-            'partitions': 6,
-            'replication_factor': 1,
-            'configs': {
-                'retention.ms': '604800000',  # 7 dias
-                'compression.type': 'gzip',
-                'cleanup.policy': 'delete'
-            }
-        },
-        'user-activity': {
-            'partitions': 4,
-            'replication_factor': 1,
-            'configs': {
-                'retention.ms': '259200000',  # 3 dias
-                'compression.type': 'snappy'
-            }
-        },
-        'alerts': {
-            'partitions': 2,
-            'replication_factor': 1,
-            'configs': {
-                'retention.ms': '2592000000',  # 30 dias
-                'cleanup.policy': 'delete'
-            }
-        }
-    }
+    def __init__(self, *topics, **kwargs):
+        self.topics = topics
+        self.config = kwargs
+        self.messages_queue = queue.Queue()
+        self.running = False
+        print(f"🎭 Mock Kafka Consumer criado para tópicos: {topics}")
     
-    kafka_manager.create_topics(topics_config)
+    def subscribe(self, topics):
+        """Simula subscription"""
+        self.topics = topics
+        print(f"📋 Mock subscrito aos tópicos: {topics}")
     
-    print("Topics configurados:")
-    for topic in kafka_manager.list_topics():
-        print(f"  - {topic}")
-
-def main():
-    """Função principal para demonstração completa"""
-    
-    print("🚀 Kafka Streaming Real-Time Analytics")
-    print("=" * 50)
-    
-    # Setup inicial
-    setup_kafka_topics()
-    
-    print("\nEscolha uma opção:")
-    print("1. Iniciar Produtor IoT")
-    print("2. Iniciar Produtor de Atividade de Usuários")
-    print("3. Iniciar Consumer Analytics")
-    print("4. Exibir Dashboard")
-    print("5. Executar Demo Completo")
-    
-    choice = input("\nOpção (1-5): ").strip()
-    
-    if choice == '1':
-        producer = IoTSensorProducer()
-        producer.start_streaming()
-    
-    elif choice == '2':
-        producer = UserActivityProducer()
-        producer.start_streaming()
-    
-    elif choice == '3':
-        consumer = RealTimeAnalyticsConsumer()
-        
-        # Executar consumers em threads separadas
-        iot_thread = threading.Thread(target=consumer.consume_iot_data)
-        user_thread = threading.Thread(target=consumer.consume_user_activity)
-        
-        iot_thread.daemon = True
-        user_thread.daemon = True
-        
-        iot_thread.start()
-        user_thread.start()
+    def poll(self, timeout_ms=1000):
+        """Simula polling de mensagens"""
+        if not self.running:
+            return {}
         
         try:
-            iot_thread.join()
-            user_thread.join()
+            message = self.messages_queue.get(timeout=timeout_ms/1000)
+            return {0: [message]}
+        except queue.Empty:
+            return {}
+    
+    def close(self):
+        """Simula fechamento"""
+        self.running = False
+        print("🔒 Mock Consumer fechado")
+
+class MockRedis:
+    """Simulação do Redis quando não está disponível"""
+    
+    def __init__(self, **kwargs):
+        self.data = {}
+        self.config = kwargs
+        print(f"🎭 Mock Redis criado com config: {kwargs}")
+    
+    def set(self, key, value, ex=None):
+        """Simula set no Redis"""
+        self.data[key] = {'value': value, 'expires': time.time() + (ex or 3600)}
+        print(f"💾 Mock Redis SET: {key} = {len(str(value))} chars")
+    
+    def get(self, key):
+        """Simula get do Redis"""
+        if key in self.data:
+            if time.time() < self.data[key]['expires']:
+                return self.data[key]['value']
+            else:
+                del self.data[key]
+        return None
+    
+    def delete(self, key):
+        """Simula delete do Redis"""
+        if key in self.data:
+            del self.data[key]
+            return 1
+        return 0
+
+class KafkaStreamingPlatform:
+    """Plataforma completa de streaming com Apache Kafka"""
+    
+    def __init__(self, kafka_config: Optional[Dict] = None, redis_config: Optional[Dict] = None):
+        """Inicializa a plataforma de streaming"""
+        
+        # Configuração padrão do Kafka
+        self.kafka_config = kafka_config or {
+            'bootstrap_servers': ['localhost:9092'],
+            'value_serializer': lambda x: json.dumps(x, default=str).encode('utf-8'),
+            'key_serializer': lambda x: x.encode('utf-8') if x else None
+        }
+        
+        # Configuração padrão do Redis
+        self.redis_config = redis_config or {
+            'host': 'localhost',
+            'port': 6379,
+            'db': 0,
+            'decode_responses': True
+        }
+        
+        # Inicializar componentes
+        self.producer = None
+        self.consumers = {}
+        self.cache = None
+        self.running = False
+        self.topics_created = set()
+        
+        # Estatísticas
+        self.stats = {
+            'messages_sent': 0,
+            'messages_received': 0,
+            'errors': 0,
+            'start_time': None
+        }
+        
+        self._initialize_components()
+    
+    def _initialize_components(self):
+        """Inicializa componentes Kafka e Redis"""
+        try:
+            if KAFKA_AVAILABLE:
+                self.producer = KafkaProducer(**self.kafka_config)
+                print("✅ Kafka Producer inicializado")
+            else:
+                self.producer = MockKafkaProducer(**self.kafka_config)
+            
+            if REDIS_AVAILABLE:
+                self.cache = redis.Redis(**self.redis_config)
+                # Testar conexão
+                self.cache.ping()
+                print("✅ Redis cache inicializado")
+            else:
+                self.cache = MockRedis(**self.redis_config)
+                
+        except Exception as e:
+            logger.error(f"Erro ao inicializar componentes: {e}")
+            # Usar versões simuladas
+            self.producer = MockKafkaProducer(**self.kafka_config)
+            self.cache = MockRedis(**self.redis_config)
+    
+    def create_topic(self, topic_name: str, num_partitions: int = 3, replication_factor: int = 1):
+        """Cria um tópico no Kafka"""
+        if not KAFKA_AVAILABLE:
+            print(f"🎭 Mock: Tópico '{topic_name}' criado (simulação)")
+            return
+        
+        try:
+            admin_client = KafkaAdminClient(
+                bootstrap_servers=self.kafka_config['bootstrap_servers']
+            )
+            
+            topic = NewTopic(
+                name=topic_name,
+                num_partitions=num_partitions,
+                replication_factor=replication_factor
+            )
+            
+            admin_client.create_topics([topic])
+            self.topics_created.add(topic_name)
+            print(f"✅ Tópico '{topic_name}' criado com sucesso")
+            
+        except TopicAlreadyExistsError:
+            print(f"⚠️ Tópico '{topic_name}' já existe")
+        except Exception as e:
+            logger.error(f"Erro ao criar tópico '{topic_name}': {e}")
+    
+    def start_iot_sensor_producer(self, topic: str = "iot-sensors", sensors_count: int = 10):
+        """Inicia producer de dados de sensores IoT"""
+        
+        def generate_sensor_data():
+            """Gera dados de sensores IoT"""
+            sensor_ids = [f"sensor_{i:03d}" for i in range(1, sensors_count + 1)]
+            
+            while self.running:
+                try:
+                    for sensor_id in sensor_ids:
+                        reading = IoTSensorReading(
+                            sensor_id=sensor_id,
+                            timestamp=datetime.now(),
+                            temperature=random.uniform(18.0, 35.0),
+                            humidity=random.uniform(30.0, 90.0),
+                            pressure=random.uniform(990.0, 1020.0),
+                            location={
+                                'latitude': random.uniform(-90.0, 90.0),
+                                'longitude': random.uniform(-180.0, 180.0)
+                            },
+                            device_status=random.choice(['online', 'offline', 'maintenance']),
+                            battery_level=random.uniform(0.1, 1.0)
+                        )
+                        
+                        # Converter para dict e enviar
+                        data = asdict(reading)
+                        self.send_message(topic, data, key=sensor_id)
+                        
+                        # Cache dos últimos dados
+                        self.cache.set(f"sensor_last_{sensor_id}", json.dumps(data, default=str), ex=300)
+                        
+                        time.sleep(random.uniform(0.5, 2.0))
+                        
+                except Exception as e:
+                    logger.error(f"Erro no producer IoT: {e}")
+                    self.stats['errors'] += 1
+                    time.sleep(1)
+        
+        # Criar tópico se necessário
+        self.create_topic(topic)
+        
+        # Iniciar thread do producer
+        thread = threading.Thread(target=generate_sensor_data, daemon=True)
+        thread.start()
+        print(f"🚀 Producer IoT iniciado para {sensors_count} sensores no tópico '{topic}'")
+        
+        return thread
+    
+    def start_user_activity_producer(self, topic: str = "user-activity", users_count: int = 100):
+        """Inicia producer de atividade de usuários"""
+        
+        def generate_user_activity():
+            """Gera eventos de atividade de usuário"""
+            user_ids = [f"user_{i:05d}" for i in range(1, users_count + 1)]
+            event_types = ['page_view', 'click', 'purchase', 'login', 'logout', 'search']
+            pages = ['/home', '/products', '/cart', '/checkout', '/profile', '/support']
+            
+            while self.running:
+                try:
+                    user_id = random.choice(user_ids)
+                    session_id = str(uuid.uuid4())
+                    
+                    event = UserActivityEvent(
+                        user_id=user_id,
+                        session_id=session_id,
+                        event_type=random.choice(event_types),
+                        page_url=random.choice(pages),
+                        timestamp=datetime.now(),
+                        user_agent="Mozilla/5.0 (compatible; StreamingBot/1.0)",
+                        ip_address=f"{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}.{random.randint(1,255)}",
+                        duration=random.randint(1, 300)
+                    )
+                    
+                    data = asdict(event)
+                    self.send_message(topic, data, key=user_id)
+                    
+                    # Cache da sessão
+                    self.cache.set(f"session_{session_id}", json.dumps(data, default=str), ex=1800)
+                    
+                    time.sleep(random.uniform(0.1, 1.0))
+                    
+                except Exception as e:
+                    logger.error(f"Erro no producer de atividade: {e}")
+                    self.stats['errors'] += 1
+                    time.sleep(1)
+        
+        # Criar tópico se necessário
+        self.create_topic(topic)
+        
+        # Iniciar thread do producer
+        thread = threading.Thread(target=generate_user_activity, daemon=True)
+        thread.start()
+        print(f"🚀 Producer de atividade iniciado para {users_count} usuários no tópico '{topic}'")
+        
+        return thread
+    
+    def start_transaction_producer(self, topic: str = "transactions"):
+        """Inicia producer de transações financeiras"""
+        
+        def generate_transactions():
+            """Gera transações financeiras"""
+            merchants = ['Amazon', 'PayPal', 'Stripe', 'Square', 'Shopify']
+            currencies = ['USD', 'EUR', 'BRL', 'GBP', 'JPY']
+            payment_methods = ['credit_card', 'debit_card', 'paypal', 'bank_transfer', 'crypto']
+            
+            while self.running:
+                try:
+                    transaction = TransactionEvent(
+                        transaction_id=str(uuid.uuid4()),
+                        user_id=f"user_{random.randint(1, 10000):05d}",
+                        merchant_id=random.choice(merchants),
+                        amount=round(random.uniform(10.0, 5000.0), 2),
+                        currency=random.choice(currencies),
+                        timestamp=datetime.now(),
+                        payment_method=random.choice(payment_methods),
+                        status=random.choice(['pending', 'completed', 'failed', 'refunded'])
+                    )
+                    
+                    data = asdict(transaction)
+                    self.send_message(topic, data, key=transaction.transaction_id)
+                    
+                    # Cache da transação
+                    self.cache.set(f"tx_{transaction.transaction_id}", json.dumps(data, default=str), ex=86400)
+                    
+                    time.sleep(random.uniform(1.0, 5.0))
+                    
+                except Exception as e:
+                    logger.error(f"Erro no producer de transações: {e}")
+                    self.stats['errors'] += 1
+                    time.sleep(1)
+        
+        # Criar tópico se necessário
+        self.create_topic(topic)
+        
+        # Iniciar thread do producer
+        thread = threading.Thread(target=generate_transactions, daemon=True)
+        thread.start()
+        print(f"🚀 Producer de transações iniciado no tópico '{topic}'")
+        
+        return thread
+    
+    def send_message(self, topic: str, data: Dict, key: str = None):
+        """Envia mensagem para um tópico"""
+        try:
+            future = self.producer.send(
+                topic,
+                value=json.dumps(data, default=str).encode('utf-8'),
+                key=key.encode('utf-8') if key else None
+            )
+            
+            self.stats['messages_sent'] += 1
+            
+            if KAFKA_AVAILABLE:
+                # Aguardar confirmação
+                record_metadata = future.get(timeout=10)
+                logger.debug(f"Mensagem enviada para {record_metadata.topic}[{record_metadata.partition}] offset {record_metadata.offset}")
+            
+        except Exception as e:
+            logger.error(f"Erro ao enviar mensagem: {e}")
+            self.stats['errors'] += 1
+    
+    def start_consumer(self, topics: List[str], consumer_id: str, processor_func=None):
+        """Inicia um consumer para os tópicos especificados"""
+        
+        def default_processor(message):
+            """Processador padrão de mensagens"""
+            data = json.loads(message.value.decode('utf-8'))
+            print(f"📨 [{consumer_id}] Processando: {data.get('timestamp', 'N/A')} - {message.topic}")
+            self.stats['messages_received'] += 1
+        
+        def consume_messages():
+            """Consome mensagens dos tópicos"""
+            if KAFKA_AVAILABLE:
+                consumer_config = {
+                    'bootstrap_servers': self.kafka_config['bootstrap_servers'],
+                    'group_id': consumer_id,
+                    'auto_offset_reset': 'latest',
+                    'value_deserializer': lambda m: m.decode('utf-8') if m else None
+                }
+                consumer = KafkaConsumer(**consumer_config)
+            else:
+                consumer = MockKafkaConsumer()
+            
+            consumer.subscribe(topics)
+            
+            print(f"🔄 Consumer '{consumer_id}' iniciado para tópicos: {topics}")
+            
+            processor = processor_func or default_processor
+            
+            while self.running:
+                try:
+                    message_batch = consumer.poll(timeout_ms=1000)
+                    
+                    for partition_messages in message_batch.values():
+                        for message in partition_messages:
+                            processor(message)
+                            
+                except Exception as e:
+                    logger.error(f"Erro no consumer {consumer_id}: {e}")
+                    self.stats['errors'] += 1
+                    time.sleep(1)
+            
+            consumer.close()
+            print(f"🔒 Consumer '{consumer_id}' finalizado")
+        
+        # Iniciar thread do consumer
+        thread = threading.Thread(target=consume_messages, daemon=True)
+        thread.start()
+        self.consumers[consumer_id] = thread
+        
+        return thread
+    
+    def start_analytics_consumer(self):
+        """Inicia consumer de analytics em tempo real"""
+        
+        analytics_data = {
+            'iot_sensors': {'count': 0, 'avg_temp': 0, 'last_update': None},
+            'user_activity': {'count': 0, 'events_per_minute': 0, 'last_update': None},
+            'transactions': {'count': 0, 'total_amount': 0, 'last_update': None}
+        }
+        
+        def analytics_processor(message):
+            """Processa mensagens para analytics"""
+            try:
+                data = json.loads(message.value.decode('utf-8'))
+                topic = message.topic
+                now = datetime.now()
+                
+                if 'iot' in topic:
+                    analytics_data['iot_sensors']['count'] += 1
+                    if 'temperature' in data:
+                        current_avg = analytics_data['iot_sensors']['avg_temp']
+                        count = analytics_data['iot_sensors']['count']
+                        new_avg = ((current_avg * (count - 1)) + data['temperature']) / count
+                        analytics_data['iot_sensors']['avg_temp'] = round(new_avg, 2)
+                    analytics_data['iot_sensors']['last_update'] = now
+                
+                elif 'activity' in topic:
+                    analytics_data['user_activity']['count'] += 1
+                    analytics_data['user_activity']['last_update'] = now
+                
+                elif 'transaction' in topic:
+                    analytics_data['transactions']['count'] += 1
+                    if 'amount' in data:
+                        analytics_data['transactions']['total_amount'] += data['amount']
+                    analytics_data['transactions']['last_update'] = now
+                
+                # Salvar analytics no cache
+                self.cache.set('analytics_data', json.dumps(analytics_data, default=str), ex=60)
+                
+                # Log periódico
+                if analytics_data['iot_sensors']['count'] % 50 == 0:
+                    print(f"📊 Analytics: {analytics_data}")
+                
+            except Exception as e:
+                logger.error(f"Erro no processamento analytics: {e}")
+        
+        return self.start_consumer(
+            ['iot-sensors', 'user-activity', 'transactions'],
+            'analytics-consumer',
+            analytics_processor
+        )
+    
+    def get_analytics(self) -> Dict:
+        """Retorna dados de analytics"""
+        cached_data = self.cache.get('analytics_data')
+        if cached_data:
+            return json.loads(cached_data)
+        return {}
+    
+    def get_stats(self) -> Dict:
+        """Retorna estatísticas da plataforma"""
+        runtime = 0
+        if self.stats['start_time']:
+            runtime = (datetime.now() - self.stats['start_time']).total_seconds()
+        
+        return {
+            **self.stats,
+            'runtime_seconds': runtime,
+            'messages_per_second': self.stats['messages_sent'] / max(runtime, 1),
+            'topics_created': len(self.topics_created),
+            'active_consumers': len(self.consumers)
+        }
+    
+    def start(self):
+        """Inicia a plataforma de streaming"""
+        print("🚀 INICIANDO PLATAFORMA KAFKA STREAMING")
+        print("=" * 60)
+        
+        self.running = True
+        self.stats['start_time'] = datetime.now()
+        
+        try:
+            # Iniciar producers
+            print("\n📤 Iniciando Producers...")
+            iot_thread = self.start_iot_sensor_producer()
+            activity_thread = self.start_user_activity_producer()
+            transaction_thread = self.start_transaction_producer()
+            
+            # Aguardar um pouco para producers iniciarem
+            time.sleep(2)
+            
+            # Iniciar consumers
+            print("\n📥 Iniciando Consumers...")
+            analytics_thread = self.start_analytics_consumer()
+            
+            print(f"\n✅ Plataforma iniciada com sucesso!")
+            print(f"📊 Tópicos: {list(self.topics_created)}")
+            print(f"🏃 Threads ativas: {threading.active_count()}")
+            
+            return {
+                'producers': [iot_thread, activity_thread, transaction_thread],
+                'consumers': [analytics_thread]
+            }
+            
+        except Exception as e:
+            logger.error(f"Erro ao iniciar plataforma: {e}")
+            self.stop()
+            raise
+    
+    def stop(self):
+        """Para a plataforma de streaming"""
+        print("\n🛑 Parando plataforma de streaming...")
+        
+        self.running = False
+        
+        # Aguardar threads finalizarem
+        time.sleep(2)
+        
+        # Fechar producer
+        if self.producer:
+            self.producer.flush()
+            self.producer.close()
+        
+        print("✅ Plataforma parada com sucesso")
+    
+    def run_demo(self, duration_seconds: int = 30):
+        """Executa demonstração da plataforma"""
+        print("🎓 DEMONSTRAÇÃO: Kafka Streaming Platform")
+        print("=" * 60)
+        
+        try:
+            # Iniciar plataforma
+            threads = self.start()
+            
+            # Executar por tempo determinado
+            print(f"\n⏱️ Executando demonstração por {duration_seconds} segundos...")
+            
+            start_time = time.time()
+            while time.time() - start_time < duration_seconds:
+                time.sleep(5)
+                
+                # Mostrar estatísticas
+                stats = self.get_stats()
+                analytics = self.get_analytics()
+                
+                print(f"📊 Stats: {stats['messages_sent']} enviadas, {stats['messages_received']} recebidas")
+                if analytics:
+                    print(f"📈 Analytics: IoT={analytics.get('iot_sensors', {}).get('count', 0)}, "
+                          f"Activity={analytics.get('user_activity', {}).get('count', 0)}, "
+                          f"Transactions={analytics.get('transactions', {}).get('count', 0)}")
+            
+            # Mostrar relatório final
+            print(f"\n📋 RELATÓRIO FINAL")
+            print("=" * 40)
+            final_stats = self.get_stats()
+            final_analytics = self.get_analytics()
+            
+            for key, value in final_stats.items():
+                print(f"📊 {key}: {value}")
+            
+            if final_analytics:
+                print(f"\n📈 ANALYTICS FINAIS:")
+                for topic, data in final_analytics.items():
+                    print(f"📊 {topic}: {data}")
+            
         except KeyboardInterrupt:
-            print("\nParando consumers...")
+            print("\n⚠️ Demonstração interrompida pelo usuário")
+        
+        finally:
+            self.stop()
+
+def demonstrate_kafka_concepts():
+    """Demonstra conceitos fundamentais do Apache Kafka"""
+    print("\n📚 CONCEITOS FUNDAMENTAIS DO APACHE KAFKA")
+    print("=" * 60)
     
-    elif choice == '4':
-        dashboard = StreamAnalyticsDashboard()
-        dashboard.display_dashboard()
+    concepts = {
+        "🏢 Arquitetura": [
+            "Broker: Servidor Kafka que armazena e serve mensagens",
+            "Topic: Canal de dados para organizar mensagens por categoria",
+            "Partition: Divisão de tópico para paralelismo e escalabilidade",
+            "Producer: Aplicação que envia mensagens para tópicos",
+            "Consumer: Aplicação que lê mensagens dos tópicos",
+            "Consumer Group: Grupo de consumers que colaboram"
+        ],
+        
+        "📨 Mensagens": [
+            "Key: Identificador opcional para roteamento de partições",
+            "Value: Conteúdo da mensagem (JSON, Avro, etc.)",
+            "Timestamp: Momento da criação ou recebimento",
+            "Offset: Posição única da mensagem na partição",
+            "Header: Metadados opcionais da mensagem"
+        ],
+        
+        "🔄 Streaming": [
+            "Real-time: Processamento de dados em tempo real",
+            "Durability: Mensagens são persistidas em disco",
+            "Scalability: Distribuição horizontal automática",
+            "Fault-tolerance: Replicação e recuperação automática",
+            "Ordering: Garantia de ordem dentro da partição"
+        ],
+        
+        "📊 Casos de Uso": [
+            "Event Sourcing: Log de eventos como fonte da verdade",
+            "CDC: Captura de mudanças em bancos de dados",
+            "Microservices: Comunicação assíncrona entre serviços",
+            "IoT: Coleta de dados de sensores em tempo real",
+            "Analytics: Pipelines de dados para business intelligence"
+        ]
+    }
     
-    elif choice == '5':
-        print("\n🚀 Iniciando demo completo...")
-        
-        # Iniciar produtores em background
-        iot_producer = IoTSensorProducer()
-        user_producer = UserActivityProducer()
-        consumer = RealTimeAnalyticsConsumer()
-        
-        iot_thread = threading.Thread(target=iot_producer.start_streaming)
-        user_thread = threading.Thread(target=user_producer.start_streaming)
-        iot_consumer_thread = threading.Thread(target=consumer.consume_iot_data)
-        user_consumer_thread = threading.Thread(target=consumer.consume_user_activity)
-        
-        # Configurar threads como daemon
-        for thread in [iot_thread, user_thread, iot_consumer_thread, user_consumer_thread]:
-            thread.daemon = True
-            thread.start()
-        
-        # Aguardar um pouco para gerar dados
-        print("Aguardando geração de dados... (10 segundos)")
-        time.sleep(10)
-        
-        # Mostrar dashboard
-        dashboard = StreamAnalyticsDashboard()
-        dashboard.display_dashboard()
+    for category, items in concepts.items():
+        print(f"\n{category}")
+        print("-" * 40)
+        for item in items:
+            print(f"  • {item}")
+
+def main():
+    """Função principal"""
+    print("🎯 AULA 08: Apache Kafka - Streaming de Dados")
+    print("Autor: Professor Vagner Cordeiro")
+    print("=" * 60)
     
-    else:
-        print("Opção inválida!")
+    # Demonstrar conceitos
+    demonstrate_kafka_concepts()
+    
+    # Executar demonstração prática
+    platform = KafkaStreamingPlatform()
+    
+    try:
+        platform.run_demo(duration_seconds=20)
+    except Exception as e:
+        logger.error(f"Erro na demonstração: {e}")
+    
+    print("\n✅ Aula concluída! Conceitos de Apache Kafka demonstrados.")
 
 if __name__ == "__main__":
     main()

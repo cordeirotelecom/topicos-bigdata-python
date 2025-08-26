@@ -301,8 +301,11 @@ def funcoes_para_analise():
     # Análise de crescimento
     crescimento_a = analisar_crescimento(vendas_produto_a, meses)
     print(f"\n📈 CRESCIMENTO PRODUTO A:")
-    for periodo in crescimento_a[-3:]:  # Últimos 3 períodos
-        print(f"   {periodo['periodo']}: {periodo['crescimento_pct']:+.1f}%")
+    if crescimento_a:
+        for periodo in crescimento_a[-3:]:  # Últimos 3 períodos
+            print(f"   {periodo['periodo']}: {periodo['crescimento_pct']:+.1f}%")
+    else:
+        print("   ⚠️ Dados insuficientes para análise de crescimento")
     
     # Classificação de performance
     benchmarks = {'excelente': 1500, 'bom': 1200, 'regular': 1000}

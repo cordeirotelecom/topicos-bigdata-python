@@ -15,15 +15,123 @@ import random
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
+# Importações do PySpark com tratamento de erro
+PYSPARK_AVAILABLE = False
 try:
     from pyspark.sql import SparkSession
-    from pyspark.sql.functions import *
-    from pyspark.sql.types import *
+    from pyspark.sql.functions import col, sum as spark_sum, avg, count, desc, year, month, when, row_number, rank
+    from pyspark.sql.types import StructType, StructField, StringType, IntegerType, DoubleType, DateType
     from pyspark.sql.window import Window
     from pyspark import SparkContext, SparkConf
+    PYSPARK_AVAILABLE = True
+    logger.info("PySpark importado com sucesso")
 except ImportError:
-    logger.error("PySpark não instalado. Execute: pip install pyspark")
-    sys.exit(1)
+    logger.warning("PySpark não disponível - executando em modo simulação")
+    
+    # Classes mock para permitir execução sem PySpark
+    class MockSparkSession:
+        def __init__(self):
+            self.builder = self
+            
+        def appName(self, name):
+            return self
+            
+        def master(self, master):
+            return self
+            
+        def config(self, key, value):
+            return self
+            
+        def getOrCreate(self):
+            return self
+            
+        def createDataFrame(self, data, schema=None):
+            return MockDataFrame(data)
+            
+        def stop(self):
+            pass
+    
+    class MockDataFrame:
+        def __init__(self, data):
+            self.data = data
+            
+        def show(self, n=20):
+            print(f"MockDataFrame com {len(self.data)} registros")
+            return self
+            
+        def count(self):
+            return len(self.data)
+            
+        def withColumn(self, col_name, col_expr):
+            return self
+            
+        def filter(self, condition):
+            return self
+            
+        def groupBy(self, *cols):
+            return MockGroupedData()
+            
+        def orderBy(self, *cols):
+            return self
+            
+        def repartition(self, *args):
+            return self
+    
+    class MockGroupedData:
+        def agg(self, *exprs):
+            return MockDataFrame([])
+    
+    # Mock functions
+    def col(name): return f"col({name})"
+    def spark_sum(col): return f"sum({col})"
+    def avg(col): return f"avg({col})"
+    def count(col): return f"count({col})"
+    def desc(col): return f"desc({col})"
+    def year(col): return f"year({col})"
+    def month(col): return f"month({col})"
+    def when(condition, value): return MockWhen()
+    def row_number(): return "row_number()"
+    def rank(): return "rank()"
+    
+    class MockWhen:
+        def when(self, condition, value):
+            return self
+        def otherwise(self, value):
+            return f"when_otherwise({value})"
+    
+    class MockWindow:
+        @staticmethod
+        def partitionBy(*cols):
+            return MockWindowSpec()
+        
+        @staticmethod
+        def orderBy(*cols):
+            return MockWindowSpec()
+    
+    class MockWindowSpec:
+        def orderBy(self, *cols):
+            return self
+        def partitionBy(self, *cols):
+            return self
+    
+    # Tipos mock
+    class StructType:
+        def __init__(self, fields):
+            self.fields = fields
+    
+    class StructField:
+        def __init__(self, name, dataType, nullable):
+            self.name = name
+            self.dataType = dataType
+            self.nullable = nullable
+    
+    StringType = lambda: "StringType"
+    IntegerType = lambda: "IntegerType"
+    DoubleType = lambda: "DoubleType"
+    DateType = lambda: "DateType"
+    
+    Window = MockWindow()
+    SparkSession = MockSparkSession
 
 class SparkSessionManager:
     """Gerenciador para sessões Spark"""
@@ -421,8 +529,12 @@ class PerformanceTuning:
         regular_join = large_df.join(category_mapping, "category")
         
         # Broadcast join
-        from pyspark.sql.functions import broadcast
-        broadcast_join = large_df.join(broadcast(category_mapping), "category")
+        if PYSPARK_AVAILABLE:
+            from pyspark.sql.functions import broadcast
+            broadcast_join = large_df.join(broadcast(category_mapping), "category")
+        else:
+            # Simulação para quando PySpark não está disponível
+            broadcast_join = regular_join
         
         logger.info("Join regular vs broadcast join configurado")
         logger.info(f"Resultado join: {broadcast_join.count():,} registros")

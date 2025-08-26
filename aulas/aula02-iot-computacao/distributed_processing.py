@@ -405,6 +405,10 @@ def demonstrate_mapreduce_pattern():
                 }
             
             return (key, page_stats)
+        
+        else:
+            # Caso padrão para chaves não reconhecidas
+            return (key, values)
     
     # Executar MapReduce
     print("📊 Gerando dataset de logs...")
