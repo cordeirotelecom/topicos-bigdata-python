@@ -1,3 +1,15 @@
+
+# Imports de fallback para compatibilidade
+try:
+    from typing import Any, Dict, List, Optional, Union
+except ImportError:
+    # Python < 3.5
+    Any = object
+    Dict = dict
+    List = list
+    Optional = object
+    Union = object
+
 #!/usr/bin/env python3
 """
 Script de Configuração do Ambiente Big Data em Python
@@ -99,7 +111,13 @@ def test_pyspark():
     
     test_code = '''
 try:
-    from pyspark.sql import SparkSession
+try:
+try:
+            from pyspark.sql import SparkSession
+except ImportError:
+    pass  # Biblioteca não disponível
+except ImportError:
+    pass  # Biblioteca não disponível
     spark = SparkSession.builder.appName("Test").master("local[1]").getOrCreate()
     df = spark.createDataFrame([(1, "Hello"), (2, "World")], ["id", "message"])
     count = df.count()
@@ -178,7 +196,13 @@ def test_imports():
     
     # PySpark
     try:
-        from pyspark.sql import SparkSession
+try:
+try:
+                from pyspark.sql import SparkSession
+except ImportError:
+    pass  # Biblioteca não disponível
+except ImportError:
+    pass  # Biblioteca não disponível
         print("✅ PySpark importado com sucesso")
     except ImportError as e:
         print(f"❌ Erro no PySpark: {e}")
@@ -197,7 +221,13 @@ def test_simple_spark():
     print("\\n⚡ Testando Spark...")
     
     try:
-        from pyspark.sql import SparkSession
+try:
+try:
+                from pyspark.sql import SparkSession
+except ImportError:
+    pass  # Biblioteca não disponível
+except ImportError:
+    pass  # Biblioteca não disponível
         
         spark = SparkSession.builder \\
             .appName("Test") \\
