@@ -45,45 +45,36 @@ Marina descobriu que os dados turísticos de Florianópolis seguem padrões bem 
 
 ### 🐍 **Coletando Dados Reais**
 
-```python
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+Marina organizou os dados de ocupação hoteleira de 2024 numa planilha simples:
 
-# Dados reais de ocupação hoteleira 2024
-ocupacao_data = {
-    'mes': ['Jan', 'Fev', 'Mar', 'Dez'],
-    'ocupacao': [92, 88, 78, 85],
-    'preco_medio': [450, 420, 380, 480],
-    'turistas': [285000, 262000, 218000, 295000]
-}
-
-df_turismo = pd.DataFrame(ocupacao_data)
-print("Dados da Temporada 2024:")
-print(df_turismo)
-```
+**Dados da Temporada 2024**:
+| Mês | Ocupação | Preço Médio | Turistas |
+|-----|----------|-------------|----------|
+| Janeiro | 92% | R$ 450 | 285.000 |
+| Fevereiro | 88% | R$ 420 | 262.000 |
+| Março | 78% | R$ 380 | 218.000 |
+| Dezembro | 85% | R$ 480 | 295.000 |
 
 **O que Marina descobriu**:
 - **Janeiro**: Pico absoluto (92% ocupação)
-- **Dezembro**: Preços mais altos (R$ 480/diária)
+- **Dezembro**: Preços mais altos (R$ 480/diária) 
 - **Março**: Queda gradual (78% ocupação)
 
 ### 📈 **Visualizando Tendências**
 
-```python
-# Gráfico simples mas revelador
-plt.figure(figsize=(10, 6))
-plt.subplot(1, 2, 1)
-plt.bar(df_turismo['mes'], df_turismo['ocupacao'], color='lightblue')
-plt.title('Ocupação Hoteleira - Temporada 2024')
-plt.ylabel('% Ocupação')
+Com Python, Marina criou gráficos simples que revelaram padrões importantes:
 
-plt.subplot(1, 2, 2)
-plt.plot(df_turismo['mes'], df_turismo['preco_medio'], 'ro-')
-plt.title('Preço Médio das Diárias')
-plt.ylabel('Reais (R$)')
-plt.show()
-```
+**Gráfico 1: Ocupação por Mês**
+- Barras azuis mostrando % de ocupação
+- Janeiro claramente no topo
+- Queda gradual até março
+
+**Gráfico 2: Preços ao Longo do Tempo**  
+- Linha vermelha conectando os preços
+- Dezembro mais caro que janeiro
+- Março com melhor custo-benefício
+
+*Com apenas algumas linhas de código Python, Marina transformou números em insights visuais!*
 
 ---
 
@@ -107,26 +98,21 @@ plt.show()
 
 ### 🎯 **Aplicações Reais**
 
-**Para Hoteleiros**:
-```python
-# Cálculo simples de receita otimizada
-def calcular_receita_otima(ocupacao, preco_base):
-    # Fórmula baseada em elasticidade de demanda
-    if ocupacao > 80:
-        preco_otimo = preco_base * 1.2  # Aumenta 20%
-    elif ocupacao < 50:
-        preco_otimo = preco_base * 0.8  # Reduz 20%
-    else:
-        preco_otimo = preco_base
-    
-    return preco_otimo
+**Para Hoteleiros - Fórmula Simples de Preços**:
 
-# Exemplo prático
-ocupacao_atual = 65
-preco_base = 350
-preco_sugerido = calcular_receita_otima(ocupacao_atual, preco_base)
-print(f"Preço sugerido: R$ {preco_sugerido}")
-```
+Marina descobriu uma regra prática para otimizar preços:
+
+**🔍 Lógica de Preços Inteligente**:
+- **Ocupação alta** (acima de 80%): Aumente preços em 20%
+- **Ocupação baixa** (abaixo de 50%): Reduza preços em 20%  
+- **Ocupação normal** (50-80%): Mantenha preço base
+
+**Exemplo prático**:
+- Hotel com 65% de ocupação
+- Preço base: R$ 350
+- **Recomendação**: Manter R$ 350 (está na faixa normal)
+
+*Simples assim! Não precisa de fórmulas complexas para começar.*
 
 ---
 
@@ -134,28 +120,25 @@ print(f"Preço sugerido: R$ {preco_sugerido}")
 
 ### 🔮 **Prevendo a Próxima Temporada**
 
-Marina usou dados históricos para criar um modelo simples de previsão:
+Marina usou uma técnica simples para prever o futuro:
 
-```python
-# Dados dos últimos 3 anos
-anos = [2022, 2023, 2024]
-turistas_jan = [265000, 275000, 285000]
+**📊 Dados Históricos de Janeiro**:
+- 2022: 265.000 turistas
+- 2023: 275.000 turistas  
+- 2024: 285.000 turistas
 
-# Crescimento médio anual
-crescimento = (turistas_jan[-1] - turistas_jan[0]) / len(anos)
-previsao_2025 = turistas_jan[-1] + crescimento
+**🧮 Cálculo da Tendência**:
+- Crescimento em 2 anos: 20.000 turistas (285k - 265k)
+- Crescimento médio anual: 10.000 turistas por ano
+- **Previsão 2025**: 285.000 + 10.000 = **295.000 turistas**
 
-print(f"Previsão para Janeiro 2025: {previsao_2025:,.0f} turistas")
-print(f"Crescimento médio: {crescimento:,.0f} turistas/ano")
-```
-
-**Resultado**: Previsão de 295.000 turistas para janeiro de 2025.
+**✅ Resultado**: Marina prevê 295.000 turistas para janeiro de 2025.
 
 ### 📊 **Validação do Modelo**
 
-**Fatores que Marina considera**:
+**Fatores que Marina considera para confirmar a previsão**:
 - Crescimento populacional de SC
-- Investimentos em infraestrutura
+- Investimentos em infraestrutura  
 - Eventos especiais (Oktoberfest, Réveillon)
 - Cenário econômico nacional
 

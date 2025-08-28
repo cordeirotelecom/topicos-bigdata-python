@@ -182,23 +182,24 @@ Enquanto Carlos finalizava seu relatório diário, ele visualizou o futuro próx
 
 ### Python e IoT: A Dupla Perfeita
 
-Carlos mostrou como Python facilita o trabalho com IoT:
+Carlos mostrou como Python facilita o trabalho com IoT de forma simples:
 
-```python
-# Exemplo simples: Lendo dados de sensor de temperatura
-import requests
-import pandas as pd
+**O Processo é Simples**:
+1. **Conectar** ao sensor (como plugar um cabo USB)
+2. **Ler** os dados (como abrir uma planilha)
+3. **Analisar** as informações (como calcular uma média)
+4. **Apresentar** os resultados (como fazer um gráfico)
 
-# Conectar ao sensor de temperatura da Lagoa da Conceição
-url = "https://api.sensores.floripa.sc.gov.br/temperatura/lagoa"
-dados = requests.get(url).json()
-
-# Converter para análise
-df = pd.DataFrame(dados)
-temperatura_media = df['temperatura'].mean()
-
-print(f"Temperatura média na Lagoa: {temperatura_media}°C")
+**Exemplo prático**:
 ```
+# Passos para ler temperatura da Lagoa:
+1. Conectar ao sensor da Lagoa da Conceição
+2. Pegar dados de temperatura
+3. Calcular a média do dia
+4. Resultado: "Temperatura média na Lagoa: 24°C"
+```
+
+*Viu como é direto? Python torna complexo em simples!*
 
 ### A Internet das Coisas É sobre Pessoas
 

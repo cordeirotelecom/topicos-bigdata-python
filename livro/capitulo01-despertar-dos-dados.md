@@ -89,23 +89,26 @@ Ana abriu seu ambiente de desenvolvimento Python - a ferramenta que escolheu par
 **Python é perfeito para Big Data porque:**
 
 🐍 **Simplicidade**: Código fácil de ler e escrever
-```python
-# Analisando dados de trânsito de Floripa
-import pandas as pd
-
-dados_transito = pd.read_csv('transito_floripa.csv')
-pico_manha = dados_transito[dados_transito['hora'] == '07:30']
-```
+- Sintaxe clara como português
+- Aprende-se rápido, mesmo sem experiência
+- Ideal para quem está começando
 
 📊 **Bibliotecas Poderosas**:
-- **Pandas**: Para manipular dados tabulares
-- **NumPy**: Para cálculos matemáticos rápidos
-- **Matplotlib**: Para criar visualizações
-- **Scikit-learn**: Para machine learning
+- **Pandas**: Para organizar dados como planilhas
+- **NumPy**: Para cálculos matemáticos rápidos  
+- **Matplotlib**: Para criar gráficos bonitos
+- **Scikit-learn**: Para inteligência artificial
 
-🔗 **Integração**: Conecta facilmente com bases de dados, APIs e serviços
+🔗 **Integração**: Conecta facilmente com bancos de dados, sites e aplicativos
 
-🌐 **Comunidade**: Milhões de desenvolvedores mundial compartilham soluções
+🌐 **Comunidade**: Milhões de desenvolvedores pelo mundo compartilham soluções
+
+**Exemplo simples de código Python**:
+```
+dados_floripa = ler_arquivo('turismo_floripa.csv')
+media_ocupacao = calcular_media(dados_floripa)
+```
+*Viu como é intuitivo? Quase como escrever em português!*
 
 ### Nosso Primeiro Insight: O Ritmo de Florianópolis
 
