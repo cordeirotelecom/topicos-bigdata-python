@@ -1,0 +1,38 @@
+theme: jekyll-theme-cayman
+title: "Tópicos de Big Data em Python"
+description: "Disciplina de Tópicos de Big Data em Python - Cronograma, materiais e recursos"
+
+# Site settings
+author: "Professor [Nome]"
+email: "email@instituicao.edu.br"
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+# Navigation
+navigation:
+  - title: "Início"
+    url: "/"
+  - title: "Cronograma"
+    url: "/cronograma"
+  - title: "Materiais"
+    url: "/materiais"
+  - title: "Projetos"
+    url: "/projetos"
+  - title: "Contato"
+    url: "/contato"
+
+# Course information
+course:
+  name: "Tópicos de Big Data em Python"
+  code: "[Código da Disciplina]"
+  semester: "[Semestre/Ano]"
+  credits: "[Créditos]"
+  schedule: "[Horário das Aulas]"

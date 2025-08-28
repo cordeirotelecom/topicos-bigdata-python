@@ -1,0 +1,27 @@
+{
+  "pipeline_name": "Demo - Análise de Vendas",
+  "execution_date": "2025-08-25T15:36:15.523935",
+  "insights": [
+    "📊 Dataset contém 987 registros e 8 variáveis",
+    "📈 categoria: categoria 'Eletrônicos' representa 26.6% dos dados",
+    "📈 regiao: categoria 'Norte' representa 27.2% dos dados",
+    "📊 vendas: alta variabilidade (CV = 53.3%)",
+    "📊 desconto: alta variabilidade (CV = 57.6%)",
+    "🎯 Modelo regression_vendas: bom poder preditivo (R² = 0.692)"
+  ],
+  "data_info": {
+    "rows": 987,
+    "columns": 8
+  },
+  "models_summary": {
+    "regression_vendas": {
+      "r2_score": 0.6915664852277823,
+      "features": [
+        "preco",
+        "desconto",
+        "avaliacao",
+        "idade_cliente"
+      ]
+    }
+  }
+}
