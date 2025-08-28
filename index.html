@@ -171,6 +171,14 @@
                                 <h4>Redes Sociais</h4>
                                 <p>Tendências, engajamento, sentimentos</p>
                             </div>
+                            
+                            <div class="source-card" data-source="government">
+                                <div class="source-icon">
+                                    <i class="fas fa-university"></i>
+                                </div>
+                                <h4>Dados Governamentais</h4>
+                                <p>Saúde, educação, segurança, economia</p>
+                            </div>
                         </div>
                     </div>
 
@@ -300,13 +308,117 @@
                                     <div class="upload-icon">
                                         <i class="fas fa-cloud-upload-alt"></i>
                                     </div>
-                                    <h4>Arraste seu arquivo aqui</h4>
-                                    <p>ou clique para selecionar</p>
-                                    <input type="file" id="file-input" accept=".csv,.xlsx,.json" hidden>
+                                    <h4>Arraste múltiplos arquivos aqui</h4>
+                                    <p>ou clique para selecionar vários arquivos</p>
+                                    <input type="file" id="file-input" multiple accept=".csv,.xlsx,.json,.xml,.txt" hidden>
                                     <div class="upload-formats">
                                         <span class="format">CSV</span>
                                         <span class="format">Excel</span>
                                         <span class="format">JSON</span>
+                                        <span class="format">XML</span>
+                                        <span class="format">TXT</span>
+                                    </div>
+                                </div>
+                                
+                                <!-- Lista de arquivos carregados -->
+                                <div class="uploaded-files" id="uploaded-files" style="display: none;">
+                                    <h4><i class="fas fa-file-check"></i> Arquivos Carregados</h4>
+                                    <div class="files-list" id="files-list"></div>
+                                </div>
+                            </div>
+                            
+                            <!-- Sistema de Tags de Análise -->
+                            <div class="analysis-tags-panel" id="analysis-tags-panel" style="display: none;">
+                                <h4><i class="fas fa-tags"></i> Configure Sua Análise</h4>
+                                <p class="tags-subtitle">Selecione os tipos de análise que deseja realizar:</p>
+                                
+                                <div class="tags-grid">
+                                    <!-- Análises Estatísticas -->
+                                    <div class="tag-category">
+                                        <h5><i class="fas fa-chart-bar"></i> Análises Estatísticas</h5>
+                                        <div class="tags-row">
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="descriptive" name="analysis-type">
+                                                <span class="tag-label">Estatísticas Descritivas</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="correlation" name="analysis-type">
+                                                <span class="tag-label">Análise de Correlação</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="distribution" name="analysis-type">
+                                                <span class="tag-label">Distribuição de Dados</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Previsões -->
+                                    <div class="tag-category">
+                                        <h5><i class="fas fa-crystal-ball"></i> Previsões</h5>
+                                        <div class="tags-row">
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="time-series" name="analysis-type">
+                                                <span class="tag-label">Série Temporal</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="regression" name="analysis-type">
+                                                <span class="tag-label">Regressão Linear</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="trend" name="analysis-type">
+                                                <span class="tag-label">Análise de Tendências</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Machine Learning -->
+                                    <div class="tag-category">
+                                        <h5><i class="fas fa-robot"></i> Machine Learning</h5>
+                                        <div class="tags-row">
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="clustering" name="analysis-type">
+                                                <span class="tag-label">Agrupamento (Clustering)</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="classification" name="analysis-type">
+                                                <span class="tag-label">Classificação</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="anomaly" name="analysis-type">
+                                                <span class="tag-label">Detecção de Anomalias</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Análises Comparativas -->
+                                    <div class="tag-category">
+                                        <h5><i class="fas fa-balance-scale"></i> Análises Comparativas</h5>
+                                        <div class="tags-row">
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="comparison" name="analysis-type">
+                                                <span class="tag-label">Comparação entre Datasets</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="benchmarking" name="analysis-type">
+                                                <span class="tag-label">Benchmarking</span>
+                                            </label>
+                                            <label class="tag-checkbox">
+                                                <input type="checkbox" value="geographic" name="analysis-type">
+                                                <span class="tag-label">Análise Geográfica</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="analysis-config">
+                                    <h5><i class="fas fa-cogs"></i> Configurações Avançadas</h5>
+                                    <div class="config-row">
+                                        <label>
+                                            <input type="checkbox" id="auto-clean"> Limpeza Automática de Dados
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="detailed-report"> Relatório Detalhado
+                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -343,6 +455,231 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- Government APIs Panel -->
+                            <div class="config-panel" data-source="government">
+                                <div class="government-apis">
+                                    <h4><i class="fas fa-university"></i> APIs Governamentais Disponíveis</h4>
+                                    
+                                    <div class="api-grid">
+                                        <!-- Santa Catarina -->
+                                        <div class="api-category">
+                                            <h5><i class="fas fa-map-marker-alt"></i> Santa Catarina</h5>
+                                            <div class="api-items">
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sc-health" name="government-api">
+                                                    <span class="api-label">Dados de Saúde SC</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sc-education" name="government-api">
+                                                    <span class="api-label">Educação SC</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sc-security" name="government-api">
+                                                    <span class="api-label">Segurança Pública SC</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sc-economy" name="government-api">
+                                                    <span class="api-label">Economia SC</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- São José -->
+                                        <div class="api-category">
+                                            <h5><i class="fas fa-city"></i> São José</h5>
+                                            <div class="api-items">
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sj-development" name="government-api">
+                                                    <span class="api-label">Desenvolvimento Urbano</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sj-social" name="government-api">
+                                                    <span class="api-label">Assistência Social</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="sj-budget" name="government-api">
+                                                    <span class="api-label">Orçamento Municipal</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Florianópolis -->
+                                        <div class="api-category">
+                                            <h5><i class="fas fa-water"></i> Florianópolis</h5>
+                                            <div class="api-items">
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="fpolis-transport" name="government-api">
+                                                    <span class="api-label">Transporte Público</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="fpolis-tourism" name="government-api">
+                                                    <span class="api-label">Turismo</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="fpolis-environment" name="government-api">
+                                                    <span class="api-label">Meio Ambiente</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Dados Nacionais -->
+                                        <div class="api-category">
+                                            <h5><i class="fas fa-flag"></i> Dados Nacionais</h5>
+                                            <div class="api-items">
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="ibge-census" name="government-api">
+                                                    <span class="api-label">IBGE - Censo</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="datasus" name="government-api">
+                                                    <span class="api-label">DATASUS</span>
+                                                </label>
+                                                <label class="api-checkbox">
+                                                    <input type="checkbox" value="banco-central" name="government-api">
+                                                    <span class="api-label">Banco Central</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="api-config">
+                                        <h5><i class="fas fa-calendar"></i> Período de Dados</h5>
+                                        <div class="config-row">
+                                            <input type="date" class="config-input" id="start-date" placeholder="Data Inicial">
+                                            <input type="date" class="config-input" id="end-date" placeholder="Data Final">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Advanced Configuration -->
+                    <div class="analysis-step" data-step="4">
+                        <div class="step-header">
+                            <div class="step-number">4</div>
+                            <div class="step-text">
+                                <h3>Configurações Avançadas</h3>
+                                <p>Personalize a análise com parâmetros avançados</p>
+                            </div>
+                        </div>
+                        
+                        <div class="advanced-config">
+                            <!-- Configurações de Performance -->
+                            <div class="config-section">
+                                <h4><i class="fas fa-tachometer-alt"></i> Performance e Precisão</h4>
+                                <div class="config-grid">
+                                    <div class="config-group">
+                                        <label>Nível de Precisão</label>
+                                        <select class="config-select" id="precision-level">
+                                            <option value="fast">Rápido (Análise básica)</option>
+                                            <option value="balanced" selected>Balanceado (Recomendado)</option>
+                                            <option value="deep">Profundo (Análise detalhada)</option>
+                                            <option value="comprehensive">Abrangente (Máxima precisão)</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Tamanho da Amostra (%)</label>
+                                        <input type="range" id="sample-size" min="10" max="100" value="100" class="config-range">
+                                        <span id="sample-size-value">100%</span>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Algoritmos de ML</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" value="random-forest" checked> Random Forest</label>
+                                            <label><input type="checkbox" value="svm"> Support Vector Machine</label>
+                                            <label><input type="checkbox" value="neural-network"> Redes Neurais</label>
+                                            <label><input type="checkbox" value="gradient-boosting"> Gradient Boosting</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Configurações de Visualização -->
+                            <div class="config-section">
+                                <h4><i class="fas fa-chart-pie"></i> Visualizações</h4>
+                                <div class="config-grid">
+                                    <div class="config-group">
+                                        <label>Tema dos Gráficos</label>
+                                        <select class="config-select" id="chart-theme">
+                                            <option value="professional">Profissional (Azul)</option>
+                                            <option value="vibrant">Vibrante (Colorido)</option>
+                                            <option value="minimal">Minimalista (Preto/Branco)</option>
+                                            <option value="corporate">Corporativo (Tons de cinza)</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Tipos de Gráfico</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" value="bar-charts" checked> Gráficos de Barras</label>
+                                            <label><input type="checkbox" value="line-charts" checked> Gráficos de Linha</label>
+                                            <label><input type="checkbox" value="scatter-plots" checked> Gráficos de Dispersão</label>
+                                            <label><input type="checkbox" value="heatmaps"> Mapas de Calor</label>
+                                            <label><input type="checkbox" value="treemaps"> Tree Maps</label>
+                                        </div>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Resolução de Export</label>
+                                        <select class="config-select" id="export-resolution">
+                                            <option value="standard">Padrão (72 DPI)</option>
+                                            <option value="high" selected>Alta (150 DPI)</option>
+                                            <option value="print">Impressão (300 DPI)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Configurações de Notificação -->
+                            <div class="config-section">
+                                <h4><i class="fas fa-bell"></i> Notificações e Alertas</h4>
+                                <div class="config-grid">
+                                    <div class="config-group">
+                                        <label>Email para Notificações</label>
+                                        <input type="email" class="config-input" id="notification-email" placeholder="seu@email.com">
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Alertas Automáticos</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" value="anomaly-alerts"> Alertas de Anomalia</label>
+                                            <label><input type="checkbox" value="trend-alerts"> Alertas de Tendência</label>
+                                            <label><input type="checkbox" value="threshold-alerts"> Alertas de Limite</label>
+                                        </div>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Frequência de Relatórios</label>
+                                        <select class="config-select" id="report-frequency">
+                                            <option value="none">Não enviar</option>
+                                            <option value="daily">Diário</option>
+                                            <option value="weekly">Semanal</option>
+                                            <option value="monthly">Mensal</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Configurações de Segurança -->
+                            <div class="config-section">
+                                <h4><i class="fas fa-shield-alt"></i> Segurança e Privacidade</h4>
+                                <div class="config-grid">
+                                    <div class="config-group">
+                                        <label>Nível de Privacidade</label>
+                                        <select class="config-select" id="privacy-level">
+                                            <option value="public">Público (Compartilhável)</option>
+                                            <option value="private" selected>Privado (Apenas você)</option>
+                                            <option value="restricted">Restrito (Link protegido)</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Configurações de Dados</label>
+                                        <div class="checkbox-group">
+                                            <label><input type="checkbox" value="encrypt-data" checked> Criptografar dados</label>
+                                            <label><input type="checkbox" value="auto-delete"> Auto-deletar após 30 dias</label>
+                                            <label><input type="checkbox" value="anonymize"> Anonimizar dados pessoais</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -357,6 +694,7 @@
                             <div class="indicator active" data-step="1"></div>
                             <div class="indicator" data-step="2"></div>
                             <div class="indicator" data-step="3"></div>
+                            <div class="indicator" data-step="4"></div>
                         </div>
                         
                         <button class="btn-primary" id="next-step">
@@ -464,6 +802,115 @@
                             </div>
                             <div class="card-content" id="discoveries">
                                 <!-- Content will be generated -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Seção de Exportação Avançada -->
+                    <div class="export-panel">
+                        <div class="export-header">
+                            <h3><i class="fas fa-download"></i> Exportar Análise</h3>
+                            <p>Escolha o formato e personalize sua exportação</p>
+                        </div>
+                        
+                        <div class="export-options">
+                            <div class="export-format-grid">
+                                <div class="export-card" data-format="pdf">
+                                    <div class="export-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <h4>Relatório PDF</h4>
+                                    <p>Relatório completo com gráficos e insights</p>
+                                    <div class="export-features">
+                                        <span>✓ Gráficos HD</span>
+                                        <span>✓ Tabelas detalhadas</span>
+                                        <span>✓ Resumo executivo</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="export-card" data-format="excel">
+                                    <div class="export-icon">
+                                        <i class="fas fa-file-excel"></i>
+                                    </div>
+                                    <h4>Planilha Excel</h4>
+                                    <p>Dados processados e análises em Excel</p>
+                                    <div class="export-features">
+                                        <span>✓ Dados limpos</span>
+                                        <span>✓ Fórmulas incluídas</span>
+                                        <span>✓ Gráficos dinâmicos</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="export-card" data-format="powerpoint">
+                                    <div class="export-icon">
+                                        <i class="fas fa-file-powerpoint"></i>
+                                    </div>
+                                    <h4>Apresentação PPT</h4>
+                                    <p>Slides prontos para apresentação</p>
+                                    <div class="export-features">
+                                        <span>✓ Design profissional</span>
+                                        <span>✓ Insights destacados</span>
+                                        <span>✓ Gráficos impactantes</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="export-card" data-format="dashboard">
+                                    <div class="export-icon">
+                                        <i class="fas fa-tachometer-alt"></i>
+                                    </div>
+                                    <h4>Dashboard Interativo</h4>
+                                    <p>Dashboard online compartilhável</p>
+                                    <div class="export-features">
+                                        <span>✓ Atualizações automáticas</span>
+                                        <span>✓ Filtros interativos</span>
+                                        <span>✓ Link compartilhável</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="export-customization">
+                                <h4><i class="fas fa-cogs"></i> Personalização</h4>
+                                <div class="customization-grid">
+                                    <div class="custom-group">
+                                        <label>
+                                            <input type="checkbox" id="include-raw-data" checked>
+                                            Incluir dados brutos
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="include-methodology" checked>
+                                            Incluir metodologia
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="include-recommendations">
+                                            Incluir recomendações
+                                        </label>
+                                    </div>
+                                    <div class="custom-group">
+                                        <label>
+                                            <input type="checkbox" id="watermark-company">
+                                            Marca d'água da empresa
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="executive-summary" checked>
+                                            Resumo executivo
+                                        </label>
+                                        <label>
+                                            <input type="checkbox" id="comparative-analysis">
+                                            Análise comparativa
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="export-actions">
+                                <button class="btn-export" id="export-selected">
+                                    <i class="fas fa-download"></i>
+                                    Exportar Selecionado
+                                </button>
+                                <button class="btn-export-all" id="export-all">
+                                    <i class="fas fa-archive"></i>
+                                    Exportar Todos os Formatos
+                                </button>
                             </div>
                         </div>
                     </div>

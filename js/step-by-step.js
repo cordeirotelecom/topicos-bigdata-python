@@ -1,11 +1,16 @@
 class DataInsightsPro {
     constructor() {
         this.currentStep = 1;
-        this.totalSteps = 3;
+        this.totalSteps = 4; // Atualizado para 4 steps
         this.selectedSource = null;
         this.selectedGoals = new Set();
         this.configuration = {};
         this.analysisData = null;
+        this.uploadedFiles = []; // Array para múltiplos arquivos
+        this.selectedAnalysisTags = new Set(); // Tags de análise selecionadas
+        this.selectedGovernmentAPIs = new Set(); // APIs governamentais selecionadas
+        this.selectedExportFormats = new Set(); // Formatos de exportação selecionados
+        this.advancedConfig = {}; // Configurações avançadas
         
         this.init();
     }
@@ -68,6 +73,39 @@ class DataInsightsPro {
         if (demoBtn) {
             demoBtn.addEventListener('click', () => this.showDemo());
         }
+        
+        // Export format selection
+        document.querySelectorAll('.export-card').forEach(card => {
+            card.addEventListener('click', (e) => {
+                this.toggleExportFormat(e.currentTarget.dataset.format);
+            });
+        });
+        
+        // Export buttons
+        const exportSelectedBtn = document.getElementById('export-selected');
+        const exportAllBtn = document.getElementById('export-all');
+        
+        if (exportSelectedBtn) {
+            exportSelectedBtn.addEventListener('click', () => this.exportSelected());
+        }
+        
+        if (exportAllBtn) {
+            exportAllBtn.addEventListener('click', () => this.exportAll());
+        }
+        
+        // Sample size range
+        const sampleSizeRange = document.getElementById('sample-size');
+        const sampleSizeValue = document.getElementById('sample-size-value');
+        
+        if (sampleSizeRange && sampleSizeValue) {
+            sampleSizeRange.addEventListener('input', (e) => {
+                sampleSizeValue.textContent = `${e.target.value}%`;
+                this.advancedConfig.sampleSize = parseInt(e.target.value);
+            });
+        }
+        
+        // Advanced configuration inputs
+        this.setupAdvancedConfigListeners();
     }
     
     switchSection(sectionName) {
@@ -195,11 +233,26 @@ class DataInsightsPro {
     
     async startAnalysis() {
         try {
+            // Validar se há dados para analisar
+            if (this.uploadedFiles.length === 0 && this.selectedGovernmentAPIs.size === 0) {
+                this.showNotification('Por favor, carregue arquivos ou selecione APIs governamentais para análise.', 'warning');
+                return;
+            }
+            
+            // Validar se há tipos de análise selecionados
+            if (this.selectedAnalysisTags.size === 0) {
+                this.showNotification('Por favor, selecione pelo menos um tipo de análise.', 'warning');
+                return;
+            }
+            
             this.switchSection('insights');
             this.showLoadingState();
             
-            // Simulate analysis process
-            await this.performAnalysis();
+            // Preparar dados para análise
+            this.prepareAnalysisData();
+            
+            // Perform analysis with new capabilities
+            await this.performAdvancedAnalysis();
             
             this.hideLoadingState();
             this.showResults();
@@ -211,14 +264,34 @@ class DataInsightsPro {
         }
     }
     
+    prepareAnalysisData() {
+        this.configuration.multipleFiles = this.uploadedFiles;
+        this.configuration.analysisTags = Array.from(this.selectedAnalysisTags);
+        this.configuration.governmentAPIs = Array.from(this.selectedGovernmentAPIs);
+        this.configuration.fileCount = this.uploadedFiles.length;
+        this.configuration.totalSize = this.uploadedFiles.reduce((total, file) => total + file.size, 0);
+        
+        console.log('Configuração de análise preparada:', this.configuration);
+    }
+    
     async performAnalysis() {
+        // Manter compatibilidade - redireciona para análise avançada
+        return this.performAdvancedAnalysis();
+    }
+    
+    async performAdvancedAnalysis() {
         const steps = [
-            'Carregando dados...',
-            'Aplicando algoritmos de IA...',
-            'Identificando padrões...',
-            'Gerando previsões...',
-            'Calculando insights...',
-            'Finalizando relatório...'
+            'Carregando múltiplos arquivos...',
+            'Conectando APIs governamentais...',
+            'Aplicando análises selecionadas...',
+            'Processando dados estatísticos...',
+            'Executando algoritmos de ML...',
+            'Realizando análises comparativas...',
+            'Gerando previsões avançadas...',
+            'Calculando correlações...',
+            'Identificando padrões complexos...',
+            'Preparando relatório abrangente...',
+            'Finalizando insights...'
         ];
         
         const progressFill = document.querySelector('.progress-fill');
@@ -369,7 +442,14 @@ class DataInsightsPro {
     
     showResults() {
         const resultsContainer = document.getElementById('analysis-results');
+        const exportPanel = document.querySelector('.export-panel');
+        
         resultsContainer.style.display = 'block';
+        
+        // Show export panel
+        if (exportPanel) {
+            exportPanel.style.display = 'block';
+        }
         
         // Populate results
         if (this.analysisData) {
@@ -382,6 +462,36 @@ class DataInsightsPro {
         
         // Generate chart
         this.generateMainChart();
+        
+        // Update results header with advanced info
+        this.updateResultsHeader();
+    }
+    
+    updateResultsHeader() {
+        const resultsHeading = document.getElementById('results-heading');
+        const resultsSummary = document.getElementById('results-summary');
+        
+        if (resultsHeading && resultsSummary) {
+            resultsHeading.textContent = 'Análise Avançada Concluída';
+            
+            const fileCount = this.uploadedFiles.length;
+            const apiCount = this.selectedGovernmentAPIs.size;
+            const analysisCount = this.selectedAnalysisTags.size;
+            
+            let summaryText = `Análise realizada com sucesso! `;
+            
+            if (fileCount > 0) {
+                summaryText += `${fileCount} arquivo(s) processado(s). `;
+            }
+            
+            if (apiCount > 0) {
+                summaryText += `${apiCount} API(s) governamental(is) consultada(s). `;
+            }
+            
+            summaryText += `${analysisCount} tipo(s) de análise aplicado(s).`;
+            
+            resultsSummary.textContent = summaryText;
+        }
     }
     
     renderKeyMetrics(metrics) {
@@ -510,28 +620,378 @@ class DataInsightsPro {
         
         const files = e.dataTransfer.files;
         if (files.length > 0) {
-            this.processFile(files[0]);
+            this.processMultipleFiles(Array.from(files));
         }
     }
     
     handleFileSelect(e) {
         const files = e.target.files;
         if (files.length > 0) {
-            this.processFile(files[0]);
+            this.processMultipleFiles(Array.from(files));
+        }
+    }
+    
+    processMultipleFiles(files) {
+        const allowedTypes = ['text/csv', 'application/json', 'application/vnd.ms-excel', 'text/xml', 'text/plain'];
+        const allowedExtensions = ['.csv', '.json', '.xlsx', '.xls', '.xml', '.txt'];
+        
+        let validFiles = [];
+        let invalidFiles = [];
+        
+        files.forEach(file => {
+            const isValidType = allowedTypes.includes(file.type) || 
+                               allowedExtensions.some(ext => file.name.toLowerCase().endsWith(ext));
+            
+            if (isValidType) {
+                validFiles.push(file);
+            } else {
+                invalidFiles.push(file.name);
+            }
+        });
+        
+        if (invalidFiles.length > 0) {
+            this.showNotification(`Arquivos não suportados: ${invalidFiles.join(', ')}. Use CSV, Excel, JSON, XML ou TXT.`, 'warning');
+        }
+        
+        if (validFiles.length > 0) {
+            validFiles.forEach(file => {
+                // Evita duplicatas
+                if (!this.uploadedFiles.find(f => f.name === file.name && f.size === file.size)) {
+                    this.uploadedFiles.push(file);
+                }
+            });
+            
+            this.updateFilesList();
+            this.showAnalysisTags();
+            this.showNotification(`${validFiles.length} arquivo(s) carregado(s) com sucesso!`, 'success');
+            this.updateNavigationState();
         }
     }
     
     processFile(file) {
-        const allowedTypes = ['text/csv', 'application/json', 'application/vnd.ms-excel'];
+        // Manter compatibilidade - redireciona para a nova função
+        this.processMultipleFiles([file]);
+    }
+    
+    updateFilesList() {
+        const filesListContainer = document.getElementById('files-list');
+        const uploadedFilesContainer = document.getElementById('uploaded-files');
         
-        if (!allowedTypes.includes(file.type) && !file.name.endsWith('.xlsx')) {
-            this.showNotification('Formato de arquivo não suportado. Use CSV, JSON ou Excel.', 'error');
+        if (!filesListContainer || !uploadedFilesContainer) return;
+        
+        if (this.uploadedFiles.length === 0) {
+            uploadedFilesContainer.style.display = 'none';
             return;
         }
         
-        this.showNotification(`Arquivo "${file.name}" carregado com sucesso!`, 'success');
-        this.configuration.uploadedFile = file;
+        uploadedFilesContainer.style.display = 'block';
+        filesListContainer.innerHTML = '';
+        
+        this.uploadedFiles.forEach((file, index) => {
+            const fileItem = this.createFileItem(file, index);
+            filesListContainer.appendChild(fileItem);
+        });
+    }
+    
+    createFileItem(file, index) {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        
+        const extension = file.name.split('.').pop().toLowerCase();
+        const fileSize = this.formatFileSize(file.size);
+        
+        fileItem.innerHTML = `
+            <div class="file-info">
+                <div class="file-icon ${extension}">
+                    ${this.getFileIcon(extension)}
+                </div>
+                <div class="file-details">
+                    <h5>${file.name}</h5>
+                    <p>${fileSize} • ${extension.toUpperCase()}</p>
+                </div>
+            </div>
+            <div class="file-actions">
+                <button class="btn-remove" onclick="dataInsights.removeFile(${index})" title="Remover arquivo">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        `;
+        
+        return fileItem;
+    }
+    
+    getFileIcon(extension) {
+        const icons = {
+            'csv': '<i class="fas fa-file-csv"></i>',
+            'json': '<i class="fas fa-file-code"></i>',
+            'xlsx': '<i class="fas fa-file-excel"></i>',
+            'xls': '<i class="fas fa-file-excel"></i>',
+            'xml': '<i class="fas fa-file-code"></i>',
+            'txt': '<i class="fas fa-file-alt"></i>'
+        };
+        return icons[extension] || '<i class="fas fa-file"></i>';
+    }
+    
+    formatFileSize(bytes) {
+        if (bytes === 0) return '0 Bytes';
+        const k = 1024;
+        const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+        const i = Math.floor(Math.log(bytes) / Math.log(k));
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+    }
+    
+    removeFile(index) {
+        this.uploadedFiles.splice(index, 1);
+        this.updateFilesList();
         this.updateNavigationState();
+        
+        if (this.uploadedFiles.length === 0) {
+            this.hideAnalysisTags();
+        }
+        
+        this.showNotification('Arquivo removido com sucesso!', 'info');
+    }
+    
+    showAnalysisTags() {
+        const tagsPanel = document.getElementById('analysis-tags-panel');
+        if (tagsPanel && this.uploadedFiles.length > 0) {
+            tagsPanel.style.display = 'block';
+            this.setupAnalysisTagsListeners();
+        }
+    }
+    
+    hideAnalysisTags() {
+        const tagsPanel = document.getElementById('analysis-tags-panel');
+        if (tagsPanel) {
+            tagsPanel.style.display = 'none';
+        }
+    }
+    
+    setupAnalysisTagsListeners() {
+        // Listeners para tags de análise
+        document.querySelectorAll('input[name="analysis-type"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.selectedAnalysisTags.add(e.target.value);
+                } else {
+                    this.selectedAnalysisTags.delete(e.target.value);
+                }
+                this.updateNavigationState();
+            });
+        });
+        
+        // Listeners para APIs governamentais
+        document.querySelectorAll('input[name="government-api"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    this.selectedGovernmentAPIs.add(e.target.value);
+                } else {
+                    this.selectedGovernmentAPIs.delete(e.target.value);
+                }
+                this.updateNavigationState();
+            });
+        });
+    }
+    
+    // Novas funções para Export e Configurações Avançadas
+    toggleExportFormat(format) {
+        const card = document.querySelector(`[data-format="${format}"]`);
+        
+        if (this.selectedExportFormats.has(format)) {
+            this.selectedExportFormats.delete(format);
+            card.classList.remove('selected');
+        } else {
+            this.selectedExportFormats.add(format);
+            card.classList.add('selected');
+        }
+        
+        this.updateExportButtons();
+    }
+    
+    updateExportButtons() {
+        const exportSelectedBtn = document.getElementById('export-selected');
+        const hasSelectedFormats = this.selectedExportFormats.size > 0;
+        
+        if (exportSelectedBtn) {
+            exportSelectedBtn.disabled = !hasSelectedFormats;
+            exportSelectedBtn.style.opacity = hasSelectedFormats ? '1' : '0.6';
+        }
+    }
+    
+    async exportSelected() {
+        if (this.selectedExportFormats.size === 0) {
+            this.showNotification('Selecione pelo menos um formato de exportação.', 'warning');
+            return;
+        }
+        
+        this.showNotification('Preparando exportação...', 'info');
+        
+        try {
+            for (const format of this.selectedExportFormats) {
+                await this.exportFormat(format);
+            }
+            
+            this.showNotification(`${this.selectedExportFormats.size} arquivo(s) exportado(s) com sucesso!`, 'success');
+        } catch (error) {
+            console.error('Export failed:', error);
+            this.showNotification('Erro na exportação. Tente novamente.', 'error');
+        }
+    }
+    
+    async exportAll() {
+        const allFormats = ['pdf', 'excel', 'powerpoint', 'dashboard'];
+        this.showNotification('Preparando exportação completa...', 'info');
+        
+        try {
+            for (const format of allFormats) {
+                await this.exportFormat(format);
+            }
+            
+            this.showNotification('Todos os formatos exportados com sucesso!', 'success');
+        } catch (error) {
+            console.error('Export all failed:', error);
+            this.showNotification('Erro na exportação. Tente novamente.', 'error');
+        }
+    }
+    
+    async exportFormat(format) {
+        // Simular exportação
+        const delay = ms => new Promise(resolve => setTimeout(resolve, ms));
+        await delay(1000);
+        
+        const formatNames = {
+            'pdf': 'Relatório PDF',
+            'excel': 'Planilha Excel',
+            'powerpoint': 'Apresentação PowerPoint',
+            'dashboard': 'Dashboard Interativo'
+        };
+        
+        console.log(`Exportando ${formatNames[format]}...`);
+        
+        // Aqui seria implementada a lógica real de exportação
+        // Por enquanto, apenas simular o download
+        this.simulateDownload(`analise_dados_${format}.${format === 'powerpoint' ? 'pptx' : format}`);
+    }
+    
+    simulateDownload(filename) {
+        const link = document.createElement('a');
+        link.download = filename;
+        link.href = '#';
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+    
+    setupAdvancedConfigListeners() {
+        // Precision level
+        const precisionLevel = document.getElementById('precision-level');
+        if (precisionLevel) {
+            precisionLevel.addEventListener('change', (e) => {
+                this.advancedConfig.precisionLevel = e.target.value;
+                this.updateAnalysisTime();
+            });
+        }
+        
+        // Chart theme
+        const chartTheme = document.getElementById('chart-theme');
+        if (chartTheme) {
+            chartTheme.addEventListener('change', (e) => {
+                this.advancedConfig.chartTheme = e.target.value;
+                this.previewChartTheme(e.target.value);
+            });
+        }
+        
+        // ML Algorithms
+        document.querySelectorAll('input[value$="-forest"], input[value="svm"], input[value="neural-network"], input[value="gradient-boosting"]').forEach(checkbox => {
+            checkbox.addEventListener('change', (e) => {
+                if (!this.advancedConfig.mlAlgorithms) {
+                    this.advancedConfig.mlAlgorithms = new Set();
+                }
+                
+                if (e.target.checked) {
+                    this.advancedConfig.mlAlgorithms.add(e.target.value);
+                } else {
+                    this.advancedConfig.mlAlgorithms.delete(e.target.value);
+                }
+            });
+        });
+        
+        // Notification email
+        const notificationEmail = document.getElementById('notification-email');
+        if (notificationEmail) {
+            notificationEmail.addEventListener('change', (e) => {
+                this.advancedConfig.notificationEmail = e.target.value;
+            });
+        }
+    }
+    
+    updateAnalysisTime() {
+        const times = {
+            'fast': '1-2 minutos',
+            'balanced': '3-5 minutos',
+            'deep': '8-12 minutos',
+            'comprehensive': '15-25 minutos'
+        };
+        
+        const time = times[this.advancedConfig.precisionLevel] || '3-5 minutos';
+        this.showNotification(`Tempo estimado de análise: ${time}`, 'info');
+    }
+    
+    previewChartTheme(theme) {
+        const themes = {
+            'professional': 'Tema profissional aplicado',
+            'vibrant': 'Tema vibrante aplicado',
+            'minimal': 'Tema minimalista aplicado',
+            'corporate': 'Tema corporativo aplicado'
+        };
+        
+        this.showNotification(themes[theme] || 'Tema atualizado', 'info');
+    }
+    
+    updateNavigationState() {
+        const prevBtn = document.getElementById('prev-step');
+        const nextBtn = document.getElementById('next-step');
+        const startBtn = document.getElementById('start-analysis');
+        
+        // Previous button
+        if (prevBtn) {
+            prevBtn.disabled = this.currentStep === 1;
+        }
+        
+        // Next/Start button logic
+        if (this.currentStep === this.totalSteps) {
+            if (nextBtn) nextBtn.style.display = 'none';
+            if (startBtn) startBtn.style.display = 'inline-flex';
+        } else {
+            if (nextBtn) nextBtn.style.display = 'inline-flex';
+            if (startBtn) startBtn.style.display = 'none';
+        }
+        
+        // Check if step can be completed
+        const canProceed = this.canProceedFromStep(this.currentStep);
+        if (nextBtn) nextBtn.disabled = !canProceed;
+        if (startBtn) startBtn.disabled = !canProceed;
+    }
+    
+    canProceedFromStep(step) {
+        switch (step) {
+            case 1:
+                return this.selectedSource !== null;
+            case 2:
+                return this.selectedGoals.size > 0;
+            case 3:
+                if (this.selectedSource === 'upload') {
+                    return this.uploadedFiles.length > 0 && this.selectedAnalysisTags.size > 0;
+                } else if (this.selectedSource === 'government') {
+                    return this.selectedGovernmentAPIs.size > 0 && this.selectedAnalysisTags.size > 0;
+                }
+                return true;
+            case 4:
+                return true; // Advanced config is optional
+            default:
+                return false;
+        }
     }
     
     showNotification(message, type = 'info') {
@@ -635,3 +1095,18 @@ const additionalStyles = `
 `;
 
 document.head.insertAdjacentHTML('beforeend', additionalStyles);
+
+// Criar instância global
+let dataInsights;
+
+// Inicializar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', () => {
+    dataInsights = new DataInsightsPro();
+});
+
+// Funções globais para compatibilidade
+window.showDemo = function() {
+    if (dataInsights) {
+        dataInsights.showDemo();
+    }
+};

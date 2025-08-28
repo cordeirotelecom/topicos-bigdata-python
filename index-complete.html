@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DataMaster Pro - Plataforma Completa de Análise de Dados</title>
+    <meta name="description" content="A mais completa ferramenta de análise de dados do Brasil. APIs governamentais, múltiplos arquivos, análises avançadas.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/feather-icons@4.29.0/dist/feather.min.css">
+    
+    <!-- External Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.30.0/index.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ml-matrix@6.10.8/lib/index.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/advanced-style.css">
+</head>
+<body>
+    <!-- Main Navigation -->
+    <nav class="main-navigation">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="brand-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>DataMaster Pro</h1>
+                    <span>Análise Completa de Dados</span>
+                </div>
+            </div>
+            
+            <div class="nav-menu">
+                <button class="nav-item active" data-view="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </button>
+                <button class="nav-item" data-view="data-sources">
+                    <i class="fas fa-database"></i>
+                    <span>Fontes de Dados</span>
+                </button>
+                <button class="nav-item" data-view="analysis-config">
+                    <i class="fas fa-cogs"></i>
+                    <span>Configuração</span>
+                </button>
+                <button class="nav-item" data-view="analysis-results">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Resultados</span>
+                </button>
+                <button class="nav-item" data-view="reports">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Relatórios</span>
+                </button>
+            </div>
+            
+            <div class="nav-actions">
+                <button class="action-btn" id="save-project">
+                    <i class="fas fa-save"></i>
+                </button>
+                <button class="action-btn" id="export-all">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="action-btn" id="help-guide">
+                    <i class="fas fa-question-circle"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        
+        <!-- Dashboard View -->
+        <section id="dashboard" class="view active">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div class="header-info">
+                        <h1>Bem-vindo ao DataMaster Pro</h1>
+                        <p>A ferramenta mais completa para análise de dados do Brasil. Conecte-se a APIs governamentais, carregue múltiplos arquivos e descubra insights poderosos.</p>
+                    </div>
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-file-upload"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="files-loaded">0</div>
+                                <div class="stat-label">Arquivos Carregados</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="apis-connected">12</div>
+                                <div class="stat-label">APIs Disponíveis</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="stat-info">
+                                <div class="stat-value" id="analyses-completed">0</div>
+                                <div class="stat-label">Análises Concluídas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <!-- Quick Actions Panel -->
+                    <div class="dashboard-panel quick-actions">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-bolt"></i> Ações Rápidas</h3>
+                        </div>
+                        <div class="panel-content">
+                            <div class="action-grid">
+                                <button class="quick-action" data-action="load-files">
+                                    <i class="fas fa-file-upload"></i>
+                                    <span>Carregar Arquivos</span>
+                                </button>
+                                <button class="quick-action" data-action="connect-apis">
+                                    <i class="fas fa-plug"></i>
+                                    <span>Conectar APIs</span>
+                                </button>
+                                <button class="quick-action" data-action="start-analysis">
+                                    <i class="fas fa-play"></i>
+                                    <span>Iniciar Análise</span>
+                                </button>
+                                <button class="quick-action" data-action="view-templates">
+                                    <i class="fas fa-template"></i>
+                                    <span>Templates</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Sources Overview -->
+                    <div class="dashboard-panel data-overview">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-database"></i> Fontes de Dados Conectadas</h3>
+                            <button class="btn-secondary" onclick="switchView('data-sources')">Ver Todas</button>
+                        </div>
+                        <div class="panel-content">
+                            <div class="source-list" id="connected-sources">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Analyses -->
+                    <div class="dashboard-panel recent-analyses">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-history"></i> Análises Recentes</h3>
+                            <button class="btn-secondary" onclick="switchView('analysis-results')">Ver Todas</button>
+                        </div>
+                        <div class="panel-content">
+                            <div class="analysis-timeline" id="recent-timeline">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Data Preview -->
+                    <div class="dashboard-panel live-preview">
+                        <div class="panel-header">
+                            <h3><i class="fas fa-eye"></i> Preview de Dados</h3>
+                        </div>
+                        <div class="panel-content">
+                            <canvas id="dashboard-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Sources View -->
+        <section id="data-sources" class="view">
+            <div class="container">
+                <div class="view-header">
+                    <h1><i class="fas fa-database"></i> Fontes de Dados</h1>
+                    <p>Conecte-se a APIs governamentais, carregue múltiplos arquivos e configure suas fontes de dados</p>
+                </div>
+
+                <div class="data-sources-layout">
+                    
+                    <!-- File Upload Section -->
+                    <div class="data-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-file-upload"></i> Upload de Arquivos</h2>
+                            <p>Carregue múltiplos arquivos de diferentes formatos</p>
+                        </div>
+                        
+                        <div class="upload-area">
+                            <div class="upload-zone" id="multi-upload-zone">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <h3>Arraste arquivos aqui ou clique para selecionar</h3>
+                                <p>Suporte para CSV, Excel, JSON, XML, TXT</p>
+                                <input type="file" id="file-input" multiple accept=".csv,.xlsx,.json,.xml,.txt" hidden>
+                                <div class="upload-options">
+                                    <span class="format-tag">CSV</span>
+                                    <span class="format-tag">Excel</span>
+                                    <span class="format-tag">JSON</span>
+                                    <span class="format-tag">XML</span>
+                                    <span class="format-tag">TXT</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Uploaded Files List -->
+                            <div class="uploaded-files" id="uploaded-files-list">
+                                <h4>Arquivos Carregados</h4>
+                                <div class="files-container" id="files-container">
+                                    <!-- Files will be listed here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- API Connections Section -->
+                    <div class="data-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-plug"></i> APIs Governamentais e Públicas</h2>
+                            <p>Conecte-se automaticamente a fontes de dados oficiais</p>
+                        </div>
+                        
+                        <div class="api-grid">
+                            <!-- Santa Catarina APIs -->
+                            <div class="api-category">
+                                <h3><i class="fas fa-map-marker-alt"></i> Santa Catarina</h3>
+                                <div class="api-list">
+                                    <div class="api-card" data-api="sc-saude">
+                                        <div class="api-status connected"></div>
+                                        <div class="api-info">
+                                            <h4>Saúde SC</h4>
+                                            <p>Dados de hospitais, leitos, atendimentos</p>
+                                        </div>
+                                        <button class="api-toggle">Conectado</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="sc-educacao">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Educação SC</h4>
+                                            <p>Escolas, matrículas, desempenho</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="sc-seguranca">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Segurança Pública SC</h4>
+                                            <p>Criminalidade, ocorrências</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="sc-economia">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Economia SC</h4>
+                                            <p>PIB, empresas, empregos</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Florianópolis APIs -->
+                            <div class="api-category">
+                                <h3><i class="fas fa-city"></i> Florianópolis</h3>
+                                <div class="api-list">
+                                    <div class="api-card" data-api="fpolis-transporte">
+                                        <div class="api-status connected"></div>
+                                        <div class="api-info">
+                                            <h4>Transporte Público</h4>
+                                            <p>Ônibus, rotas, horários</p>
+                                        </div>
+                                        <button class="api-toggle">Conectado</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="fpolis-turismo">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Turismo</h4>
+                                            <p>Visitantes, hotéis, eventos</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="fpolis-meio-ambiente">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Meio Ambiente</h4>
+                                            <p>Qualidade do ar, água</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- São José APIs -->
+                            <div class="api-category">
+                                <h3><i class="fas fa-building"></i> São José</h3>
+                                <div class="api-list">
+                                    <div class="api-card" data-api="sj-desenvolvimento">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Desenvolvimento Urbano</h4>
+                                            <p>Obras, licenças, projetos</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="sj-social">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>Assistência Social</h4>
+                                            <p>Programas sociais, benefícios</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- APIs Nacionais -->
+                            <div class="api-category">
+                                <h3><i class="fas fa-flag"></i> APIs Nacionais</h3>
+                                <div class="api-list">
+                                    <div class="api-card" data-api="ibge">
+                                        <div class="api-status connected"></div>
+                                        <div class="api-info">
+                                            <h4>IBGE</h4>
+                                            <p>Demografia, censo, estatísticas</p>
+                                        </div>
+                                        <button class="api-toggle">Conectado</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="datasus">
+                                        <div class="api-status"></div>
+                                        <div class="api-info">
+                                            <h4>DATASUS</h4>
+                                            <p>Saúde pública nacional</p>
+                                        </div>
+                                        <button class="api-toggle">Conectar</button>
+                                    </div>
+                                    
+                                    <div class="api-card" data-api="banco-central">
+                                        <div class="api-status connected"></div>
+                                        <div class="api-info">
+                                            <h4>Banco Central</h4>
+                                            <p>Economia, inflação, juros</p>
+                                        </div>
+                                        <button class="api-toggle">Conectado</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Data Preview Section -->
+                    <div class="data-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-eye"></i> Preview dos Dados</h2>
+                            <p>Visualize e valide seus dados antes da análise</p>
+                        </div>
+                        
+                        <div class="data-preview">
+                            <div class="preview-tabs">
+                                <button class="tab-btn active" data-tab="files">Arquivos</button>
+                                <button class="tab-btn" data-tab="apis">APIs</button>
+                                <button class="tab-btn" data-tab="merged">Dados Combinados</button>
+                            </div>
+                            
+                            <div class="preview-content">
+                                <div class="tab-content active" id="files-preview">
+                                    <div class="data-table-container">
+                                        <table class="data-table" id="files-data-table">
+                                            <!-- Table will be populated by JavaScript -->
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-content" id="apis-preview">
+                                    <div class="data-table-container">
+                                        <table class="data-table" id="apis-data-table">
+                                            <!-- Table will be populated by JavaScript -->
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                                <div class="tab-content" id="merged-preview">
+                                    <div class="data-table-container">
+                                        <table class="data-table" id="merged-data-table">
+                                            <!-- Table will be populated by JavaScript -->
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Configuration View -->
+        <section id="analysis-config" class="view">
+            <div class="container">
+                <div class="view-header">
+                    <h1><i class="fas fa-cogs"></i> Configuração de Análise</h1>
+                    <p>Configure tags, objetivos e parâmetros para análises personalizadas</p>
+                </div>
+
+                <div class="config-layout">
+                    
+                    <!-- Analysis Tags Section -->
+                    <div class="config-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-tags"></i> Tags de Análise</h2>
+                            <p>Selecione os tipos de análise que deseja executar</p>
+                        </div>
+                        
+                        <div class="tags-grid">
+                            <!-- Prediction Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-crystal-ball"></i> Previsão</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="time-series-forecast">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Séries Temporais</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="trend-prediction">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Predição de Tendências</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="regression-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Análise de Regressão</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="demand-forecast">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Previsão de Demanda</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Correlation Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-project-diagram"></i> Correlação</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="pearson-correlation">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Correlação de Pearson</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="spearman-correlation">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Correlação de Spearman</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="cross-correlation">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Correlação Cruzada</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="causality-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Análise de Causalidade</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Statistical Analysis Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-calculator"></i> Análise Estatística</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="descriptive-stats">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Estatística Descritiva</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="hypothesis-testing">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Teste de Hipóteses</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="outlier-detection">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Detecção de Outliers</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="distribution-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Análise de Distribuição</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Machine Learning Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-robot"></i> Machine Learning</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="clustering">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Clustering</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="classification">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Classificação</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="anomaly-detection">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Detecção de Anomalias</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="feature-importance">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Importância de Features</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Geographic Analysis Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-globe"></i> Análise Geográfica</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="spatial-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Análise Espacial</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="geo-correlation">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Correlação Geográfica</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="hotspot-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Análise de Hotspots</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Comparative Analysis Tags -->
+                            <div class="tag-category">
+                                <h3><i class="fas fa-balance-scale"></i> Análise Comparativa</h3>
+                                <div class="tags-list">
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="before-after">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Antes vs Depois</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="cross-regional">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Comparação Regional</span>
+                                    </label>
+                                    <label class="tag-checkbox">
+                                        <input type="checkbox" name="analysis-tag" value="benchmark-analysis">
+                                        <span class="checkmark"></span>
+                                        <span class="tag-label">Benchmark</span>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Parameters Section -->
+                    <div class="config-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-sliders-h"></i> Parâmetros Avançados</h2>
+                            <p>Configure parâmetros específicos para análises mais precisas</p>
+                        </div>
+                        
+                        <div class="parameters-grid">
+                            <div class="param-group">
+                                <h4>Parâmetros Temporais</h4>
+                                <div class="param-controls">
+                                    <div class="control-group">
+                                        <label>Período de Análise</label>
+                                        <select class="param-select" id="time-period">
+                                            <option value="last-month">Último Mês</option>
+                                            <option value="last-quarter">Último Trimestre</option>
+                                            <option value="last-year">Último Ano</option>
+                                            <option value="custom">Personalizado</option>
+                                        </select>
+                                    </div>
+                                    <div class="control-group">
+                                        <label>Granularidade</label>
+                                        <select class="param-select" id="time-granularity">
+                                            <option value="daily">Diária</option>
+                                            <option value="weekly">Semanal</option>
+                                            <option value="monthly">Mensal</option>
+                                            <option value="quarterly">Trimestral</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="param-group">
+                                <h4>Parâmetros Estatísticos</h4>
+                                <div class="param-controls">
+                                    <div class="control-group">
+                                        <label>Nível de Confiança</label>
+                                        <input type="range" class="param-range" id="confidence-level" min="90" max="99" value="95">
+                                        <span class="range-value">95%</span>
+                                    </div>
+                                    <div class="control-group">
+                                        <label>Limiar de Significância</label>
+                                        <input type="range" class="param-range" id="significance-threshold" min="0.01" max="0.1" step="0.01" value="0.05">
+                                        <span class="range-value">0.05</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="param-group">
+                                <h4>Filtros de Dados</h4>
+                                <div class="param-controls">
+                                    <div class="control-group">
+                                        <label>Remover Outliers</label>
+                                        <label class="toggle-switch">
+                                            <input type="checkbox" id="remove-outliers" checked>
+                                            <span class="slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="control-group">
+                                        <label>Valores Mínimos por Grupo</label>
+                                        <input type="number" class="param-input" id="min-group-size" value="30">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Templates Section -->
+                    <div class="config-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-magic"></i> Templates Rápidos</h2>
+                            <p>Configurações pré-definidas para análises comuns</p>
+                        </div>
+                        
+                        <div class="templates-grid">
+                            <div class="template-card" data-template="saude-publica">
+                                <div class="template-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <h4>Saúde Pública</h4>
+                                <p>Análise de dados de saúde, correlações com fatores ambientais e sociais</p>
+                                <div class="template-tags">
+                                    <span class="tag">Correlação</span>
+                                    <span class="tag">Tendências</span>
+                                    <span class="tag">Hotspots</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card" data-template="seguranca-publica">
+                                <div class="template-icon">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <h4>Segurança Pública</h4>
+                                <p>Análise de criminalidade, padrões espaciais e temporais</p>
+                                <div class="template-tags">
+                                    <span class="tag">Clustering</span>
+                                    <span class="tag">Hotspots</span>
+                                    <span class="tag">Previsão</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card" data-template="economia-regional">
+                                <div class="template-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Economia Regional</h4>
+                                <p>Análise econômica comparativa entre regiões</p>
+                                <div class="template-tags">
+                                    <span class="tag">Comparação</span>
+                                    <span class="tag">Regressão</span>
+                                    <span class="tag">Benchmark</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card" data-template="educacao">
+                                <div class="template-icon">
+                                    <i class="fas fa-graduation-cap"></i>
+                                </div>
+                                <h4>Educação</h4>
+                                <p>Análise de desempenho educacional e fatores influenciadores</p>
+                                <div class="template-tags">
+                                    <span class="tag">Correlação</span>
+                                    <span class="tag">ML</span>
+                                    <span class="tag">Causalidade</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Analysis Control Panel -->
+                    <div class="config-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-play"></i> Controle de Execução</h2>
+                            <p>Inicie, monitore e controle suas análises</p>
+                        </div>
+                        
+                        <div class="control-panel">
+                            <div class="selected-config">
+                                <h4>Configuração Atual</h4>
+                                <div class="config-summary" id="config-summary">
+                                    <div class="summary-item">
+                                        <span class="label">Tags Selecionadas:</span>
+                                        <span class="value" id="selected-tags-count">0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Fontes de Dados:</span>
+                                        <span class="value" id="data-sources-count">0</span>
+                                    </div>
+                                    <div class="summary-item">
+                                        <span class="label">Tempo Estimado:</span>
+                                        <span class="value" id="estimated-time">--</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="execution-controls">
+                                <button class="btn-primary large" id="start-analysis-btn">
+                                    <i class="fas fa-rocket"></i>
+                                    Iniciar Análise Completa
+                                </button>
+                                <button class="btn-secondary" id="preview-analysis">
+                                    <i class="fas fa-eye"></i>
+                                    Preview
+                                </button>
+                                <button class="btn-secondary" id="save-config">
+                                    <i class="fas fa-save"></i>
+                                    Salvar Configuração
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analysis Results View -->
+        <section id="analysis-results" class="view">
+            <div class="container">
+                <div class="view-header">
+                    <h1><i class="fas fa-chart-line"></i> Resultados da Análise</h1>
+                    <p>Insights detalhados, correlações descobertas e pontos críticos identificados</p>
+                </div>
+
+                <!-- Analysis Progress -->
+                <div class="analysis-progress" id="analysis-progress" style="display: none;">
+                    <div class="progress-header">
+                        <h2>Processando Análise...</h2>
+                        <div class="progress-stats">
+                            <span id="current-step">Preparando dados...</span>
+                            <span id="progress-percent">0%</span>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div class="progress-details">
+                        <div class="detail-item">
+                            <i class="fas fa-database"></i>
+                            <span>Dados Processados: <strong id="processed-records">0</strong></span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-cogs"></i>
+                            <span>Análises Executadas: <strong id="completed-analyses">0</strong></span>
+                        </div>
+                        <div class="detail-item">
+                            <i class="fas fa-search"></i>
+                            <span>Insights Descobertos: <strong id="insights-found">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Dashboard -->
+                <div class="results-dashboard" id="results-dashboard">
+                    
+                    <!-- Executive Summary -->
+                    <div class="result-section executive-summary">
+                        <div class="section-header">
+                            <h2><i class="fas fa-star"></i> Resumo Executivo</h2>
+                            <div class="section-actions">
+                                <button class="btn-icon" title="Exportar Seção">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                                <button class="btn-icon" title="Compartilhar">
+                                    <i class="fas fa-share-alt"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="section-content">
+                            <div class="summary-cards">
+                                <div class="summary-card critical">
+                                    <div class="card-icon">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Pontos Críticos</h4>
+                                        <div class="card-value" id="critical-points">--</div>
+                                        <p class="card-description">Situações que requerem atenção imediata</p>
+                                    </div>
+                                </div>
+
+                                <div class="summary-card insights">
+                                    <div class="card-icon">
+                                        <i class="fas fa-lightbulb"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Insights Principais</h4>
+                                        <div class="card-value" id="main-insights">--</div>
+                                        <p class="card-description">Descobertas significativas nos dados</p>
+                                    </div>
+                                </div>
+
+                                <div class="summary-card correlations">
+                                    <div class="card-icon">
+                                        <i class="fas fa-project-diagram"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Correlações Fortes</h4>
+                                        <div class="card-value" id="strong-correlations">--</div>
+                                        <p class="card-description">Relações estatisticamente significativas</p>
+                                    </div>
+                                </div>
+
+                                <div class="summary-card predictions">
+                                    <div class="card-icon">
+                                        <i class="fas fa-crystal-ball"></i>
+                                    </div>
+                                    <div class="card-content">
+                                        <h4>Previsões</h4>
+                                        <div class="card-value" id="predictions-accuracy">--</div>
+                                        <p class="card-description">Precisão das projeções futuras</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="executive-text" id="executive-text">
+                                <!-- Will be populated with AI-generated summary -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Results Grid -->
+                    <div class="results-grid">
+                        
+                        <!-- Correlation Analysis -->
+                        <div class="result-panel correlation-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-project-diagram"></i> Análise de Correlações</h3>
+                                <div class="panel-controls">
+                                    <select class="control-select" id="correlation-filter">
+                                        <option value="all">Todas as Correlações</option>
+                                        <option value="strong">Apenas Fortes (>0.7)</option>
+                                        <option value="moderate">Moderadas (0.5-0.7)</option>
+                                        <option value="weak">Fracas (<0.5)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="correlation-heatmap">
+                                    <canvas id="correlation-heatmap"></canvas>
+                                </div>
+                                <div class="correlation-list" id="correlation-insights">
+                                    <!-- Will be populated with correlation insights -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Time Series Analysis -->
+                        <div class="result-panel timeseries-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-chart-line"></i> Análise Temporal</h3>
+                                <div class="panel-controls">
+                                    <select class="control-select" id="timeseries-variable">
+                                        <option value="primary">Variável Principal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="timeseries-chart">
+                                    <canvas id="timeseries-chart"></canvas>
+                                </div>
+                                <div class="timeseries-insights" id="timeseries-insights">
+                                    <!-- Will be populated with time series insights -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Geographic Analysis -->
+                        <div class="result-panel geographic-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-map"></i> Análise Geográfica</h3>
+                                <div class="panel-controls">
+                                    <button class="btn-secondary" id="toggle-heatmap">Heatmap</button>
+                                    <button class="btn-secondary" id="toggle-markers">Marcadores</button>
+                                </div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="map-container">
+                                    <canvas id="geographic-map"></canvas>
+                                </div>
+                                <div class="geographic-insights" id="geographic-insights">
+                                    <!-- Will be populated with geographic insights -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Statistical Summary -->
+                        <div class="result-panel stats-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-calculator"></i> Resumo Estatístico</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="stats-table-container">
+                                    <table class="stats-table" id="descriptive-stats">
+                                        <!-- Will be populated with statistical summary -->
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Machine Learning Results -->
+                        <div class="result-panel ml-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-robot"></i> Resultados de ML</h3>
+                                <div class="panel-controls">
+                                    <select class="control-select" id="ml-model-select">
+                                        <option value="clustering">Clustering</option>
+                                        <option value="classification">Classificação</option>
+                                        <option value="regression">Regressão</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="panel-content">
+                                <div class="ml-results" id="ml-results">
+                                    <!-- Will be populated with ML results -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Anomalies and Outliers -->
+                        <div class="result-panel anomalies-panel">
+                            <div class="panel-header">
+                                <h3><i class="fas fa-search"></i> Anomalias Detectadas</h3>
+                            </div>
+                            <div class="panel-content">
+                                <div class="anomalies-list" id="anomalies-list">
+                                    <!-- Will be populated with detected anomalies -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Observations and Recommendations -->
+                    <div class="result-section observations">
+                        <div class="section-header">
+                            <h2><i class="fas fa-clipboard-list"></i> Observações e Recomendações</h2>
+                        </div>
+                        <div class="section-content">
+                            <div class="observations-grid">
+                                <div class="observation-category">
+                                    <h3><i class="fas fa-eye"></i> Observações Críticas</h3>
+                                    <div class="observations-list" id="critical-observations">
+                                        <!-- Will be populated with critical observations -->
+                                    </div>
+                                </div>
+
+                                <div class="observation-category">
+                                    <h3><i class="fas fa-lightbulb"></i> Recomendações</h3>
+                                    <div class="observations-list" id="recommendations">
+                                        <!-- Will be populated with recommendations -->
+                                    </div>
+                                </div>
+
+                                <div class="observation-category">
+                                    <h3><i class="fas fa-exclamation-triangle"></i> Pontos de Atenção</h3>
+                                    <div class="observations-list" id="attention-points">
+                                        <!-- Will be populated with attention points -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reports View -->
+        <section id="reports" class="view">
+            <div class="container">
+                <div class="view-header">
+                    <h1><i class="fas fa-file-alt"></i> Relatórios e Exportação</h1>
+                    <p>Gere relatórios completos e exporte seus resultados</p>
+                </div>
+
+                <div class="reports-layout">
+                    
+                    <!-- Report Templates -->
+                    <div class="reports-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-template"></i> Templates de Relatório</h2>
+                        </div>
+                        <div class="templates-grid">
+                            <div class="report-template" data-template="executive">
+                                <div class="template-preview">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="template-info">
+                                    <h4>Relatório Executivo</h4>
+                                    <p>Resumo de alto nível para tomadores de decisão</p>
+                                    <div class="template-features">
+                                        <span class="feature">Resumo Gráfico</span>
+                                        <span class="feature">KPIs Principais</span>
+                                        <span class="feature">Recomendações</span>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Gerar</button>
+                            </div>
+
+                            <div class="report-template" data-template="technical">
+                                <div class="template-preview">
+                                    <i class="fas fa-cogs"></i>
+                                </div>
+                                <div class="template-info">
+                                    <h4>Relatório Técnico</h4>
+                                    <p>Análise detalhada com metodologia e estatísticas</p>
+                                    <div class="template-features">
+                                        <span class="feature">Metodologia</span>
+                                        <span class="feature">Dados Brutos</span>
+                                        <span class="feature">Código R/Python</span>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Gerar</button>
+                            </div>
+
+                            <div class="report-template" data-template="comparative">
+                                <div class="template-preview">
+                                    <i class="fas fa-balance-scale"></i>
+                                </div>
+                                <div class="template-info">
+                                    <h4>Relatório Comparativo</h4>
+                                    <p>Comparação entre regiões, períodos ou grupos</p>
+                                    <div class="template-features">
+                                        <span class="feature">Benchmarks</span>
+                                        <span class="feature">Gráficos Comparativos</span>
+                                        <span class="feature">Rankings</span>
+                                    </div>
+                                </div>
+                                <button class="btn-primary">Gerar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Export Options -->
+                    <div class="reports-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-download"></i> Opções de Exportação</h2>
+                        </div>
+                        <div class="export-grid">
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <h4>PDF Profissional</h4>
+                                <p>Relatório formatado para impressão</p>
+                                <button class="btn-secondary">Exportar PDF</button>
+                            </div>
+
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-file-powerpoint"></i>
+                                </div>
+                                <h4>Apresentação PowerPoint</h4>
+                                <p>Slides prontos para apresentação</p>
+                                <button class="btn-secondary">Exportar PPT</button>
+                            </div>
+
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-file-excel"></i>
+                                </div>
+                                <h4>Planilha Excel</h4>
+                                <p>Dados e gráficos em Excel</p>
+                                <button class="btn-secondary">Exportar Excel</button>
+                            </div>
+
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-code"></i>
+                                </div>
+                                <h4>Código R/Python</h4>
+                                <p>Scripts para reproduzir análises</p>
+                                <button class="btn-secondary">Exportar Código</button>
+                            </div>
+
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-database"></i>
+                                </div>
+                                <h4>Dados Processados</h4>
+                                <p>Datasets limpos e processados</p>
+                                <button class="btn-secondary">Exportar Dados</button>
+                            </div>
+
+                            <div class="export-option">
+                                <div class="export-icon">
+                                    <i class="fas fa-link"></i>
+                                </div>
+                                <h4>Dashboard Interativo</h4>
+                                <p>Link para dashboard online</p>
+                                <button class="btn-secondary">Gerar Link</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Report History -->
+                    <div class="reports-section">
+                        <div class="section-header">
+                            <h2><i class="fas fa-history"></i> Histórico de Relatórios</h2>
+                        </div>
+                        <div class="reports-history">
+                            <div class="history-table-container">
+                                <table class="history-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Data</th>
+                                            <th>Tipo</th>
+                                            <th>Descrição</th>
+                                            <th>Status</th>
+                                            <th>Ações</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="reports-history-body">
+                                        <!-- Will be populated by JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <h3>Processando...</h3>
+            <p id="loading-message">Preparando análise...</p>
+        </div>
+    </div>
+
+    <!-- Notifications Container -->
+    <div class="notifications-container" id="notifications"></div>
+
+    <!-- Modals -->
+    <div class="modal-overlay" id="modal-overlay"></div>
+
+    <!-- Help Guide Modal -->
+    <div class="modal" id="help-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Guia de Uso - DataMaster Pro</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="help-content">
+                    <div class="help-section">
+                        <h3>1. Carregamento de Dados</h3>
+                        <p>Carregue múltiplos arquivos ou conecte-se a APIs governamentais</p>
+                    </div>
+                    <div class="help-section">
+                        <h3>2. Configuração de Tags</h3>
+                        <p>Selecione os tipos de análise desejados usando as tags disponíveis</p>
+                    </div>
+                    <div class="help-section">
+                        <h3>3. Execução da Análise</h3>
+                        <p>Inicie o processamento e acompanhe o progresso em tempo real</p>
+                    </div>
+                    <div class="help-section">
+                        <h3>4. Visualização de Resultados</h3>
+                        <p>Explore insights, correlações e pontos críticos descobertos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/advanced-analytics.js"></script>
+</body>
+</html>
