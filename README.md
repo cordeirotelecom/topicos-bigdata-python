@@ -1,78 +1,63 @@
-﻿# 📊 Tópicos de Big Data em Python
-**Material Educacional Profissional e Organizado** ✨
+﻿# 📊 Big Data em Python na Prática
+**Aprenda Big Data Passo a Passo com Exemplos Reais**
+
+## 🎯 Objetivo
+Este material foi criado para você **aprender Big Data na prática**, passo a passo, usando Python e exemplos reais de Santa Catarina. 
+
+Sem complicações, sem códigos complexos - apenas o conhecimento essencial que você precisa para trabalhar com Big Data.
 
 ## 👨‍🏫 Professor
 **Vagner Cordeiro** - Especialista em Big Data e Análise de Dados
 
-## ✅ ESTRUTURA FINAL - PROFISSIONAL
-🎯 **15 Aulas Organizadas** - 1 arquivo Python por aula  
-🧹 **Repositório Limpo** - Sem arquivos desnecessários  
-📚 **Conteúdo de Qualidade** - Material educacional focado  
-🚀 **Pronto para Uso** - Zero erros, máxima qualidade
+## 📚 O que Você Vai Aprender
 
-## 📋 Conteúdo das Aulas
-1. **Introdução ao Big Data** - Conceitos fundamentais
-2. **IoT e Computação Distribuída** - Sistemas conectados  
-3. **Cloud Computing e Streaming** - Processamento em nuvem
-4. **Revisão de Python** - Base para análise de dados
-5. **Análise de Dados** - Técnicas práticas
-6. **Introdução ao Hadoop** - Ecossistema distribuído
-7. **Fundamentos do Spark** - Processamento paralelo
-8. **Kafka e Streaming** - Dados em tempo real
-9. **Machine Learning em Big Data** - IA para grandes volumes
-10. **ML Distribuído** - Aprendizado escalável
-11. **Graph Analytics** - Análise de grafos
-12. **Databricks e Cloud** - Plataforma unificada
-13. **Deep Learning** - Redes neurais profundas
-14. **Edge Computing** - Processamento na borda
-15. **Computação Quântica** - Futuro da computação
+### � **Conteúdo Prático e Direto**
+- ✅ Conceitos fundamentais de Big Data
+- ✅ Análise de dados reais de Florianópolis e região
+- ✅ Ferramentas Python essenciais
+- ✅ Projetos práticos passo a passo
+- ✅ Aplicações no mercado de trabalho
+
+### �️ **Dados Locais e Relevantes**
+- 📍 Dados de **Florianópolis**
+- 📍 Informações de **São José** 
+- � Estatísticas de **Santa Catarina**
+- 📍 Casos reais da **Grande Florianópolis**
+
+## � Estrutura do Material
+
+### **15 Aulas Práticas**
+1. **Introdução ao Big Data** - Por que Big Data importa?
+2. **IoT e Cidades Inteligentes** - O futuro de Florianópolis
+3. **Nuvem e Streaming** - Processamento em tempo real
+4. **Python Essencial** - Ferramentas para análise
+5. **Análise de Dados** - Primeiros insights
+6. **Hadoop** - Processamento distribuído
+7. **Spark** - Análise rápida de grandes volumes
+8. **Kafka** - Dados em tempo real
+9. **Machine Learning** - Inteligência artificial prática
+10. **ML Distribuído** - Escalando a análise
+11. **Análise de Grafos** - Redes e conexões
+12. **Databricks** - Plataforma profissional
+13. **Deep Learning** - Redes neurais
+14. **Edge Computing** - Processamento local
+15. **Computação Quântica** - O futuro da tecnologia
+
+## 🚀 Como Usar Este Material
+1. **Leia cada capítulo** sequencialmente
+2. **Pratique os exemplos** com dados reais
+3. **Aplique o conhecimento** em projetos pessoais
+4. **Evolua gradualmente** sem pressa
+## 💡 Diferenciais
+- 📊 **Storytelling**: Conteúdo apresentado como uma história envolvente
+- 🏙️ **Contexto Local**: Exemplos de Florianópolis, São José e região
+- 🎯 **Foco Prático**: Menos código, mais explicações
+- 📚 **Didático**: Linguagem simples e objetiva
+- 🔄 **Aplicável**: Conhecimento direto para o mercado
 
 ---
 
-##  **Links Importantes**
-
-### ** Site da Disciplina**
-**https://cordeirotelecom.github.io/topicos-bigdata-python**
-
-### ** Repositório GitHub**
-**https://github.com/cordeirotelecom/topicos-bigdata-python**
-
----
-
-##  Cronograma do Curso - 16 Aulas
-
-### **Módulo 1: Fundamentos de Big Data** *(3 aulas)*
-- **Aula 01:** 1.1 Introdução e Aplicações ao Big Data  *[Materiais Completos]*
-- **Aula 02:** 1.2 Conceitos de IoT e Computação Distribuída
-- **Aula 03:** 1.3 Plataformas em Nuvem e 1.4 Processamento e Streaming de Dados
-
-### **Módulo 2: Python para Análise de Dados** *(2 aulas)*
-- **Aula 04:** Revisão de Python Voltado para Análise de Dados  *[Materiais Completos]*
-- **Aula 05:** Resumo de Análise de Dados e Ferramentas (Passo a Passo)
-
-### **Módulo 3: Hadoop e Ecossistema** *(3 aulas)*
-- **Aula 06:** 2.1 Introdução e Arquitetura ao Hadoop
-- **Aula 07:** 2.2 Ecossistema e Soluções com Hadoop
-- **Aula 08:** 2.3 HDFS vs RDBMS e 2.4 Entendendo um Data Lake
-
-### **Módulo 4: Apache Spark e PySpark** *(3 aulas)*
-- **Aula 09:** 3.1 Introdução ao Spark e 3.2 Utilizando PySpark
-- **Aula 10:** 3.3 Operações de MapReduce com PySpark / **Simulado 1**
-- **Aula 11:** 3.4 Transformações com PySpark
-
-### **Módulo 5: Análise de Dados com Pandas** *(2 aulas)*
-- **Aula 12:** 4.1 Componentes/Sintaxe e 4.2 Preparação de Dados com Pandas
-- **Aula 13:** 4.3 Manipulação e 4.4 Visualização de Dados com Pandas
-
-### **Módulo 6: Power BI e Machine Learning** *(3 aulas)*
-- **Aula 14:** Power BI para Big Data
-- **Aula 15:** 5.1 Descoberta do Conhecimento (KDD) e 5.2 Desmistificando IA / **Simulado 2**
-- **Aula 16:** 5.3 Aplicações de Machine Learning com TensorFlow e 5.4 Deep Learning com Scikit-Learn
-
-### **Avaliações e Encerramento**
-- **Semana de Prova AV**
-- **Entrega do Trabalho Final**
-- **Encerramento/Feedback**
+**Desenvolvido com ❤️ em Santa Catarina**
 
 ---
 
