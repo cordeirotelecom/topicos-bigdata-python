@@ -1,0 +1,60 @@
+{
+    "python.defaultInterpreterPath": "python",
+    "python.analysis.extraPaths": [
+        "./aulas",
+        "./notebooks",
+        "./livro"
+    ],
+    "python.analysis.autoImportCompletions": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.flake8Args": [
+        "--max-line-length=120",
+        "--ignore=E203,W503,E501"
+    ],
+    "python.formatting.provider": "black",
+    "python.formatting.blackArgs": [
+        "--line-length=120"
+    ],
+    "files.associations": {
+        "*.py": "python",
+        "*.ipynb": "jupyter-notebook"
+    },
+    "jupyter.notebookFileRoot": "${workspaceFolder}",
+    "jupyter.interactiveWindow.creationMode": "perFile",
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/.pytest_cache": true,
+        "**/spark-warehouse": true,
+        "**/derby.log": true,
+        "**/metastore_db": true
+    },
+    "python.analysis.diagnosticMode": "workspace",
+    "python.analysis.stubPath": "./typings",
+    "editor.formatOnSave": true,
+    "editor.rulers": [88, 120],
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "terminal.integrated.env.windows": {
+        "PYSPARK_PYTHON": "python",
+        "PYSPARK_DRIVER_PYTHON": "python"
+    },
+    "terminal.integrated.env.linux": {
+        "PYSPARK_PYTHON": "python",
+        "PYSPARK_DRIVER_PYTHON": "python"
+    },
+    "terminal.integrated.env.osx": {
+        "PYSPARK_PYTHON": "python",
+        "PYSPARK_DRIVER_PYTHON": "python"
+    },
+    "python.analysis.autoSearchPaths": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "warning",
+        "reportMissingTypeStubs": "none"
+    }
+}
