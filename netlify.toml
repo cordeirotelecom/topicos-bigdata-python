@@ -48,7 +48,6 @@
   [headers.values]
     Cache-Control = "public, max-age=0, must-revalidate"
     Content-Type = "text/html; charset=utf-8"
-  status = 301
 
 [[redirects]]
   from = "/referencias"
