@@ -1,0 +1,30 @@
+{
+  "timestamp": "20250826_071001",
+  "analise": {
+    "total_registros": 990,
+    "vendas_por_produto": {
+      "Webcam": 190,
+      "Mouse": 216,
+      "Teclado": 219,
+      "Monitor": 176,
+      "Notebook": 189
+    },
+    "vendas_por_regiao": {
+      "Sul": 207,
+      "Norte": 191,
+      "Leste": 205,
+      "Centro": 195,
+      "Oeste": 192
+    },
+    "valor_medio": 4628.560949494949,
+    "receita_total": 4582275.34
+  },
+  "metadata": {
+    "total_registros": 990,
+    "bibliotecas_usadas": {
+      "pandas": true,
+      "numpy": true,
+      "matplotlib": true
+    }
+  }
+}
