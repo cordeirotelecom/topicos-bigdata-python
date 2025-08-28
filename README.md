@@ -138,6 +138,15 @@ Guia completo de IA aplicada a Big Data com casos práticos:
 - Machine Learning com dados de SC
 - Deep Learning para séries temporais
 - Processamento de Linguagem Natural (NLP)
+- Computer Vision e Algoritmos Genéticos
+- 5 casos práticos prontos para executar
+
+#### **🎯 [CASOS_PRATICOS.md](./CASOS_PRATICOS.md)**
+Projetos completos prontos para usar e adaptar:
+- Dashboard interativo com Streamlit
+- Sistema de predição de demanda turística
+- API REST para dados urbanos em tempo real
+- Exemplos práticos com código completo
 - Algoritmos Genéticos para otimização
 - Projetos avançados e próximos passos
 
