@@ -1,10 +1,12 @@
 theme: jekyll-theme-cayman
-title: "Tópicos de Big Data em Python"
-description: "Disciplina de Tópicos de Big Data em Python - Cronograma, materiais e recursos"
+title: "BigData Analytics Pro - Santa Catarina"
+description: "Plataforma avançada de análise de dados governamentais de SC com Machine Learning, APIs em tempo real e visualizações profissionais."
+baseurl: "/topicos-bigdata-python"
+url: "https://cordeirotelecom.github.io"
 
 # Site settings
-author: "Professor [Nome]"
-email: "email@instituicao.edu.br"
+author: "BigData Analytics Team"
+email: "contato@bigdataanalytics.com"
 
 # Build settings
 markdown: kramdown
@@ -16,10 +18,36 @@ plugins:
   - jekyll-sitemap
   - jekyll-seo-tag
 
+# GitHub Pages configuration
+source: "."
+destination: "_site"
+
+# Include all necessary files
+include:
+  - "site_analise_dados"
+  - "js"
+  - "css"
+  - "assets"
+  - "aulas"
+  - "datasets"
+  - "materiais"
+  - "docs"
+
+# Exclude unnecessary files
+exclude:
+  - "README.md"
+  - "Gemfile"
+  - "Gemfile.lock"
+  - "node_modules"
+  - "vendor"
+  - ".sass-cache"
+  - ".jekyll-cache"
+  - ".jekyll-metadata"
+
 # Navigation
 navigation:
-  - title: "Início"
-    url: "/"
+  - title: "Plataforma"
+    url: "/site_analise_dados/"
   - title: "Cronograma"
     url: "/cronograma"
   - title: "Materiais"
@@ -32,7 +60,7 @@ navigation:
 # Course information
 course:
   name: "Tópicos de Big Data em Python"
-  code: "[Código da Disciplina]"
-  semester: "[Semestre/Ano]"
-  credits: "[Créditos]"
-  schedule: "[Horário das Aulas]"
+  code: "BigData Analytics Pro"
+  semester: "2024/1"
+  credits: "Plataforma Completa"
+  schedule: "24/7 Online"
