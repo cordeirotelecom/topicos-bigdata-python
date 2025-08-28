@@ -123,6 +123,24 @@ Statistics, Mathematics, Linear Algebra, Probability, Hypothesis Testing, Statis
 
 ## 🚀 **Guia Prático: Instalação e Uso**
 
+### **📖 Guias Completos Disponíveis**
+
+#### **🛠️ [INSTALACAO_COMPLETA.md](./INSTALACAO_COMPLETA.md)**
+Tutorial detalhado passo-a-passo para configurar todo ambiente:
+- Instalação Python, Java, bibliotecas
+- Configuração ambiente virtual
+- Teste automatizado de validação
+- Solução de problemas comuns
+- Scripts de verificação completa
+
+#### **🤖 [GUIA_INTELIGENCIA_ARTIFICIAL.md](./GUIA_INTELIGENCIA_ARTIFICIAL.md)**
+Guia completo de IA aplicada a Big Data com casos práticos:
+- Machine Learning com dados de SC
+- Deep Learning para séries temporais
+- Processamento de Linguagem Natural (NLP)
+- Algoritmos Genéticos para otimização
+- Projetos avançados e próximos passos
+
 ### **📋 Pré-requisitos**
 
 **Sistema Operacional:**
@@ -231,6 +249,149 @@ plt.title('Tráfego na Ponte Hercílio Luz - 24h')
 plt.xlabel('Hora do Dia')
 plt.ylabel('Número de Veículos')
 plt.show()
+```
+
+### **💡 Exemplos Práticos Rápidos**
+
+#### **🏙️ Análise de IoT - Sensores em São José**
+```python
+import pandas as pd
+import numpy as np
+
+# Simular dados de sensores de qualidade do ar
+np.random.seed(42)
+horas = pd.date_range('2025-01-01', periods=168, freq='H')  # 1 semana
+
+dados_iot = pd.DataFrame({
+    'timestamp': horas,
+    'pm25': np.random.normal(25, 8, 168),  # PM2.5 (μg/m³)
+    'temperatura': 20 + 10 * np.sin(np.arange(168) * 2 * np.pi / 24) + np.random.normal(0, 2, 168),
+    'umidade': 60 + 20 * np.sin(np.arange(168) * 2 * np.pi / 24 + np.pi/4) + np.random.normal(0, 5, 168)
+})
+
+# Análise rápida
+print("📊 Qualidade do Ar - São José SC")
+print(f"PM2.5 médio: {dados_iot['pm25'].mean():.1f} μg/m³")
+print(f"Temperatura média: {dados_iot['temperatura'].mean():.1f}°C")
+print(f"Dias com qualidade ruim (PM2.5 > 35): {(dados_iot['pm25'] > 35).sum()}")
+
+# Visualização
+import matplotlib.pyplot as plt
+plt.figure(figsize=(12, 4))
+plt.subplot(1, 3, 1)
+plt.plot(dados_iot['pm25'])
+plt.title('PM2.5')
+plt.subplot(1, 3, 2)
+plt.plot(dados_iot['temperatura'])
+plt.title('Temperatura')
+plt.subplot(1, 3, 3)
+plt.plot(dados_iot['umidade'])
+plt.title('Umidade')
+plt.tight_layout()
+plt.show()
+```
+
+#### **🏖️ Machine Learning - Turismo Floripa**
+```python
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.model_selection import train_test_split
+
+# Dados sintéticos de ocupação hoteleira
+np.random.seed(42)
+dados_turismo = pd.DataFrame({
+    'mes': np.random.randint(1, 13, 1000),
+    'dia_semana': np.random.randint(1, 8, 1000),
+    'temperatura': np.random.normal(25, 5, 1000),
+    'chuva': np.random.choice([0, 1], 1000, p=[0.7, 0.3]),
+    'feriado': np.random.choice([0, 1], 1000, p=[0.9, 0.1])
+})
+
+# Simular ocupação baseada nas features
+ocupacao = (
+    50 +  # base
+    dados_turismo['mes'].apply(lambda x: 30 if x in [12, 1, 2] else 0) +  # verão
+    dados_turismo['dia_semana'].apply(lambda x: 20 if x in [6, 7] else 0) +  # fim de semana
+    dados_turismo['temperatura'] * 0.5 +  # temperatura
+    dados_turismo['feriado'] * 25 -  # feriados
+    dados_turismo['chuva'] * 15 +  # chuva reduz ocupação
+    np.random.normal(0, 10, 1000)  # ruído
+)
+dados_turismo['ocupacao'] = np.clip(ocupacao, 0, 100)
+
+# Treinar modelo
+X = dados_turismo[['mes', 'dia_semana', 'temperatura', 'chuva', 'feriado']]
+y = dados_turismo['ocupacao']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+modelo = RandomForestRegressor(n_estimators=100, random_state=42)
+modelo.fit(X_train, y_train)
+
+# Predição para um fim de semana de verão
+predicao = modelo.predict([[1, 7, 28, 0, 0]])  # Janeiro, domingo, 28°C, sem chuva, sem feriado
+print(f"🏨 Ocupação prevista: {predicao[0]:.1f}%")
+
+# Importância das variáveis
+importancias = pd.DataFrame({
+    'variavel': X.columns,
+    'importancia': modelo.feature_importances_
+}).sort_values('importancia', ascending=False)
+print("\n📈 Fatores mais importantes:")
+for _, row in importancias.iterrows():
+    print(f"{row['variavel']}: {row['importancia']:.3f}")
+```
+
+#### **⚡ Big Data com PySpark - DETRAN SC**
+```python
+from pyspark.sql import SparkSession
+from pyspark.sql.functions import col, count, avg
+
+# Inicializar Spark
+spark = SparkSession.builder \
+    .appName("DETRAN-SC Analysis") \
+    .config("spark.sql.adaptive.enabled", "true") \
+    .getOrCreate()
+
+# Simular dados de veículos de SC
+dados_veiculos = [
+    ("Florianópolis", "Carro", 2023, 45000, "Gasoline"),
+    ("São José", "Moto", 2023, 12000, "Gasoline"),
+    ("Palhoça", "Carro", 2022, 18000, "Flex"),
+    ("Biguaçu", "Carro", 2023, 8000, "Flex"),
+    ("Florianópolis", "Moto", 2022, 25000, "Gasoline"),
+    ("São José", "Carro", 2023, 22000, "Electric"),
+    ("Laguna", "Carro", 2021, 5000, "Gasoline"),
+    ("Joinville", "Carro", 2023, 35000, "Flex"),
+    ("Blumenau", "Moto", 2023, 15000, "Gasoline"),
+    ("Itajaí", "Carro", 2022, 12000, "Flex")
+]
+
+colunas = ["cidade", "tipo", "ano", "quantidade", "combustivel"]
+df_veiculos = spark.createDataFrame(dados_veiculos, colunas)
+
+print("🚗 Análise de Frota - DETRAN SC")
+print("=" * 40)
+
+# Análise por cidade
+print("\n📍 Veículos por cidade:")
+df_veiculos.groupBy("cidade") \
+    .agg(count("*").alias("registros"), 
+         sum("quantidade").alias("total_veiculos")) \
+    .orderBy(col("total_veiculos").desc()) \
+    .show()
+
+# Análise por tipo de combustível
+print("⛽ Distribuição por combustível:")
+df_veiculos.groupBy("combustivel") \
+    .agg(sum("quantidade").alias("total")) \
+    .orderBy(col("total").desc()) \
+    .show()
+
+# Tendência de eletrificação
+print("🔋 Veículos elétricos:")
+df_veiculos.filter(col("combustivel") == "Electric").show()
+
+spark.stop()
 ```
 
 ---
