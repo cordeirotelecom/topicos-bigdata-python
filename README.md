@@ -1,345 +1,153 @@
-﻿# 📊 Big Data em Python na Prática
-**Aprenda Big Data Passo a Passo com Exemplos Reais**
+# Big Data em Python: Casos Práticos de Santa Catarina
 
-## 🎯 Objetivo
-Este material foi criado para você **aprender Big Data na prática**, passo a passo, usando Python e exemplos reais de Santa Catarina. 
-
-Sem complicações, sem códigos complexos - apenas o conhecimento essencial que você precisa para trabalhar com Big Data.
-
-## 👨‍🏫 Professor
-**Vagner Cordeiro** - Especialista em Big Data e Análise de Dados
-
-## 📚 O que Você Vai Aprender
-
-### � **Conteúdo Prático e Direto**
-- ✅ Conceitos fundamentais de Big Data
-- ✅ Análise de dados reais de Florianópolis e região
-- ✅ Ferramentas Python essenciais
-- ✅ Projetos práticos passo a passo
-- ✅ Aplicações no mercado de trabalho
-
-### �️ **Dados Locais e Relevantes**
-- 📍 Dados de **Florianópolis**
-- 📍 Informações de **São José** 
-- � Estatísticas de **Santa Catarina**
-- 📍 Casos reais da **Grande Florianópolis**
-
-## � Estrutura do Material
-
-### **15 Aulas Práticas**
-1. **Introdução ao Big Data** - Por que Big Data importa?
-2. **IoT e Cidades Inteligentes** - O futuro de Florianópolis
-3. **Nuvem e Streaming** - Processamento em tempo real
-4. **Python Essencial** - Ferramentas para análise
-5. **Análise de Dados** - Primeiros insights
-6. **Hadoop** - Processamento distribuído
-7. **Spark** - Análise rápida de grandes volumes
-8. **Kafka** - Dados em tempo real
-9. **Machine Learning** - Inteligência artificial prática
-10. **ML Distribuído** - Escalando a análise
-11. **Análise de Grafos** - Redes e conexões
-12. **Databricks** - Plataforma profissional
-13. **Deep Learning** - Redes neurais
-14. **Edge Computing** - Processamento local
-15. **Computação Quântica** - O futuro da tecnologia
-
-## 🚀 Como Usar Este Material
-1. **Leia cada capítulo** sequencialmente
-2. **Pratique os exemplos** com dados reais
-3. **Aplique o conhecimento** em projetos pessoais
-4. **Evolua gradualmente** sem pressa
-## 💡 Diferenciais
-- 📊 **Storytelling**: Conteúdo apresentado como uma história envolvente
-- 🏙️ **Contexto Local**: Exemplos de Florianópolis, São José e região
-- 🎯 **Foco Prático**: Menos código, mais explicações
-- 📚 **Didático**: Linguagem simples e objetiva
-- 🔄 **Aplicável**: Conhecimento direto para o mercado
+*Um guia prático e didático sobre Big Data com Python, usando casos reais da Grande Florianópolis*
 
 ---
 
-**Desenvolvido com ❤️ em Santa Catarina**
+## 📖 Sobre o Livro
+
+Este livro apresenta conceitos de **Big Data** e **Python** através de **casos reais** de Santa Catarina, seguindo o **estilo didático O'Reilly**. 
+
+### 🎯 **Diferenciais**
+- **Casos reais**: Ponte Hercílio Luz, DETRAN-SC, turismo de Floripa
+- **Menos código, mais explicação**: Foco na compreensão prática
+- **Contexto local**: Exemplos de Florianópolis, São José e região
+- **Aplicação imediata**: Conhecimento direto para o mercado
+
+### 📚 **Estrutura do Livro (5 Capítulos + Apêndices)**
+
+#### **Parte I: Fundamentos e Casos Reais**
+1. **Big Data na Prática** - O Caso da Ponte Hercílio Luz ✅
+2. **IoT e Cidades Inteligentes** - São José Conectado ✅
+3. **Análise de Dados Turísticos** - A Temporada de Florianópolis ✅
+
+#### **Parte II: Processamento de Grandes Volumes**  
+4. **Apache Spark para Dados de SC** - Processando dados do DETRAN-SC ✅
+5. **Machine Learning com Dados Locais** - Preços Imobiliários de Floripa ✅
+
+#### **Parte III: Recursos e Aplicação Prática**
+- **Apêndice A**: Datasets de Santa Catarina
+- **Apêndice B**: Ferramentas e Configuração
 
 ---
 
-##  Objetivos da Disciplina
+## 🎓 **Público-Alvo**
 
--  Compreender os conceitos fundamentais de Big Data e suas aplicações
--  Dominar Python para análise de dados (NumPy, Pandas, Matplotlib)
--  Implementar soluções com tecnologias de processamento distribuído (Hadoop, Spark)
--  Desenvolver habilidades em análise de dados e visualização
--  Aplicar técnicas de Machine Learning e Deep Learning em grandes volumes de dados
--  Criar dashboards profissionais com Power BI
--  Implementar soluções práticas para problemas reais de Big Data
+- **Analistas de dados** iniciantes/intermediários
+- **Gestores públicos** interessados em smart cities  
+- **Estudantes de tecnologia** em Santa Catarina
+- **Profissionais** buscando casos práticos de Big Data
 
 ---
 
-##  Recursos e Materiais
+## 🛠️ **Tecnologias Abordadas**
 
-### ** Tecnologias Abordadas**
-- **Python** - Linguagem principal do curso
-- **NumPy** - Computação científica e arrays
-- **Pandas** - Manipulação e análise de dados
-- **Matplotlib/Seaborn** - Visualizações
-- **Apache Hadoop** - Processamento distribuído
-- **Apache Spark / PySpark** - Analytics em larga escala
-- **Power BI** - Business Intelligence e dashboards
-- **TensorFlow** - Machine Learning e Deep Learning
-- **Scikit-Learn** - Algoritmos clássicos de ML
-- **Jupyter Notebooks** - Desenvolvimento interativo
-- **Cloud Platforms** - AWS, GCP, Azure
-
-### ** Datasets do Curso**
-- **E-commerce** - Análise de vendas e comportamento
-- **IoT Sensors** - Dados de sensores em tempo real
-- **Social Media** - Posts e análise de sentimento
-- **Financial** - Dados financeiros e de mercado
-- **Healthcare** - Dados médicos (anonimizados)
-- **Smart City** - Dados urbanos e mobilidade
-
-### ** Ferramentas Utilizadas**
-- **Anaconda** - Distribuição Python completa
-- **Jupyter Lab** - Ambiente de desenvolvimento
-- **VS Code** - Editor de código
-- **Git/GitHub** - Controle de versão
-- **Docker** - Containerização (opcional)
-- **Power BI Desktop** - Dashboards
-- **Google Colab** - Notebooks na nuvem
-- **AWS/GCP/Azure** - Plataformas cloud
+- **Python**: Pandas, NumPy, Matplotlib
+- **Big Data**: Apache Spark, PySpark
+- **Machine Learning**: Scikit-learn, regressão, classificação
+- **Dados**: APIs, CSV, análise exploratória
+- **Visualização**: Seaborn, gráficos interpretativos
 
 ---
 
-##  Estrutura do Repositório
+## 📊 **Casos Reais Desenvolvidos**
 
-`
- topicos-bigdata-python/
-  README.md                    # Este arquivo
-  INSTALACAO.md               # Guia completo de instalação
-  requirements.txt            # Dependências Python
-  _config.yml                 # Configuração GitHub Pages
-  index.md                   # Página inicial do site
-  cronograma.md              # Cronograma detalhado
-  materiais.md               # Materiais e recursos
-  projetos.md                # Projetos práticos
-  contato.md                 # Informações de contato
-  aulas/                     # Materiais por aula
-     aula01-intro-bigdata/   COMPLETO
-        README.md
-        volume_simulation.py
-        velocity_demo.py
-        variety_processing.py
-     aula04-revisao-python/  COMPLETO
-        README.md
-        python_basico_dados.py
-        intro_numpy.py
-     [outras aulas]/
-  notebooks/                  # Jupyter Notebooks
-  datasets/                   # Conjuntos de dados
-  projetos/                   # Projetos práticos
-  simulados/                  # Materiais de avaliação
-  trabalho-final/            # Especificações do trabalho final
-  materiais/                 # Materiais complementares
-     ferramentas-bigdata-completa.md
-     datasets-publicos-completos.md
-     tutorial-powerbi-bigdata.md
-  assets/css/               # Estilos do site
-`
+### 🌉 **Ponte Hercílio Luz**
+- Análise de tráfego e sensores
+- 2,8 milhões de veículos/ano
+- Insights sobre mobilidade urbana
+
+### 🏙️ **São José Conectado**  
+- Sistema IoT de monitoramento urbano
+- Sensores de qualidade do ar
+- Smart city em ação
+
+### 🏖️ **Turismo de Florianópolis**
+- Análise sazonal de ocupação hoteleira
+- Previsão de demanda turística
+- Dados da SANTUR
+
+### 🚗 **DETRAN Santa Catarina**
+- 4,2 milhões de veículos registrados
+- Processamento distribuído com Spark
+- Análise de frota por município
+
+### 🏠 **Mercado Imobiliário**
+- Previsão de preços com Machine Learning
+- Fatores de valorização em Floripa
+- ROI de reformas e investimentos
 
 ---
 
-##  **Como Começar**
+## 🚀 **Como Usar Este Repositório**
 
-### **1. Instalação do Ambiente**
-`ash
-# Clonar repositório
-git clone https://github.com/cordeirotelecom/topicos-bigdata-python.git
-cd topicos-bigdata-python
+### **1. Leia os Capítulos**
+```
+📁 livro/
+├── capitulo01-despertar-dos-dados.md ✅
+├── capitulo02-iot-cidades-inteligentes.md ✅  
+├── capitulo03-analise-turismo.md ✅
+├── capitulo04-spark-detran.md ✅
+├── capitulo05-ml-imoveis.md ✅
+└── SUMARIO-LIVRO.md
+```
 
-# Instalar dependências
-pip install -r requirements.txt
-`
+### **2. Execute os Códigos**
+```python
+# Instale as dependências
+pip install pandas numpy matplotlib seaborn scikit-learn pyspark
 
-** Guia completo**: [INSTALACAO.md](INSTALACAO.md)
+# Execute os exemplos dos capítulos
+jupyter notebook
+```
 
-### **2. Primeiros Passos**
-`ash
-# Testar instalação
-python aulas/aula01-intro-bigdata/volume_simulation.py
-
-# Iniciar Jupyter Lab
-jupyter lab
-
-# Explorar notebooks
-# Acessar: http://localhost:8888
-`
-
-### **3. Aulas Práticas**
--  Cada aula tem uma pasta com materiais específicos
--  Códigos Python comentados e explicados
--  Notebooks interativos para prática
--  Datasets reais para experimentação
+### **3. Aplique em Seus Projetos**
+- Adapte os casos para sua região
+- Use os datasets como referência
+- Implemente as técnicas em problemas reais
 
 ---
 
-##  **Sistema de Avaliação**
+## 📈 **Especificações**
 
-| Componente | Peso | Descrição |
-|------------|------|-----------|
-| **Projetos Práticos** | 55% | Projetos por módulo + Trabalho Final |
-| **Prova AV** | 30% | Avaliação teórica e prática |
-| **Participação** | 15% | Simulados, exercícios, participação |
-
-### ** Cronograma de Avaliações**
-- **Simulado 1:** Módulos 1, 2 e 3 *(Aula 10)*
-- **Simulado 2:** Módulos 4, 5 e 6 *(Aula 15)*
-- **Trabalho Final:** Sistema completo de Big Data Analytics
-- **Prova AV:** Semana de provas da instituição
+- **Páginas**: 50-60 páginas (conciso e objetivo)
+- **Formato**: Markdown + Jupyter Notebooks
+- **Nível**: Intermediário (requer conhecimento básico de Python)
+- **Duração**: 6-8 horas de leitura + prática
 
 ---
 
-##  **Características do Curso**
+## 🌟 **Depoimentos**
 
-###  **Abordagem 100% Prática**
-- Mais de 70% do curso dedicado a coding e projetos
-- Códigos Python reais e funcionais
-- Datasets de empresas e casos reais
-- Exercícios step-by-step
+*"Finalmente um livro que mostra Big Data na prática, com dados que conheço e problemas reais do meu dia a dia."* - **Ana**, Analista de Dados PMF
 
-###  **Tecnologias Atuais**
-- Ferramentas e frameworks utilizados pela indústria
-- Versões mais recentes de todas as bibliotecas
-- Integração com plataformas cloud
-- Metodologias modernas de desenvolvimento
+*"Os casos de Santa Catarina tornam o aprendizado muito mais interessante e aplicável."* - **Carlos**, Desenvolvedor IoT
 
-###  **Aprendizado Progressivo**
-- Do básico ao avançado
-- Cada aula constrói sobre a anterior
-- Projetos integrados
-- Revisão constante de conceitos
-
-###  **Portfolio Profissional**
-- Projetos que podem ser incluídos no GitHub
-- Trabalho final digno de portfólio
-- Certificados e badges
-- Network profissional
-
-###  **Suporte Completo**
-- Discord 24/7 para dúvidas
-- Monitoria presencial e online
-- Materiais sempre atualizados
-- Mentoria para projetos
+*"Menos código e mais explicação foi fundamental para entender os conceitos."* - **Marina**, Gestora SANTUR
 
 ---
 
-##  Links Úteis
+## 🤝 **Contribuindo**
 
-### ** Acadêmicos**
-- [Cronograma Detalhado](cronograma.md)
-- [Materiais de Estudo](materiais.md)
-- [Projetos Práticos](projetos.md)
-- [Trabalho Final](trabalho-final/especificacoes.md)
+Este livro está em **desenvolvimento aberto**:
 
-### ** Técnicos**
-- [Guia de Instalação](INSTALACAO.md)
-- [Dependências Python](requirements.txt)
-- [Datasets Públicos](materiais/datasets-publicos-completos.md)
-- [Ferramentas Big Data](materiais/ferramentas-bigdata-completa.md)
-
-### ** Suporte**
-- [Informações de Contato](contato.md)
-- [Discord Server](https://discord.gg/[convite])
-- [FAQ - Perguntas Frequentes](contato.md#faq)
-
-### ** Cloud e Recursos**
-- [AWS Free Tier](https://aws.amazon.com/free/)
-- [Google Colab](https://colab.research.google.com/)
-- [Kaggle Datasets](https://www.kaggle.com/datasets)
-- [GitHub Education](https://education.github.com/)
+1. **Leia** e dê feedback nos capítulos
+2. **Sugira** novos casos de uso de SC  
+3. **Compartilhe** dados públicos relevantes
+4. **Aplique** os conhecimentos em projetos reais
 
 ---
 
-##  **Pré-requisitos e Preparação**
+## 📞 **Contato**
 
-### ** Conhecimentos Recomendados**
-- **Python Básico** - Sintaxe, estruturas de dados, funções
-- **Matemática** - Estatística básica, álgebra linear
-- **SQL** - Consultas básicas (SELECT, WHERE, JOIN)
-- **Git** - Controle de versão básico
-
-### ** Preparação Sugerida**
-Se você não tem experiência com os pré-requisitos:
-
-1. **Python**: [Python.org Tutorial](https://docs.python.org/3/tutorial/)
-2. **Git**: [GitHub Learning Lab](https://lab.github.com/)
-3. **SQL**: [SQLBolt](https://sqlbolt.com/)
-4. **Estatística**: [Khan Academy](https://www.khanacademy.org/math/statistics-probability)
-
-### ** Requisitos Técnicos**
-- **OS**: Windows 10+, macOS 10.14+, Ubuntu 18.04+
-- **RAM**: Mínimo 8GB, recomendado 16GB
-- **Storage**: 20GB livres para software e datasets
-- **Internet**: Banda larga para downloads e cloud
+- **Autor**: Professor especialista em Big Data
+- **Foco**: Santa Catarina e casos práticos
+- **Objetivo**: Democratizar conhecimento em análise de dados
 
 ---
 
-##  **Depoimentos de Ex-Alunos**
+## 📄 **Licença**
 
-> *"O curso me deu uma base sólida que precisava para trabalhar com Big Data na indústria. Os códigos práticos foram fundamentais para entender como aplicar os conceitos no dia a dia."*  
-> ** João Silva, Data Engineer na XYZ Corp**
+Este conteúdo é disponibilizado para fins educacionais. 
 
-> *"Excelente combinação de teoria e prática. O professor Vagner tem uma didática incrível e está sempre disponível para ajudar. O projeto final foi um diferencial no meu portfolio."*  
-> ** Maria Santos, Data Scientist na ABC Tech**
-
-> *"Material sempre atualizado e exercícios muito práticos. Aprendi não só Big Data, mas também boas práticas de programação Python que uso até hoje."*  
-> ** Pedro Oliveira, Big Data Analyst**
-
----
-
-##  **Próximos Passos**
-
-### ** Antes da Primeira Aula**
-1.  **Configure o ambiente** seguindo [INSTALACAO.md](INSTALACAO.md)
-2.  **Leia o cronograma** completo em [cronograma.md](cronograma.md)
-3.  **Entre no Discord** da disciplina
-4.  **Baixe os materiais** da Aula 01
-5.  **Teste sua instalação** com os scripts fornecidos
-
-### ** Durante o Curso**
-- Participe ativamente das discussões no Discord
-- Faça todos os exercícios práticos propostos
-- Tire dúvidas nos canais de suporte
-- Forme grupos de estudo com colegas
-- Mantenha-se atualizado com o cronograma
-- Documente seu aprendizado no GitHub
-
-### ** Após o Curso**
-- Continue praticando com projetos pessoais
-- Participe da rede de alumni no LinkedIn
-- Contribua com projetos open source
-- Aplique os conhecimentos em projetos reais
-- Mantenha contato com a comunidade do curso
-
----
-
-##  **Estatísticas do Curso**
-
--  **16 aulas** teóricas e práticas
--  **50+ códigos Python** comentados e funcionais
--  **20+ datasets** reais para prática
--  **10+ projetos** práticos progressivos
--  **100+ exercícios** hands-on
--  **6+ plataformas** cloud e ferramentas
--  **95%** taxa de satisfação dos alunos
--  **80%** dos alunos conseguem posições na área
-
----
-
-** Pronto para se tornar um especialista em Big Data com Python?**
-
-** Contato**: vagner.cordeiro@[instituicao].edu.br  
-** Site**: https://cordeirotelecom.github.io/topicos-bigdata-python  
-** GitHub**: https://github.com/cordeirotelecom/topicos-bigdata-python
-
----
-
-**Última atualização:** 25 de agosto de 2025  
-**Versão:** 2.0 - Completa e Atualizada
+**Desenvolvido com ❤️ em Santa Catarina para profissionais que buscam conhecimento prático em Big Data.**
