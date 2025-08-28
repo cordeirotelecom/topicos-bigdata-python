@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DataInsights Pro - Análise de Dados Simplificada</title>
-    <meta name="description" content="Análise de dados automática e profissional. Sem complexidade, apenas resultados.">
+    <title>DataInsights Pro - Análise de Dados Inteligente</title>
+    <meta name="description" content="Transforme seus dados em insights valiosos. Interface simples, resultados profissionais.">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -19,328 +19,476 @@
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/modern-style.css">
+    <link rel="stylesheet" href="css/new-style.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <div class="brand-icon">
-                    <i class="fas fa-chart-line"></i>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>DataInsights</h1>
+                        <span>Análise Inteligente</span>
+                    </div>
                 </div>
-                <span class="brand-text">DataInsights Pro</span>
-            </div>
-            
-            <div class="nav-menu">
-                <button class="nav-item active" data-section="dashboard">
-                    <i class="fas fa-tachometer-alt"></i>
-                    Dashboard
-                </button>
-                <button class="nav-item" data-section="analysis">
-                    <i class="fas fa-chart-bar"></i>
-                    Análise Rápida
-                </button>
-                <button class="nav-item" data-section="templates">
-                    <i class="fas fa-magic"></i>
-                    Templates
-                </button>
+                
+                <nav class="main-nav">
+                    <button class="nav-btn active" data-section="home">
+                        <i class="fas fa-home"></i>
+                        <span>Início</span>
+                    </button>
+                    <button class="nav-btn" data-section="analyzer">
+                        <i class="fas fa-microscope"></i>
+                        <span>Analisador</span>
+                    </button>
+                    <button class="nav-btn" data-section="insights">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Insights</span>
+                    </button>
+                </nav>
             </div>
         </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
     <main class="main-content">
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="section active">
-            <div class="section-header">
-                <h1>Análise de Dados Simplificada</h1>
-                <p>Escolha uma fonte de dados e obtenha insights instantâneos, sem complicação</p>
-            </div>
-
-            <div class="quick-actions">
-                <div class="action-card" data-action="financial">
-                    <div class="action-icon">
-                        <i class="fas fa-dollar-sign"></i>
+        
+        <!-- Home Section -->
+        <section id="home" class="section active">
+            <div class="container">
+                <!-- Hero -->
+                <div class="hero">
+                    <div class="hero-content">
+                        <h1 class="hero-title">
+                            Descubra <span class="gradient-text">Insights</span><br>
+                            nos seus Dados
+                        </h1>
+                        <p class="hero-subtitle">
+                            Não precisa ser especialista. Nossa IA faz a análise complexa,<br>
+                            você recebe insights claros e actionáveis.
+                        </p>
+                        <div class="hero-actions">
+                            <button class="btn-primary" onclick="switchSection('analyzer')">
+                                <i class="fas fa-rocket"></i>
+                                Começar Análise
+                            </button>
+                            <button class="btn-secondary" onclick="showDemo()">
+                                <i class="fas fa-play"></i>
+                                Ver Demonstração
+                            </button>
+                        </div>
                     </div>
-                    <h3>Dados Financeiros</h3>
-                    <p>Ações, criptomoedas, câmbio em tempo real</p>
-                    <button class="action-btn">Analisar Agora</button>
+                    <div class="hero-visual">
+                        <div class="chart-preview">
+                            <canvas id="hero-chart"></canvas>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="action-card" data-action="weather">
-                    <div class="action-icon">
-                        <i class="fas fa-cloud-sun"></i>
+                <!-- Features -->
+                <div class="features-grid">
+                    <div class="feature-card" onclick="switchSection('analyzer')">
+                        <div class="feature-icon">
+                            <i class="fas fa-magic"></i>
+                        </div>
+                        <h3>Análise Automática</h3>
+                        <p>IA identifica padrões, tendências e anomalias automaticamente</p>
                     </div>
-                    <h3>Clima & Ambiente</h3>
-                    <p>Dados meteorológicos e qualidade do ar</p>
-                    <button class="action-btn">Analisar Agora</button>
-                </div>
-
-                <div class="action-card" data-action="social">
-                    <div class="action-icon">
-                        <i class="fas fa-hashtag"></i>
+                    
+                    <div class="feature-card" onclick="switchSection('analyzer')">
+                        <div class="feature-icon">
+                            <i class="fas fa-crystal-ball"></i>
+                        </div>
+                        <h3>Previsões Inteligentes</h3>
+                        <p>Algoritmos avançados preveem cenários futuros com precisão</p>
                     </div>
-                    <h3>Tendências Sociais</h3>
-                    <p>Análise de redes sociais e tendências</p>
-                    <button class="action-btn">Analisar Agora</button>
-                </div>
-
-                <div class="action-card" data-action="business">
-                    <div class="action-icon">
-                        <i class="fas fa-building"></i>
+                    
+                    <div class="feature-card" onclick="switchSection('analyzer')">
+                        <div class="feature-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3>Relações Ocultas</h3>
+                        <p>Descobre conexões que você nem imaginava que existiam</p>
                     </div>
-                    <h3>Dados Empresariais</h3>
-                    <p>Análise de empresas e mercados</p>
-                    <button class="action-btn">Analisar Agora</button>
-                </div>
-
-                <div class="action-card" data-action="upload">
-                    <div class="action-icon">
-                        <i class="fas fa-upload"></i>
-                    </div>
-                    <h3>Seus Dados</h3>
-                    <p>Analise seus próprios arquivos CSV/Excel</p>
-                    <button class="action-btn">Enviar Arquivo</button>
-                </div>
-
-                <div class="action-card" data-action="demo">
-                    <div class="action-icon">
-                        <i class="fas fa-play"></i>
-                    </div>
-                    <h3>Demonstração</h3>
-                    <p>Veja exemplos práticos funcionando</p>
-                    <button class="action-btn">Ver Demo</button>
                 </div>
             </div>
         </section>
 
-        <!-- Analysis Section -->
-        <section id="analysis" class="section">
-            <div class="analysis-container">
-                <div class="analysis-sidebar">
-                    <h2>Configuração da Análise</h2>
-                    
-                    <div class="config-group">
-                        <label>Fonte de Dados</label>
-                        <select id="data-source" class="select-input">
-                            <option value="">Selecione uma fonte...</option>
-                            <option value="stocks">Ações (Yahoo Finance)</option>
-                            <option value="crypto">Criptomoedas (CoinGecko)</option>
-                            <option value="weather">Clima (OpenWeatherMap)</option>
-                            <option value="news">Notícias (NewsAPI)</option>
-                            <option value="demographic">Demografia (IBGE)</option>
-                        </select>
-                    </div>
-
-                    <div class="config-group" id="stock-config" style="display: none;">
-                        <label>Símbolo da Ação</label>
-                        <input type="text" id="stock-symbol" class="text-input" placeholder="Ex: PETR4.SA, VALE3.SA">
-                        <label>Período</label>
-                        <select id="stock-period" class="select-input">
-                            <option value="1mo">1 Mês</option>
-                            <option value="3mo">3 Meses</option>
-                            <option value="6mo">6 Meses</option>
-                            <option value="1y">1 Ano</option>
-                        </select>
-                    </div>
-
-                    <div class="config-group" id="crypto-config" style="display: none;">
-                        <label>Criptomoeda</label>
-                        <select id="crypto-symbol" class="select-input">
-                            <option value="bitcoin">Bitcoin (BTC)</option>
-                            <option value="ethereum">Ethereum (ETH)</option>
-                            <option value="cardano">Cardano (ADA)</option>
-                            <option value="polkadot">Polkadot (DOT)</option>
-                        </select>
-                        <label>Moeda de Referência</label>
-                        <select id="crypto-currency" class="select-input">
-                            <option value="brl">Real (BRL)</option>
-                            <option value="usd">Dólar (USD)</option>
-                            <option value="eur">Euro (EUR)</option>
-                        </select>
-                    </div>
-
-                    <div class="config-group" id="weather-config" style="display: none;">
-                        <label>Cidade</label>
-                        <input type="text" id="weather-city" class="text-input" placeholder="Ex: São Paulo, Rio de Janeiro">
-                        <label>Tipo de Análise</label>
-                        <select id="weather-type" class="select-input">
-                            <option value="current">Atual</option>
-                            <option value="forecast">Previsão 5 dias</option>
-                            <option value="history">Histórico 30 dias</option>
-                        </select>
-                    </div>
-
-                    <button id="start-analysis" class="primary-btn" disabled>
-                        <i class="fas fa-play"></i>
-                        Iniciar Análise
-                    </button>
+        <!-- Analyzer Section -->
+        <section id="analyzer" class="section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Configure sua Análise</h2>
+                    <p>Responda algumas perguntas simples e deixe nossa IA trabalhar para você</p>
                 </div>
 
-                <div class="analysis-main">
-                    <div id="analysis-loading" class="loading-state" style="display: none;">
-                        <div class="loading-spinner"></div>
-                        <h3>Analisando dados...</h3>
-                        <p>Coletando e processando informações</p>
+                <div class="analyzer-layout">
+                    
+                    <!-- Step 1: Data Source -->
+                    <div class="analysis-step active" data-step="1">
+                        <div class="step-header">
+                            <div class="step-number">1</div>
+                            <div class="step-info">
+                                <h3>Escolha seus Dados</h3>
+                                <p>De onde vêm os dados que você quer analisar?</p>
+                            </div>
+                        </div>
+                        
+                        <div class="data-sources">
+                            <div class="source-card" data-source="upload">
+                                <div class="source-icon">
+                                    <i class="fas fa-file-upload"></i>
+                                </div>
+                                <h4>Meus Arquivos</h4>
+                                <p>CSV, Excel, JSON do seu computador</p>
+                                <div class="source-badge">Mais Usado</div>
+                            </div>
+                            
+                            <div class="source-card" data-source="financial">
+                                <div class="source-icon">
+                                    <i class="fas fa-chart-line"></i>
+                                </div>
+                                <h4>Dados Financeiros</h4>
+                                <p>Ações, crypto, índices em tempo real</p>
+                            </div>
+                            
+                            <div class="source-card" data-source="business">
+                                <div class="source-icon">
+                                    <i class="fas fa-building"></i>
+                                </div>
+                                <h4>Dados Empresariais</h4>
+                                <p>Vendas, marketing, operações</p>
+                            </div>
+                            
+                            <div class="source-card" data-source="social">
+                                <div class="source-icon">
+                                    <i class="fas fa-hashtag"></i>
+                                </div>
+                                <h4>Redes Sociais</h4>
+                                <p>Tendências, engajamento, sentimentos</p>
+                            </div>
+                        </div>
                     </div>
 
-                    <div id="analysis-results" class="results-container" style="display: none;">
-                        <div class="results-header">
-                            <h2 id="results-title">Resultados da Análise</h2>
-                            <div class="results-actions">
-                                <button class="secondary-btn" id="export-pdf">
-                                    <i class="fas fa-file-pdf"></i>
-                                    Exportar PDF
-                                </button>
-                                <button class="secondary-btn" id="share-results">
-                                    <i class="fas fa-share"></i>
-                                    Compartilhar
-                                </button>
+                    <!-- Step 2: Analysis Goals -->
+                    <div class="analysis-step" data-step="2">
+                        <div class="step-header">
+                            <div class="step-number">2</div>
+                            <div class="step-info">
+                                <h3>O que você quer Descobrir?</h3>
+                                <p>Selecione todos os objetivos que interessam (pode marcar vários)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="goals-grid">
+                            <div class="goal-card" data-goal="predict">
+                                <div class="goal-icon">
+                                    <i class="fas fa-crystal-ball"></i>
+                                </div>
+                                <h4>Fazer Previsões</h4>
+                                <p>Quero saber o que pode acontecer no futuro</p>
+                                <div class="goal-examples">
+                                    <span>• Vendas do próximo mês</span>
+                                    <span>• Tendência de preços</span>
+                                    <span>• Demanda futura</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="goal-card" data-goal="discover">
+                                <div class="goal-icon">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                                <h4>Descobrir Padrões</h4>
+                                <p>Quero encontrar coisas que não sabia que existiam</p>
+                                <div class="goal-examples">
+                                    <span>• Clientes similares</span>
+                                    <span>• Sazonalidades</span>
+                                    <span>• Comportamentos ocultos</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="goal-card" data-goal="quantify">
+                                <div class="goal-icon">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <h4>Quantificar Relações</h4>
+                                <p>Quero medir como uma coisa afeta a outra</p>
+                                <div class="goal-examples">
+                                    <span>• Impacto de campanhas</span>
+                                    <span>• Correlações</span>
+                                    <span>• Causa e efeito</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="goal-card" data-goal="optimize">
+                                <div class="goal-icon">
+                                    <i class="fas fa-bullseye"></i>
+                                </div>
+                                <h4>Otimizar Resultados</h4>
+                                <p>Quero melhorar performance e eficiência</p>
+                                <div class="goal-examples">
+                                    <span>• Reduzir custos</span>
+                                    <span>• Aumentar vendas</span>
+                                    <span>• Melhorar processos</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="goal-card" data-goal="monitor">
+                                <div class="goal-icon">
+                                    <i class="fas fa-heartbeat"></i>
+                                </div>
+                                <h4>Monitorar Performance</h4>
+                                <p>Quero acompanhar métricas importantes</p>
+                                <div class="goal-examples">
+                                    <span>• KPIs em tempo real</span>
+                                    <span>• Alertas automáticos</span>
+                                    <span>• Dashboards</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="goal-card" data-goal="segment">
+                                <div class="goal-icon">
+                                    <i class="fas fa-layer-group"></i>
+                                </div>
+                                <h4>Segmentar e Agrupar</h4>
+                                <p>Quero organizar dados em categorias inteligentes</p>
+                                <div class="goal-examples">
+                                    <span>• Perfis de clientes</span>
+                                    <span>• Grupos de produtos</span>
+                                    <span>• Segmentação automática</span>
+                                </div>
+                                <div class="goal-checkbox">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Configuration -->
+                    <div class="analysis-step" data-step="3">
+                        <div class="step-header">
+                            <div class="step-number">3</div>
+                            <div class="step-info">
+                                <h3>Configurações Específicas</h3>
+                                <p>Ajuste os detalhes para uma análise mais precisa</p>
+                            </div>
+                        </div>
+                        
+                        <div class="config-panels">
+                            <!-- Upload Panel -->
+                            <div class="config-panel" data-source="upload">
+                                <div class="upload-zone" id="upload-zone">
+                                    <div class="upload-icon">
+                                        <i class="fas fa-cloud-upload-alt"></i>
+                                    </div>
+                                    <h4>Arraste seu arquivo aqui</h4>
+                                    <p>ou clique para selecionar</p>
+                                    <input type="file" id="file-input" accept=".csv,.xlsx,.json" hidden>
+                                    <div class="upload-formats">
+                                        <span class="format">CSV</span>
+                                        <span class="format">Excel</span>
+                                        <span class="format">JSON</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Financial Panel -->
+                            <div class="config-panel" data-source="financial">
+                                <div class="config-grid">
+                                    <div class="config-group">
+                                        <label>Tipo de Ativo</label>
+                                        <select class="config-select" id="asset-type">
+                                            <option value="stocks">Ações Brasileiras</option>
+                                            <option value="crypto">Criptomoedas</option>
+                                            <option value="forex">Moedas</option>
+                                            <option value="commodities">Commodities</option>
+                                        </select>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Símbolo/Código</label>
+                                        <input type="text" class="config-input" placeholder="Ex: PETR4, VALE3" id="asset-symbol">
+                                        <div class="config-hint">
+                                            <i class="fas fa-info-circle"></i>
+                                            Digite o código da ação ou crypto
+                                        </div>
+                                    </div>
+                                    <div class="config-group">
+                                        <label>Período de Análise</label>
+                                        <select class="config-select" id="time-period">
+                                            <option value="1m">1 Mês</option>
+                                            <option value="3m">3 Meses</option>
+                                            <option value="6m">6 Meses</option>
+                                            <option value="1y">1 Ano</option>
+                                            <option value="2y">2 Anos</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step Navigation -->
+                    <div class="step-navigation">
+                        <button class="btn-secondary" id="prev-step" disabled>
+                            <i class="fas fa-arrow-left"></i>
+                            Anterior
+                        </button>
+                        
+                        <div class="step-indicators">
+                            <div class="indicator active" data-step="1"></div>
+                            <div class="indicator" data-step="2"></div>
+                            <div class="indicator" data-step="3"></div>
+                        </div>
+                        
+                        <button class="btn-primary" id="next-step">
+                            Próximo
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                        
+                        <button class="btn-primary" id="start-analysis" style="display: none;">
+                            <i class="fas fa-rocket"></i>
+                            Começar Análise
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Insights Section -->
+        <section id="insights" class="section">
+            <div class="container">
+                <div id="analysis-loading" class="loading-state" style="display: none;">
+                    <div class="loading-animation">
+                        <div class="loading-brain">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="loading-text">
+                            <h3>IA Analisando seus Dados...</h3>
+                            <p class="loading-step">Carregando dados...</p>
+                        </div>
+                    </div>
+                    <div class="loading-progress">
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <span class="progress-text">0%</span>
+                    </div>
+                </div>
+
+                <div id="analysis-results" class="results-container" style="display: none;">
+                    <div class="results-header">
+                        <div class="results-title">
+                            <h2 id="results-heading">Insights Descobertos</h2>
+                            <p id="results-summary">Sua análise foi concluída com sucesso</p>
+                        </div>
+                        <div class="results-actions">
+                            <button class="btn-secondary" id="share-results">
+                                <i class="fas fa-share-alt"></i>
+                                Compartilhar
+                            </button>
+                            <button class="btn-secondary" id="export-pdf">
+                                <i class="fas fa-download"></i>
+                                Baixar PDF
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="insights-grid">
+                        <div class="insight-card executive">
+                            <div class="card-header">
+                                <h3><i class="fas fa-star"></i> Resumo Executivo</h3>
+                            </div>
+                            <div class="card-content" id="executive-summary">
+                                <!-- Content will be generated -->
                             </div>
                         </div>
 
-                        <div class="results-grid">
-                            <div class="result-card">
-                                <h3>Resumo Executivo</h3>
-                                <div id="executive-summary"></div>
+                        <div class="insight-card metrics">
+                            <div class="card-header">
+                                <h3><i class="fas fa-chart-bar"></i> Métricas Principais</h3>
                             </div>
-
-                            <div class="result-card">
-                                <h3>Métricas Principais</h3>
-                                <div id="key-metrics"></div>
+                            <div class="card-content" id="key-metrics">
+                                <!-- Content will be generated -->
                             </div>
+                        </div>
 
-                            <div class="result-card full-width">
-                                <h3>Visualização Interativa</h3>
+                        <div class="insight-card predictions">
+                            <div class="card-header">
+                                <h3><i class="fas fa-crystal-ball"></i> Previsões</h3>
+                            </div>
+                            <div class="card-content" id="predictions">
+                                <!-- Content will be generated -->
+                            </div>
+                        </div>
+
+                        <div class="insight-card chart full-width">
+                            <div class="card-header">
+                                <h3><i class="fas fa-chart-line"></i> Visualização Interativa</h3>
+                            </div>
+                            <div class="card-content">
                                 <canvas id="main-chart"></canvas>
                             </div>
+                        </div>
 
-                            <div class="result-card">
-                                <h3>Insights Automáticos</h3>
-                                <div id="auto-insights"></div>
+                        <div class="insight-card recommendations">
+                            <div class="card-header">
+                                <h3><i class="fas fa-lightbulb"></i> Recomendações</h3>
                             </div>
+                            <div class="card-content" id="recommendations">
+                                <!-- Content will be generated -->
+                            </div>
+                        </div>
 
-                            <div class="result-card">
-                                <h3>Recomendações</h3>
-                                <div id="recommendations"></div>
+                        <div class="insight-card discoveries">
+                            <div class="card-header">
+                                <h3><i class="fas fa-search"></i> Descobertas</h3>
+                            </div>
+                            <div class="card-content" id="discoveries">
+                                <!-- Content will be generated -->
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div id="analysis-empty" class="empty-state">
-                        <div class="empty-icon">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Pronto para Analisar</h3>
-                        <p>Configure as opções ao lado e clique em "Iniciar Análise" para ver insights automáticos dos seus dados</p>
+                <div id="insights-empty" class="empty-state">
+                    <div class="empty-icon">
+                        <i class="fas fa-lightbulb"></i>
                     </div>
+                    <h3>Pronto para Gerar Insights</h3>
+                    <p>Configure uma análise no Analisador para ver resultados aqui</p>
+                    <button class="btn-primary" onclick="switchSection('analyzer')">
+                        <i class="fas fa-microscope"></i>
+                        Ir para Analisador
+                    </button>
                 </div>
             </div>
         </section>
 
-        <!-- Templates Section -->
-        <section id="templates" class="section">
-            <div class="section-header">
-                <h1>Templates de Análise</h1>
-                <p>Análises pré-configuradas para diferentes cenários</p>
-            </div>
-
-            <div class="templates-grid">
-                <div class="template-card" data-template="investment">
-                    <div class="template-preview">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div class="template-content">
-                        <h3>Análise de Investimentos</h3>
-                        <p>Compare ações, calcule retornos e analise riscos automaticamente</p>
-                        <ul class="template-features">
-                            <li>✓ Comparação de ativos</li>
-                            <li>✓ Cálculo de volatilidade</li>
-                            <li>✓ Análise de correlação</li>
-                        </ul>
-                        <button class="template-btn">Usar Template</button>
-                    </div>
-                </div>
-
-                <div class="template-card" data-template="market">
-                    <div class="template-preview">
-                        <i class="fas fa-store"></i>
-                    </div>
-                    <div class="template-content">
-                        <h3>Análise de Mercado</h3>
-                        <p>Entenda tendências de consumo e comportamento do mercado</p>
-                        <ul class="template-features">
-                            <li>✓ Tendências de preços</li>
-                            <li>✓ Sazonalidade</li>
-                            <li>✓ Previsões automáticas</li>
-                        </ul>
-                        <button class="template-btn">Usar Template</button>
-                    </div>
-                </div>
-
-                <div class="template-card" data-template="performance">
-                    <div class="template-preview">
-                        <i class="fas fa-tachometer-alt"></i>
-                    </div>
-                    <div class="template-content">
-                        <h3>Performance Empresarial</h3>
-                        <p>Monitore KPIs e métricas de desempenho em tempo real</p>
-                        <ul class="template-features">
-                            <li>✓ Dashboard executivo</li>
-                            <li>✓ Alertas automáticos</li>
-                            <li>✓ Relatórios periódicos</li>
-                        </ul>
-                        <button class="template-btn">Usar Template</button>
-                    </div>
-                </div>
-
-                <div class="template-card" data-template="risk">
-                    <div class="template-preview">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="template-content">
-                        <h3>Análise de Riscos</h3>
-                        <p>Identifique e monitore riscos em seus dados automaticamente</p>
-                        <ul class="template-features">
-                            <li>✓ Detecção de anomalias</li>
-                            <li>✓ Matriz de riscos</li>
-                            <li>✓ Planos de contingência</li>
-                        </ul>
-                        <button class="template-btn">Usar Template</button>
-                    </div>
-                </div>
-            </div>
-        </section>
     </main>
-
-    <!-- Upload Modal -->
-    <div id="upload-modal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Upload de Arquivo</h2>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="upload-zone" id="upload-zone">
-                    <div class="upload-icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
-                    </div>
-                    <h3>Arraste seu arquivo aqui</h3>
-                    <p>ou clique para selecionar</p>
-                    <input type="file" id="file-input" accept=".csv,.xlsx,.json" hidden>
-                </div>
-                <div class="upload-formats">
-                    <span>Formatos aceitos: CSV, Excel, JSON</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Notification System -->
     <div id="notifications" class="notifications"></div>
 
     <!-- Scripts -->
-    <script src="js/modern-app.js"></script>
+    <script src="js/step-by-step.js"></script>
 </body>
 </html>
