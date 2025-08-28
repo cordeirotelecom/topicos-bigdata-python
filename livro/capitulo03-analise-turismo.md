@@ -6,12 +6,14 @@
 
 ## O Desafio Real: Entendendo o Verão em Floripa
 
-Marina trabalha na **SANTUR** (Santa Catarina Turismo) e enfrenta um desafio todos os anos: **como prever e se preparar para a temporada de verão?** Com 2,8 milhões de turistas visitando Santa Catarina anualmente, entender os padrões de visitação é crucial para:
+A Prefeitura de Florianópolis pediu para **Patrick** analisar um novo desafio: **como prever e se preparar para a temporada de verão?** Com 2,8 milhões de turistas visitando Santa Catarina anualmente, entender os padrões de visitação se tornou crucial para:
 
 - **Hotéis**: Definir preços e capacidade
 - **Restaurantes**: Planejar estoque e funcionários  
 - **Transporte**: Ajustar rotas e horários
 - **Prefeitura**: Organizar serviços públicos
+
+Patrick recebeu dados da **SANTUR** (Santa Catarina Turismo) e começou sua investigação.
 
 ---
 
@@ -19,7 +21,7 @@ Marina trabalha na **SANTUR** (Santa Catarina Turismo) e enfrenta um desafio tod
 
 ### 🏖️ **Padrões Sazonais Revelados**
 
-Marina descobriu que os dados turísticos de Florianópolis seguem padrões bem definidos:
+Patrick descobriu que os dados turísticos de Florianópolis seguem padrões bem definidos:
 
 **Alta Temporada (Dezembro-Março)**:
 - 70% da receita anual concentrada
@@ -45,7 +47,7 @@ Marina descobriu que os dados turísticos de Florianópolis seguem padrões bem 
 
 ### 🐍 **Coletando Dados Reais**
 
-Marina organizou os dados de ocupação hoteleira de 2024 numa planilha simples:
+Patrick organizou os dados de ocupação hoteleira de 2024 numa planilha simples:
 
 **Dados da Temporada 2024**:
 | Mês | Ocupação | Preço Médio | Turistas |
@@ -55,14 +57,14 @@ Marina organizou os dados de ocupação hoteleira de 2024 numa planilha simples:
 | Março | 78% | R$ 380 | 218.000 |
 | Dezembro | 85% | R$ 480 | 295.000 |
 
-**O que Marina descobriu**:
+**O que Patrick descobriu**:
 - **Janeiro**: Pico absoluto (92% ocupação)
 - **Dezembro**: Preços mais altos (R$ 480/diária) 
 - **Março**: Queda gradual (78% ocupação)
 
 ### 📈 **Visualizando Tendências**
 
-Com Python, Marina criou gráficos simples que revelaram padrões importantes:
+Com Python, Patrick criou gráficos simples que revelaram padrões importantes:
 
 **Gráfico 1: Ocupação por Mês**
 - Barras azuis mostrando % de ocupação
@@ -74,7 +76,7 @@ Com Python, Marina criou gráficos simples que revelaram padrões importantes:
 - Dezembro mais caro que janeiro
 - Março com melhor custo-benefício
 
-*Com apenas algumas linhas de código Python, Marina transformou números em insights visuais!*
+*Com apenas algumas linhas de código Python, Patrick transformou números em insights visuais!*
 
 ---
 
@@ -100,7 +102,7 @@ Com Python, Marina criou gráficos simples que revelaram padrões importantes:
 
 **Para Hoteleiros - Fórmula Simples de Preços**:
 
-Marina descobriu uma regra prática para otimizar preços:
+Patrick descobriu uma regra prática para otimizar preços:
 
 **🔍 Lógica de Preços Inteligente**:
 - **Ocupação alta** (acima de 80%): Aumente preços em 20%
@@ -120,7 +122,7 @@ Marina descobriu uma regra prática para otimizar preços:
 
 ### 🔮 **Prevendo a Próxima Temporada**
 
-Marina usou uma técnica simples para prever o futuro:
+Patrick usou uma técnica simples para prever o futuro:
 
 **📊 Dados Históricos de Janeiro**:
 - 2022: 265.000 turistas
@@ -132,11 +134,11 @@ Marina usou uma técnica simples para prever o futuro:
 - Crescimento médio anual: 10.000 turistas por ano
 - **Previsão 2025**: 285.000 + 10.000 = **295.000 turistas**
 
-**✅ Resultado**: Marina prevê 295.000 turistas para janeiro de 2025.
+**✅ Resultado**: Patrick prevê 295.000 turistas para janeiro de 2025.
 
 ### 📊 **Validação do Modelo**
 
-**Fatores que Marina considera para confirmar a previsão**:
+**Fatores que Patrick considera para confirmar a previsão**:
 - Crescimento populacional de SC
 - Investimentos em infraestrutura  
 - Eventos especiais (Oktoberfest, Réveillon)
@@ -159,7 +161,7 @@ Marina usou uma técnica simples para prever o futuro:
 - Cultura local influencia comportamento
 
 **3. Colaboração Multiplica Resultados**:
-- Marina compartilha dados com hotéis parceiros
+- Patrick compartilha dados com hotéis parceiros
 - Prefeitura usa análises para planejamento
 - Empresas locais se beneficiam das previsões
 
@@ -175,7 +177,7 @@ Marina usou uma técnica simples para prever o futuro:
 
 ## Próximos Passos
 
-No **próximo capítulo**, veremos como Marina evoluiu para usar **Apache Spark** quando os dados cresceram para **terabytes** de informações de todos os municípios de SC.
+No **próximo capítulo**, veremos como Patrick evoluiu para usar **Apache Spark** quando os dados cresceram para **terabytes** de informações de todos os municípios de SC.
 
 **Preview**: *"Quando planilhas não bastam: processando dados de toda Santa Catarina com PySpark"*
 
@@ -196,4 +198,4 @@ No **próximo capítulo**, veremos como Marina evoluiu para usar **Apache Spark*
 
 ---
 
-*"Os dados estão por toda parte em Santa Catarina. O segredo é saber onde procurar e como interpretar."* - Marina, SANTUR
+*"Os dados estão por toda parte em Santa Catarina. O segredo é saber onde procurar e como interpretar."* - Patrick, SANTUR

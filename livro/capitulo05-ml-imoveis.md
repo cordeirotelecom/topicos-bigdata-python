@@ -6,14 +6,20 @@
 
 ## O Desafio: Precificar Imóveis na Ilha da Magia
 
-**Patrícia** é corretora de imóveis há 15 anos em Florianópolis e sempre confiou na experiência para avaliar propriedades. Mas o mercado mudou drasticamente:
+A **Associação dos Corretores de Imóveis de Florianópolis** procurou **Patrick** para resolver um problema: como usar dados para avaliar imóveis com mais precisão?
+
+**Patrícia**, uma corretora experiente, explicou o desafio:
+
+"Sempre confiei na experiência para avaliar propriedades. Mas o mercado mudou drasticamente:
 
 - **Pandemia**: Preços subiram 40% em 2 anos
 - **Novos bairros**: Áreas antes "sem valor" agora são cobiçadas  
 - **Clientes exigentes**: Querem justificativas técnicas para preços
 - **Concorrência**: Startups usando IA para avaliações
 
-*"Preciso me modernizar ou vou perder espaço no mercado."* - Patrícia
+*"Precisamos nos modernizar ou vamos perder espaço no mercado."* - Patrícia
+
+**Patrick aceitou o desafio:** criar um sistema de avaliação baseado em dados para ajudar os corretores de Florianópolis.
 
 ---
 
@@ -36,7 +42,7 @@
 
 ### 📊 **Fontes de Dados Disponíveis**
 
-**Patrícia mapeou as fontes**:
+**Patrick mapeou as fontes com ajuda de Patrícia**:
 - **IPTU**: Dados da Prefeitura de Florianópolis
 - **Cartórios**: Registros de compra/venda
 - **Sites imobiliários**: ZAP, VivaReal, OLX
@@ -64,7 +70,7 @@
 
 ### 🐍 **Coletando e Preparando os Dados**
 
-Patrícia organizou dados de 8 imóveis reais de Florianópolis numa planilha:
+**Patrick**, junto com Patrícia, organizou dados de 8 imóveis reais de Florianópolis numa planilha:
 
 **📊 Dados de Imóveis - Florianópolis (Amostra Real)**
 
@@ -77,7 +83,7 @@ Patrícia organizou dados de 8 imóveis reais de Florianópolis numa planilha:
 
 *E mais 4 imóveis com características similares...*
 
-**🔍 Primeira Observação de Patrícia**:
+**🔍 Primeira Observação de Patrick**:
 - Imóvel menor (65m²) mas pertinho da praia = R$ 850.000
 - Imóvel maior (120m²) mas longe da praia = R$ 580.000  
 - **Conclusão**: Localização pesa muito!
@@ -85,7 +91,7 @@ Patrícia organizou dados de 8 imóveis reais de Florianópolis numa planilha:
 
 ### 🔍 **Análise Exploratória dos Dados**
 
-Patrícia fez uma análise simples para entender o que mais influencia preços:
+**Patrick** fez uma análise simples para entender o que mais influencia preços:
 
 **📈 Correlações Descobertas** (quanto uma variável influencia outra):
 
@@ -98,11 +104,11 @@ Patrícia fez uma análise simples para entender o que mais influencia preços:
 **🌟 Nota do Bairro vs Preço**: 0.58 (correlação moderada)
 - *Bairro melhor = preço maior*
 
-**💡 Insight de Patrícia**: *"A regra é simples: área grande + perto da praia + bom bairro = preço alto!"*
+**💡 Insight de Patrick**: *"A regra é simples: área grande + perto da praia + bom bairro = preço alto!"*
 
 ### 🤖 **Treinando o Modelo de Machine Learning**
 
-Patrícia decidiu ensinar o computador a avaliar imóveis automaticamente:
+**Patrick** decidiu ensinar o computador a avaliar imóveis automaticamente:
 
 **🎯 Processo Simplificado**:
 1. **Separar dados**: 70% para ensinar, 30% para testar
@@ -115,7 +121,7 @@ Patrícia decidiu ensinar o computador a avaliar imóveis automaticamente:
 - **Erro médio**: R$ 45.000 (aceitável para imóveis)
 - **Tempo de treinamento**: 2 segundos
 
-*Patrícia ficou impressionada: "O modelo acerta o preço na maioria das vezes!"*
+*Patrick mostrou os resultados para Patrícia, que ficou impressionada: "O modelo acerta o preço na maioria das vezes!"*
 
 ---
 
@@ -123,7 +129,7 @@ Patrícia decidiu ensinar o computador a avaliar imóveis automaticamente:
 
 ### 🏡 **Sistema de Avaliação Automática**
 
-Agora Patrícia tem uma "calculadora inteligente" que avalia qualquer imóvel:
+Agora **Patrick criou** uma "calculadora inteligente" para **Patrícia** que avalia qualquer imóvel:
 
 **🔧 Como Funciona**:
 1. **Inserir dados** do imóvel (área, quartos, localização, etc.)
@@ -344,7 +350,7 @@ print(f"Diferença: {comparacao['diferenca_percentual']:+.1f}%")
 
 ## Lições Aprendidas e Impacto
 
-### ✅ **Resultados Alcançados por Patrícia**
+### ✅ **Resultados Alcançados por Patrick**
 
 **Após 6 meses usando ML**:
 - **40% mais assertiva** nas avaliações
@@ -379,7 +385,7 @@ def validar_dados_imovel(dados):
 
 ### 🚀 **Próximos Passos para Expansão**
 
-**Patrícia planeja**:
+**Patrick sugeriu à Patrícia os próximos passos**:
 1. **Integrar dados de trânsito** (tempos de deslocamento)
 2. **Análise de sentimentos** em redes sociais sobre bairros
 3. **Previsão de tendências** de curto prazo (3-6 meses)

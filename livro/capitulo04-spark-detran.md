@@ -6,7 +6,7 @@
 
 ## O Momento da Verdade: Dados que Não Cabem na Memória
 
-**Roberto** trabalha no **DETRAN-SC** e enfrenta um problema crescente: os dados de trânsito de Santa Catarina explodiram em volume. Com mais de **4,2 milhões de veículos** registrados no estado e **sensores em 295 municípios**, suas análises em pandas começaram a travar.
+**Patrick** trabalha no **DETRAN-SC** e enfrenta um problema crescente: os dados de trânsito de Santa Catarina explodiram em volume. Com mais de **4,2 milhões de veículos** registrados no estado e **sensores em 295 municípios**, suas análises em pandas começaram a travar.
 
 **O Problema Real**:
 - 15 GB de dados de multas por mês
@@ -14,7 +14,7 @@
 - 25 GB de dados de radares por semana
 - **Total**: Mais de 2 TB de dados anuais
 
-*"Minha máquina não aguenta mais. Preciso de uma solução que escale."* - Roberto
+*"Minha máquina não aguenta mais. Preciso de uma solução que escale."* - Patrick
 
 ---
 
@@ -29,7 +29,7 @@
 | > 10 GB | **Apache Spark** | Processamento distribuído |
 | Múltiplas fontes | **Apache Spark** | Integração nativa |
 
-**Roberto descobriu**: Spark não é apenas para "big data" - é para **dados que crescem**.
+**Patrick descobriu**: Spark não é apenas para "big data" - é para **dados que crescem**.
 
 ### 💡 **Vantagens do Spark no Contexto de SC**
 
@@ -51,7 +51,7 @@
 
 ### 🛠️ **Configuração Inicial**
 
-Roberto aprendeu que configurar Spark é como ligar um computador mais potente:
+Patrick aprendeu que configurar Spark é como ligar um computador mais potente:
 
 **Passo a Passo Simplificado**:
 1. **Instalar** PySpark (como instalar um programa)
@@ -65,13 +65,13 @@ Roberto aprendeu que configurar Spark é como ligar um computador mais potente:
 Pronto para processar 4,2 milhões de registros!
 ```
 
-**Diferença Fundamental que Roberto descobriu**: 
+**Diferença Fundamental que Patrick descobriu**: 
 - **Pandas**: Carrega tudo na memória (como carregar uma caminhonete)
 - **Spark**: Processa sob demanda (como ter uma frota de caminhões)
 
 ### 📊 **Carregando Dados Reais do DETRAN**
 
-Roberto precisava analisar uma planilha GIGANTE com dados de todos os veículos de SC:
+Patrick precisava analisar uma planilha GIGANTE com dados de todos os veículos de SC:
 
 **Estrutura dos Dados de Veículos**:
 - **Placa**: ABC-1234
@@ -99,7 +99,7 @@ Roberto precisava analisar uma planilha GIGANTE com dados de todos os veículos 
 
 ### 🏆 **Top 10 Municípios com Mais Veículos**
 
-Com Spark, Roberto conseguiu agrupar milhões de registros instantaneamente:
+Com Spark, Patrick conseguiu agrupar milhões de registros instantaneamente:
 
 veiculos_por_municipio.show()
 
@@ -107,7 +107,7 @@ veiculos_por_municipio.show()
 veiculos_por_municipio.cache()
 ```
 
-**Resultado que Roberto encontrou** (baseado em dados reais):
+**Resultado que Patrick encontrou** (baseado em dados reais):
 
 **🏆 Ranking de Veículos por Município**:
 1. **Florianópolis**: 425.678 veículos
@@ -120,7 +120,7 @@ veiculos_por_municipio.cache()
 
 ### 🚗 **Perfil da Frota Catarinense**
 
-Roberto queria entender: *"Que tipos de combustível dominam SC?"*
+Patrick queria entender: *"Que tipos de combustível dominam SC?"*
 
 **Análise Simples**: Agrupar 4 milhões de veículos por tipo de combustível.
 
@@ -133,7 +133,7 @@ Roberto queria entender: *"Que tipos de combustível dominam SC?"*
 
 ### 📈 **Tendências por Ano de Fabricação**
 
-Roberto queria descobrir: *"Como está a evolução da frota catarinense?"*
+Patrick queria descobrir: *"Como está a evolução da frota catarinense?"*
 
 **Pergunta Simples**: Quantos carros novos (2020+) temos em SC?
 
@@ -153,7 +153,7 @@ Roberto queria descobrir: *"Como está a evolução da frota catarinense?"*
 
 ## Machine Learning Simples: Prevendo Demanda
 
-### 🤖 **Roberto Quer Prever: Quando Haverá Pico no DETRAN?**
+### 🤖 **Patrick Quer Prever: Quando Haverá Pico no DETRAN?**
 
 **Problema Real**: DETRAN fica lotado em certas épocas. Como prever?
 
@@ -168,13 +168,13 @@ Roberto queria descobrir: *"Como está a evolução da frota catarinense?"*
 - **Janeiro 2025**: Previsão de 92.000 licenciamentos
 - **Ação**: Contratar 15% mais funcionários temporários
 
-*Roberto conseguiu otimizar o atendimento usando dados!*
+*Patrick conseguiu otimizar o atendimento usando dados!*
 
 print(f"Coeficientes: {modelo.coefficients}")
 print(f"R²: {modelo.summary.r2:.3f}")
 ```
 
-**Aplicação Prática**: Roberto consegue prever picos de demanda no DETRAN e alocar funcionários adequadamente.
+**Aplicação Prática**: Patrick consegue prever picos de demanda no DETRAN e alocar funcionários adequadamente.
 
 ---
 
@@ -191,9 +191,9 @@ print(f"R²: {modelo.summary.r2:.3f}")
 | Join entre tabelas | 67s | 15s | **4.5x** |
 | ML Model Training | 156s | 38s | **4.1x** |
 
-**Roberto comenta**: *"A diferença é brutal. E isso é só com uma máquina. Com cluster, seria ainda mais rápido."*
+**Patrick comenta**: *"A diferença é brutal. E isso é só com uma máquina. Com cluster, seria ainda mais rápido."*
 
-### 🎯 **Otimizações que Roberto Aprendeu**
+### 🎯 **Otimizações que Patrick Aprendeu**
 
 ```python
 # 1. Use cache() para dados reutilizados
@@ -231,7 +231,7 @@ Fontes de Dados → Apache Kafka → PySpark → Data Lake → Dashboards
 
 ### 🤝 **Compartilhamento de Dados entre Órgãos**
 
-Roberto criou um sistema onde:
+Patrick criou um sistema onde:
 - **PMF**: Dados de trânsito para semáforos inteligentes
 - **SANTUR**: Fluxo de veículos para turismo
 - **DETRAN**: Estatísticas consolidadas para todo SC
@@ -301,7 +301,7 @@ spark.sql("""
 
 ## Próximos Passos
 
-No **próximo capítulo**, veremos como Roberto implementou **Machine Learning distribuído** para prever padrões de trânsito e otimizar semáforos em toda a Grande Florianópolis.
+No **próximo capítulo**, veremos como Patrick implementou **Machine Learning distribuído** para prever padrões de trânsito e otimizar semáforos em toda a Grande Florianópolis.
 
 **Preview**: *"Machine Learning na Prática: Previsão de Preços Imobiliários em Floripa"*
 
@@ -325,4 +325,4 @@ pip install jupyter pyspark findspark
 
 ---
 
-*"Spark transformou nossa capacidade de entender Santa Catarina através dos dados. O que levava semanas, agora fazemos em horas."* - Roberto, DETRAN-SC
+*"Spark transformou nossa capacidade de entender Santa Catarina através dos dados. O que levava semanas, agora fazemos em horas."* - Patrick, DETRAN-SC
