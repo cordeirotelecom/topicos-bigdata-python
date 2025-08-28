@@ -1,0 +1,11 @@
+# Redirects for Netlify
+/plataforma /site_analise_dados/index.html 200
+/analise /site_analise_dados/index.html 200
+/app /site_analise_dados/index.html 200
+/dashboard /site_analise_dados/index.html 200
+
+# SPA fallback for site_analise_dados
+/site_analise_dados/* /site_analise_dados/index.html 200
+
+# Root fallback
+/* /index.html 200
