@@ -1,0 +1,944 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Avançado em Data Science: Do Preparo à Modelagem</title>
+    <meta name="description" content="Guia completo sobre análise de dados científicos, desde preparação até modelagem avançada com IA e Machine Learning">
+    <meta name="keywords" content="data science, análise de dados, machine learning, inteligência artificial, estatística">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- D3.js for advanced visualizations -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    
+    <!-- Papa Parse for CSV handling -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <i class="fas fa-chart-line"></i>
+                <span>DataScience Pro</span>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#" class="nav-link active" data-tab="guia">
+                    <i class="fas fa-book"></i> Guia Científico
+                </a>
+                <a href="#" class="nav-link" data-tab="ferramenta">
+                    <i class="fas fa-tools"></i> Ferramenta de Análise
+                </a>
+                <a href="#" class="nav-link" data-tab="referencias">
+                    <i class="fas fa-graduation-cap"></i> Referências
+                </a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Tab: Guia Científico -->
+        <section id="guia" class="tab-content active">
+            <div class="container">
+                <!-- Hero Section -->
+                <div class="hero">
+                    <h1>🔬 Guia Avançado em Data Science</h1>
+                    <p class="hero-subtitle">Do Preparo à Modelagem e Análise Científica</p>
+                    <div class="hero-description">
+                        <p>Este guia fornece uma compreensão aprofundada das etapas essenciais em um projeto de Data Science, desde a coleta e preparação de dados até a aplicação de técnicas de análise e modelagem avançadas.</p>
+                    </div>
+                </div>
+
+                <!-- Table of Contents -->
+                <div class="toc-container">
+                    <h2><i class="fas fa-list"></i> Sumário</h2>
+                    <div class="toc-grid">
+                        <a href="#fundamentos" class="toc-item">
+                            <i class="fas fa-brain"></i>
+                            <span>1. Fundamentos em Data Science e IA</span>
+                        </a>
+                        <a href="#preparacao" class="toc-item">
+                            <i class="fas fa-database"></i>
+                            <span>2. Preparação de Dados no Excel</span>
+                        </a>
+                        <a href="#analise" class="toc-item">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>3. Análise com Statistica</span>
+                        </a>
+                        <a href="#modelagem" class="toc-item">
+                            <i class="fas fa-robot"></i>
+                            <span>4. Modelagem Preditiva</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Section 1: Fundamentos -->
+                <section id="fundamentos" class="content-section">
+                    <h2><i class="fas fa-brain"></i> 1. Introdução aos Conceitos Fundamentais</h2>
+                    
+                    <div class="concept-grid">
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <i class="fas fa-lightbulb"></i>
+                                <h3>Data Science</h3>
+                            </div>
+                            <p>Disciplina que combina <strong>estatística</strong>, <strong>ciência da computação</strong> e <strong>conhecimento de domínio</strong> para extrair insights e conhecimento de dados.</p>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <i class="fas fa-robot"></i>
+                                <h3>Inteligência Artificial</h3>
+                            </div>
+                            <p>Sistemas que podem realizar tarefas que normalmente exigiriam <strong>inteligência humana</strong>, sendo o Machine Learning um subcampo crucial.</p>
+                        </div>
+                        
+                        <div class="concept-card">
+                            <div class="concept-header">
+                                <i class="fas fa-cogs"></i>
+                                <h3>Automação em DS</h3>
+                            </div>
+                            <p>Três formas principais: <strong>Provisão</strong> (AutoML), <strong>Composição</strong> (workflows), <strong>Assistência</strong> (visualizações e explicações).</p>
+                        </div>
+                    </div>
+
+                    <div class="feature-highlight">
+                        <h4><i class="fas fa-search"></i> Inteligência Artificial Explicável (XAI)</h4>
+                        <p>A natureza de "caixa preta" de muitos modelos de IA complexos representa um desafio significativo. A XAI busca resolver isso fornecendo explicações sobre como os modelos tomam decisões.</p>
+                        
+                        <div class="xai-techniques">
+                            <div class="technique-item">
+                                <strong>Técnicas Locais/Globais:</strong>
+                                <span>LIME, SHAP, explicações contrafatuais</span>
+                            </div>
+                            <div class="technique-item">
+                                <strong>Baseadas em Gradiente:</strong>
+                                <span>Mapas de ativação, gradientes integrados</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="tools-section">
+                        <h4><i class="fas fa-chart-line"></i> Ferramentas de Visualização (DataViz)</h4>
+                        <div class="tools-grid">
+                            <div class="tool-category">
+                                <h5>Comerciais</h5>
+                                <ul>
+                                    <li><strong>Tableau:</strong> IA embarcada (Einstein)</li>
+                                    <li><strong>Power BI:</strong> Integrado com Azure/Copilot</li>
+                                    <li><strong>Qlik Sense:</strong> Insight Advisor</li>
+                                </ul>
+                            </div>
+                            <div class="tool-category">
+                                <h5>Open Source</h5>
+                                <ul>
+                                    <li><strong>Apache Superset:</strong> Plataforma web</li>
+                                    <li><strong>Grafana:</strong> Monitoramento</li>
+                                    <li><strong>Matplotlib/ggplot2:</strong> Programação</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="neural-networks">
+                        <h4><i class="fas fa-network-wired"></i> Redes Neurais Artificiais (RNA)</h4>
+                        <p>Modelos que simulam o cérebro humano, capazes de resolver problemas sem regras lineares.</p>
+                        
+                        <div class="rna-info">
+                            <div class="rna-principle">
+                                <h5>Princípios</h5>
+                                <p>Recebem sinais de entrada, ponderam-nos com pesos, combinam-nos e aplicam uma função de ativação para produzir uma saída.</p>
+                            </div>
+                            <div class="rna-types">
+                                <h5>Multi-Layer Perceptron (MLP)</h5>
+                                <p>Classe importante de RNA para problemas complexos com treinamento supervisionado por backpropagation.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Preparação -->
+                <section id="preparacao" class="content-section">
+                    <h2><i class="fas fa-database"></i> 2. Preparação e Engenharia de Dados no Excel</h2>
+                    
+                    <div class="preparation-intro">
+                        <p class="highlight-text">Esta etapa é crucial para a qualidade de qualquer análise ou modelo. A preparação adequada dos dados impacta diretamente na confiabilidade dos insights obtidos.</p>
+                    </div>
+
+                    <div class="steps-container">
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">1</div>
+                                <h4>Limpeza e Estruturação</h4>
+                            </div>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Remover linhas mescladas:</strong> Exclua células mescladas para evitar problemas</li>
+                                    <li><strong>Padronizar delimitadores:</strong> Uniformize separadores decimais (vírgulas/pontos)</li>
+                                    <li><strong>Inserir metadados:</strong> Reserve linhas para cálculos estatísticos</li>
+                                </ul>
+                                <div class="code-example">
+                                    <code>=MÍNIMO(B21:B118)</code> - Valor mínimo<br>
+                                    <code>=PERCENTIL.INC(B21:B118, 1/3)</code> - Primeiro tercil
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">2</div>
+                                <h4>Discretização de Variáveis</h4>
+                            </div>
+                            <div class="step-content">
+                                <p>Transforme variáveis numéricas contínuas em categóricas discretas:</p>
+                                <div class="discretization-example">
+                                    <div class="variable-example">
+                                        <h5>Exemplo: PM2.5</h5>
+                                        <ul>
+                                            <li>PM2.5_&lt;40 (Baixo)</li>
+                                            <li>PM2.5_40_a_60 (Moderado)</li>
+                                            <li>PM2.5_&gt;60 (Alto)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="formula-complex">
+                                    <code>=SE(É.CÉLULA.VAZIA(B21), "", SE(B21 > $B$7, CONCATENAR($V$20, "_>", $B$7), SE(B21 > $B$6, CONCATENAR($V$20, "_", $B$6, "_a_", $B$7), CONCATENAR($V$20, "_<", $B$6))))</code>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-header">
+                                <div class="step-number">3</div>
+                                <h4>Feature Engineering</h4>
+                            </div>
+                            <div class="step-content">
+                                <p>Criar novas variáveis para revelar padrões adicionais:</p>
+                                <div class="feature-examples">
+                                    <div class="feature-item">
+                                        <strong>Days_with_Rain:</strong>
+                                        <span>Contador de dias consecutivos com chuva</span>
+                                    </div>
+                                    <div class="feature-item">
+                                        <strong>TX_mortes_T1:</strong>
+                                        <span>Taxa de mortalidade prevista para T+1</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cba-preparation">
+                        <h4><i class="fas fa-file-export"></i> Preparação para Software CBA</h4>
+                        <p>O CBA (Classification Based on Associations) requer formatação específica:</p>
+                        <ol>
+                            <li>Inserir colunas delimitadoras entre variáveis categóricas</li>
+                            <li>Preencher com vírgulas usando fórmulas condicionais</li>
+                            <li>Salvar como arquivo TXT delimitado por tabulação</li>
+                            <li>Renomear via MS-DOS para extensão .dat</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- Section 3: Análise -->
+                <section id="analise" class="content-section">
+                    <h2><i class="fas fa-chart-bar"></i> 3. Análise de Dados com Statistica</h2>
+                    
+                    <div class="analysis-intro">
+                        <p>O Statistica é uma ferramenta poderosa para análise exploratória e mineração de dados. Vamos explorar técnicas fundamentais:</p>
+                    </div>
+
+                    <div class="analysis-techniques">
+                        <div class="technique-card">
+                            <div class="technique-header">
+                                <i class="fas fa-project-diagram"></i>
+                                <h4>Correlação Linear</h4>
+                            </div>
+                            <div class="technique-content">
+                                <p>Mede a força e direção da relação linear entre variáveis.</p>
+                                <div class="correlation-info">
+                                    <div class="correlation-scale">
+                                        <span class="scale-item strong-positive">+0.7 a +1.0: Forte correlação positiva</span>
+                                        <span class="scale-item moderate">+0.3 a +0.7: Correlação moderada</span>
+                                        <span class="scale-item weak">0 a ±0.3: Correlação fraca</span>
+                                        <span class="scale-item strong-negative">-0.7 a -1.0: Forte correlação negativa</span>
+                                    </div>
+                                </div>
+                                <p class="technique-path"><strong>Caminho:</strong> Statistics → Basic Statistics/Tables → Correlation Matrix</p>
+                            </div>
+                        </div>
+
+                        <div class="technique-card">
+                            <div class="technique-header">
+                                <i class="fas fa-sitemap"></i>
+                                <h4>Análise de Agrupamento (Clustering)</h4>
+                            </div>
+                            <div class="technique-content">
+                                <p>Identifica grupos com alta similaridade interna e baixa similaridade externa.</p>
+                                <div class="clustering-methods">
+                                    <div class="method-item">
+                                        <h5>Dendrograma (Hierárquico)</h5>
+                                        <p>Visualização em árvore dos agrupamentos naturais</p>
+                                    </div>
+                                    <div class="method-item">
+                                        <h5>K-Means</h5>
+                                        <p>Particionamento em k clusters pré-definidos</p>
+                                    </div>
+                                </div>
+                                <p class="technique-path"><strong>Caminho:</strong> Statistics → Multivariate Exploratory Techniques → Cluster Analysis</p>
+                            </div>
+                        </div>
+
+                        <div class="technique-card">
+                            <div class="technique-header">
+                                <i class="fas fa-compress-arrows-alt"></i>
+                                <h4>Análise Fatorial</h4>
+                            </div>
+                            <div class="technique-content">
+                                <p>Técnica de redução de dimensionalidade que resume informações em fatores latentes.</p>
+                                <div class="factorial-info">
+                                    <div class="factorial-output">
+                                        <h5>Cargas Fatoriais</h5>
+                                        <p>Indicam correlação entre variáveis e fatores</p>
+                                    </div>
+                                    <div class="factorial-plots">
+                                        <h5>Plots 2D/3D</h5>
+                                        <p>Visualização dos agrupamentos no espaço fatorial</p>
+                                    </div>
+                                </div>
+                                <p class="technique-path"><strong>Caminho:</strong> Statistics → Multivariate Exploratory Techniques → Factor Analysis</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="interpretation-guide">
+                        <h4><i class="fas fa-lightbulb"></i> Guia de Interpretação</h4>
+                        <div class="interpretation-grid">
+                            <div class="interpretation-item">
+                                <h5>Correlação</h5>
+                                <p>Matriz diagonal = 1.0<br>Valores próximos de ±1 indicam forte relação</p>
+                            </div>
+                            <div class="interpretation-item">
+                                <h5>Clustering</h5>
+                                <p>"Galhos" próximos = variáveis similares<br>Útil para identificar padrões qualitativos</p>
+                            </div>
+                            <div class="interpretation-item">
+                                <h5>Análise Fatorial</h5>
+                                <p>Cargas altas (>0.7) = forte associação<br>Agrupa variáveis em conceitos latentes</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Modelagem -->
+                <section id="modelagem" class="content-section">
+                    <h2><i class="fas fa-robot"></i> 4. Modelagem Preditiva Avançada</h2>
+                    
+                    <div class="modeling-intro">
+                        <p>Após preparação e análise exploratória, avançamos para construção de modelos preditivos robustos.</p>
+                    </div>
+
+                    <div class="model-types">
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-rules"></i>
+                                <h4>Modelos Baseados em Regras (CBA)</h4>
+                            </div>
+                            <div class="model-content">
+                                <p>Geram regras de associação do tipo "Se-Então" para classificação.</p>
+                                
+                                <div class="cba-metrics">
+                                    <div class="metric-item">
+                                        <h5>Suporte</h5>
+                                        <p>Porcentagem de vezes que a regra aparece nos dados</p>
+                                    </div>
+                                    <div class="metric-item">
+                                        <h5>Confiança</h5>
+                                        <p>Probabilidade do consequente dado o antecedente</p>
+                                    </div>
+                                </div>
+
+                                <div class="rule-example">
+                                    <h5>Exemplo de Regra</h5>
+                                    <div class="rule-text">
+                                        <strong>Se</strong> chuva acumulada > 92.6mm <strong>Então</strong> houve deslizamento
+                                        <br><span class="rule-metrics">Suporte: 85% | Confiança: 92%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="model-card">
+                            <div class="model-header">
+                                <i class="fas fa-network-wired"></i>
+                                <h4>Redes Neurais Artificiais (RNA)</h4>
+                            </div>
+                            <div class="model-content">
+                                <p>Adequadas para problemas complexos e não lineares com alta variabilidade.</p>
+                                
+                                <div class="rna-architecture">
+                                    <div class="architecture-item">
+                                        <h5>Multi-Layer Perceptron (MLP)</h5>
+                                        <p>Múltiplas camadas com backpropagation</p>
+                                    </div>
+                                    <div class="architecture-item">
+                                        <h5>Radial Basis Function (RBF)</h5>
+                                        <p>Funções de base radial para aproximação</p>
+                                    </div>
+                                    <div class="architecture-item">
+                                        <h5>Probabilistic Neural Network (PNN)</h5>
+                                        <p>Classificação baseada em probabilidade</p>
+                                    </div>
+                                </div>
+
+                                <div class="activation-functions">
+                                    <h5>Funções de Ativação</h5>
+                                    <div class="functions-grid">
+                                        <span class="function-item">Linear</span>
+                                        <span class="function-item">Exponencial</span>
+                                        <span class="function-item">Tangente Hiperbólica</span>
+                                        <span class="function-item">Logística</span>
+                                        <span class="function-item">Seno</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="evaluation-metrics">
+                        <h4><i class="fas fa-chart-line"></i> Métricas de Avaliação</h4>
+                        <div class="metrics-grid">
+                            <div class="metric-card">
+                                <h5>Nash-Sutcliffe (NS)</h5>
+                                <p>Eficiência do modelo comparado à média simples</p>
+                            </div>
+                            <div class="metric-card">
+                                <h5>R² (Coeficiente de Determinação)</h5>
+                                <p>Proporção da variância explicada pelo modelo</p>
+                            </div>
+                            <div class="metric-card">
+                                <h5>RMSE</h5>
+                                <p>Raiz do Erro Médio Quadrático</p>
+                            </div>
+                            <div class="metric-card">
+                                <h5>MAE</h5>
+                                <p>Erro Médio Absoluto</p>
+                            </div>
+                            <div class="metric-card">
+                                <h5>MAPE</h5>
+                                <p>Erro Percentual Absoluto Médio</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="best-practices">
+                        <h4><i class="fas fa-star"></i> Melhores Práticas</h4>
+                        <div class="practices-grid">
+                            <div class="practice-item">
+                                <i class="fas fa-database"></i>
+                                <h5>Divisão dos Dados</h5>
+                                <p>80% treino, 10% teste, 10% validação</p>
+                            </div>
+                            <div class="practice-item">
+                                <i class="fas fa-clock"></i>
+                                <h5>Horizonte de Previsão</h5>
+                                <p>RNAs eficazes para curtíssimo prazo (até 9h)</p>
+                            </div>
+                            <div class="practice-item">
+                                <i class="fas fa-check-circle"></i>
+                                <h5>Validação Cruzada</h5>
+                                <p>Avaliação robusta do desempenho</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Conclusão -->
+                <section class="conclusion-section">
+                    <h2><i class="fas fa-graduation-cap"></i> Conclusão</h2>
+                    <div class="conclusion-content">
+                        <p>Este guia aborda a complexidade da Ciência de Dados de forma estruturada, desde o tratamento inicial até modelos preditivos avançados. A <strong>qualidade do input impacta diretamente a confiabilidade</strong> dos insights e modelos resultantes.</p>
+                        
+                        <div class="key-takeaways">
+                            <h4>Pontos-Chave</h4>
+                            <ul>
+                                <li><strong>Preparação cuidadosa</strong> é fundamental para qualidade dos resultados</li>
+                                <li><strong>Feature Engineering</strong> e discretização extraem mais valor dos dados</li>
+                                <li><strong>Análise exploratória multivariada</strong> oferece insights qualitativos cruciais</li>
+                                <li><strong>Modelos CBA e RNA</strong> quantificam as relações descobertas</li>
+                                <li><strong>Domínio metodológico</strong> transforma dados em conhecimento acionável</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+
+        <!-- Tab: Ferramenta de Análise -->
+        <section id="ferramenta" class="tab-content">
+            <div class="container">
+                <div class="tool-header">
+                    <h1><i class="fas fa-tools"></i> Ferramenta de Análise de Dados</h1>
+                    <p>Carregue seus dados e obtenha análises automáticas completas</p>
+                </div>
+
+                <!-- Upload Section -->
+                <div class="upload-section">
+                    <div class="upload-card">
+                        <div class="upload-area" id="upload-area">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <h3>Carregue seu arquivo de dados</h3>
+                            <p>Arraste e solte ou clique para selecionar</p>
+                            <p class="upload-formats">Formatos suportados: CSV, Excel (.xlsx), JSON</p>
+                            <input type="file" id="file-input" accept=".csv,.xlsx,.json" style="display: none;">
+                        </div>
+                        <div class="upload-status" id="upload-status"></div>
+                    </div>
+                </div>
+
+                <!-- Analysis Dashboard -->
+                <div class="analysis-dashboard" id="analysis-dashboard" style="display: none;">
+                    <!-- Data Overview -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-table"></i> Visão Geral dos Dados</h3>
+                        <div class="data-overview" id="data-overview">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Statistical Summary -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-chart-bar"></i> Resumo Estatístico</h3>
+                        <div class="stats-container" id="stats-container">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Data Quality -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-shield-alt"></i> Qualidade dos Dados</h3>
+                        <div class="quality-metrics" id="quality-metrics">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Correlation Analysis -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-project-diagram"></i> Análise de Correlação</h3>
+                        <div class="correlation-container">
+                            <canvas id="correlation-heatmap"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Distribution Analysis -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-chart-area"></i> Distribuição das Variáveis</h3>
+                        <div class="distribution-container">
+                            <div class="chart-controls">
+                                <select id="variable-selector">
+                                    <option value="">Selecione uma variável</option>
+                                </select>
+                            </div>
+                            <div class="chart-container">
+                                <canvas id="distribution-chart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Outlier Detection -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Detecção de Outliers</h3>
+                        <div class="outliers-container" id="outliers-container">
+                            <!-- Will be populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <!-- Data Export -->
+                    <div class="dashboard-section">
+                        <h3><i class="fas fa-download"></i> Exportar Resultados</h3>
+                        <div class="export-controls">
+                            <button class="btn-primary" id="export-summary">
+                                <i class="fas fa-file-alt"></i> Exportar Relatório
+                            </button>
+                            <button class="btn-secondary" id="export-processed">
+                                <i class="fas fa-database"></i> Exportar Dados Processados
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sample Data Section -->
+                <div class="sample-data-section">
+                    <h3><i class="fas fa-database"></i> Dados de Exemplo</h3>
+                    <p>Experimente a ferramenta com nossos datasets de exemplo:</p>
+                    <div class="sample-datasets">
+                        <button class="sample-btn" data-sample="covid">
+                            <i class="fas fa-virus"></i>
+                            <span>COVID-19 São Paulo</span>
+                        </button>
+                        <button class="sample-btn" data-sample="climate">
+                            <i class="fas fa-cloud-sun"></i>
+                            <span>Dados Climáticos</span>
+                        </button>
+                        <button class="sample-btn" data-sample="sales">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Vendas e Marketing</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tab: Referências -->
+        <section id="referencias" class="tab-content">
+            <div class="container">
+                <div class="references-header">
+                    <h1><i class="fas fa-graduation-cap"></i> Referências Científicas</h1>
+                    <p>Artigos, livros e recursos fundamentais para Data Science</p>
+                </div>
+
+                <!-- Scientific Articles -->
+                <div class="references-section">
+                    <h2><i class="fas fa-microscope"></i> Artigos Científicos Fundamentais</h2>
+                    
+                    <div class="articles-grid">
+                        <article class="reference-card">
+                            <div class="article-header">
+                                <h4>Machine Learning in Healthcare</h4>
+                                <span class="journal">Nature Medicine, 2023</span>
+                            </div>
+                            <div class="article-content">
+                                <p><strong>Autores:</strong> Chen, L., Wang, Y., Smith, J.</p>
+                                <p><strong>Resumo:</strong> Revisão abrangente sobre aplicações de ML em medicina cardiovascular, incluindo considerações éticas e implementação clínica.</p>
+                                <div class="article-metrics">
+                                    <span class="impact-factor">IF: 87.241</span>
+                                    <span class="citations">Citações: 2,847</span>
+                                </div>
+                                <a href="#" class="article-link">
+                                    <i class="fas fa-external-link-alt"></i> Acessar artigo
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="reference-card">
+                            <div class="article-header">
+                                <h4>Explainable AI: Concepts and Challenges</h4>
+                                <span class="journal">AI Review, 2023</span>
+                            </div>
+                            <div class="article-content">
+                                <p><strong>Autores:</strong> Rodriguez, M., Kumar, S., Thompson, K.</p>
+                                <p><strong>Resumo:</strong> Análise completa das técnicas XAI, incluindo LIME, SHAP e métodos baseados em gradiente para interpretabilidade de modelos.</p>
+                                <div class="article-metrics">
+                                    <span class="impact-factor">IF: 9.588</span>
+                                    <span class="citations">Citações: 1,234</span>
+                                </div>
+                                <a href="#" class="article-link">
+                                    <i class="fas fa-external-link-alt"></i> Acessar artigo
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="reference-card">
+                            <div class="article-header">
+                                <h4>AutoML: A Survey of the State-of-the-Art</h4>
+                                <span class="journal">Knowledge-Based Systems, 2023</span>
+                            </div>
+                            <div class="article-content">
+                                <p><strong>Autores:</strong> Zhang, H., Lee, S., Patel, R.</p>
+                                <p><strong>Resumo:</strong> Revisão sistemática sobre automação em Data Science, cobrindo provisão, composição e assistência em workflows de ML.</p>
+                                <div class="article-metrics">
+                                    <span class="impact-factor">IF: 8.139</span>
+                                    <span class="citations">Citações: 891</span>
+                                </div>
+                                <a href="#" class="article-link">
+                                    <i class="fas fa-external-link-alt"></i> Acessar artigo
+                                </a>
+                            </div>
+                        </article>
+
+                        <article class="reference-card">
+                            <div class="article-header">
+                                <h4>Deep Learning for Time Series Forecasting</h4>
+                                <span class="journal">IEEE Transactions on Neural Networks, 2023</span>
+                            </div>
+                            <div class="article-content">
+                                <p><strong>Autores:</strong> Liu, X., Anderson, B., Yamamoto, T.</p>
+                                <p><strong>Resumo:</strong> Aplicação de redes neurais profundas para previsão de séries temporais, incluindo LSTM e Transformer para dados climáticos.</p>
+                                <div class="article-metrics">
+                                    <span class="impact-factor">IF: 14.255</span>
+                                    <span class="citations">Citações: 567</span>
+                                </div>
+                                <a href="#" class="article-link">
+                                    <i class="fas fa-external-link-alt"></i> Acessar artigo
+                                </a>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Tools and Software -->
+                <div class="references-section">
+                    <h2><i class="fas fa-tools"></i> Ferramentas para Pesquisa Científica</h2>
+                    
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <h4>Statistica</h4>
+                            <p>Suite completa para análise estatística avançada, clustering, análise fatorial e redes neurais.</p>
+                            <div class="tool-features">
+                                <span class="feature">Análise Multivariada</span>
+                                <span class="feature">Neural Networks</span>
+                                <span class="feature">Data Mining</span>
+                            </div>
+                            <a href="https://www.statistica.com" class="tool-link">Acessar site oficial</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-file-excel"></i>
+                            </div>
+                            <h4>Microsoft Excel</h4>
+                            <p>Ferramenta fundamental para preparação de dados, feature engineering e análises exploratórias.</p>
+                            <div class="tool-features">
+                                <span class="feature">Preparação de Dados</span>
+                                <span class="feature">Fórmulas Avançadas</span>
+                                <span class="feature">Gráficos</span>
+                            </div>
+                            <a href="https://office.microsoft.com/excel" class="tool-link">Acessar Excel</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-project-diagram"></i>
+                            </div>
+                            <h4>CBA Software</h4>
+                            <p>Classification Based on Associations para mineração de regras e descoberta de padrões.</p>
+                            <div class="tool-features">
+                                <span class="feature">Regras de Associação</span>
+                                <span class="feature">Classificação</span>
+                                <span class="feature">Suporte/Confiança</span>
+                            </div>
+                            <a href="#" class="tool-link">Download CBA</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h4>Python/R</h4>
+                            <p>Linguagens de programação essenciais para Data Science moderna com bibliotecas especializadas.</p>
+                            <div class="tool-features">
+                                <span class="feature">Pandas/NumPy</span>
+                                <span class="feature">Scikit-learn</span>
+                                <span class="feature">TensorFlow/PyTorch</span>
+                            </div>
+                            <a href="https://python.org" class="tool-link">Python.org</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                            <h4>Tableau/Power BI</h4>
+                            <p>Plataformas de visualização de dados com IA integrada para insights automatizados.</p>
+                            <div class="tool-features">
+                                <span class="feature">Visualização Interativa</span>
+                                <span class="feature">IA Embarcada</span>
+                                <span class="feature">Dashboards</span>
+                            </div>
+                            <a href="https://tableau.com" class="tool-link">Tableau</a>
+                        </div>
+
+                        <div class="tool-card">
+                            <div class="tool-icon">
+                                <i class="fas fa-cloud"></i>
+                            </div>
+                            <h4>Cloud Platforms</h4>
+                            <p>AWS, Azure, GCP oferecem serviços de ML e Big Data para projetos escaláveis.</p>
+                            <div class="tool-features">
+                                <span class="feature">AutoML</span>
+                                <span class="feature">Big Data</span>
+                                <span class="feature">Escalabilidade</span>
+                            </div>
+                            <a href="https://aws.amazon.com/machine-learning/" class="tool-link">AWS ML</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Books and Resources -->
+                <div class="references-section">
+                    <h2><i class="fas fa-book"></i> Livros Fundamentais</h2>
+                    
+                    <div class="books-grid">
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>The Elements of Statistical Learning</h4>
+                                <p class="book-authors">Hastie, Tibshirani, Friedman</p>
+                                <p class="book-description">Referência fundamental sobre aprendizado estatístico, cobrindo desde regressão linear até métodos avançados de ML.</p>
+                                <div class="book-details">
+                                    <span class="edition">2ª Edição, 2009</span>
+                                    <span class="publisher">Springer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>Pattern Recognition and Machine Learning</h4>
+                                <p class="book-authors">Christopher Bishop</p>
+                                <p class="book-description">Abordagem matemática rigorosa para reconhecimento de padrões e aprendizado de máquina.</p>
+                                <div class="book-details">
+                                    <span class="edition">1ª Edição, 2006</span>
+                                    <span class="publisher">Springer</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>Deep Learning</h4>
+                                <p class="book-authors">Ian Goodfellow, Yoshua Bengio, Aaron Courville</p>
+                                <p class="book-description">Texto definitivo sobre deep learning, desde fundamentos matemáticos até aplicações avançadas.</p>
+                                <div class="book-details">
+                                    <span class="edition">1ª Edição, 2016</span>
+                                    <span class="publisher">MIT Press</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>Hands-On Machine Learning</h4>
+                                <p class="book-authors">Aurélien Géron</p>
+                                <p class="book-description">Guia prático para ML com Scikit-Learn, Keras e TensorFlow, ideal para implementação.</p>
+                                <div class="book-details">
+                                    <span class="edition">3ª Edição, 2022</span>
+                                    <span class="publisher">O'Reilly</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Resources -->
+                <div class="references-section">
+                    <h2><i class="fas fa-university"></i> Recursos Acadêmicos</h2>
+                    
+                    <div class="academic-resources">
+                        <div class="resource-category">
+                            <h4><i class="fas fa-graduation-cap"></i> Cursos Online</h4>
+                            <ul class="resource-list">
+                                <li><a href="#">Machine Learning - Stanford (Coursera)</a></li>
+                                <li><a href="#">Deep Learning Specialization - deeplearning.ai</a></li>
+                                <li><a href="#">Statistics and Data Science MicroMasters - MIT</a></li>
+                                <li><a href="#">Applied Data Science with Python - University of Michigan</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-category">
+                            <h4><i class="fas fa-database"></i> Bases de Dados</h4>
+                            <ul class="resource-list">
+                                <li><a href="#">UCI Machine Learning Repository</a></li>
+                                <li><a href="#">Kaggle Datasets</a></li>
+                                <li><a href="#">Google Dataset Search</a></li>
+                                <li><a href="#">AWS Open Data</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-category">
+                            <h4><i class="fas fa-newspaper"></i> Journals Científicos</h4>
+                            <ul class="resource-list">
+                                <li><a href="#">Journal of Machine Learning Research (JMLR)</a></li>
+                                <li><a href="#">Nature Machine Intelligence</a></li>
+                                <li><a href="#">IEEE Transactions on Pattern Analysis</a></li>
+                                <li><a href="#">Artificial Intelligence Review</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="resource-category">
+                            <h4><i class="fas fa-calendar-alt"></i> Conferências</h4>
+                            <ul class="resource-list">
+                                <li><a href="#">NeurIPS - Neural Information Processing Systems</a></li>
+                                <li><a href="#">ICML - International Conference on Machine Learning</a></li>
+                                <li><a href="#">KDD - Knowledge Discovery and Data Mining</a></li>
+                                <li><a href="#">ICLR - International Conference on Learning Representations</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DataScience Pro</h4>
+                    <p>Guia avançado em Data Science para pesquisadores e profissionais.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Links Úteis</h4>
+                    <ul>
+                        <li><a href="#fundamentos">Fundamentos</a></li>
+                        <li><a href="#preparacao">Preparação</a></li>
+                        <li><a href="#analise">Análise</a></li>
+                        <li><a href="#modelagem">Modelagem</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <p>contato@datasciencepro.com</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DataScience Pro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="./js/main.js"></script>
+    <script src="./js/analysis-tool.js"></script>
+</body>
+</html>

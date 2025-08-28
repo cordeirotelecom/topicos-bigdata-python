@@ -1,0 +1,138 @@
+[build]
+  publish = "."
+  command = ""
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+    Content-Type = "text/css; charset=utf-8"
+
+[[headers]]
+  for = "*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+    Content-Type = "text/html; charset=utf-8"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirects para SPA (Single Page Application)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  conditions = {Role = ["admin", "editor"], Country = ["US"]}
+
+# Redirect específico para compatibilidade
+[[redirects]]
+  from = "/analise"
+  to = "/index.html#analise"
+  status = 301
+
+[[redirects]]
+  from = "/referencias"
+  to = "/index.html#referencias"
+  status = 301
+
+[[redirects]]
+  from = "/guia"
+  to = "/index.html#guia"
+  status = 301
+
+# Force HTTPS
+[[redirects]]
+  from = "http://datascience-pro.netlify.app/*"
+  to = "https://datascience-pro.netlify.app/:splat"
+  status = 301
+  force = true
+
+# Error pages
+[[redirects]]
+  from = "/404"
+  to = "/index.html"
+  status = 404
+
+# API endpoints (se necessário para futuras extensões)
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# Security headers for uploads
+[[headers]]
+  for = "/uploads/*"
+  [headers.values]
+    Content-Security-Policy = "default-src 'self'; script-src 'none'; object-src 'none';"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+
+# Prevent access to sensitive files
+[[redirects]]
+  from = "/.env"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/config/*"
+  to = "/404"
+  status = 404
+
+[[redirects]]
+  from = "/.git/*"
+  to = "/404"
+  status = 404
+
+# Optimize for Core Web Vitals
+[build.processing]
+  skip_processing = false
+
+[build.processing.css]
+  bundle = true
+  minify = true
+
+[build.processing.js]
+  bundle = true
+  minify = true
+
+[build.processing.html]
+  pretty_urls = true
+  canonical_url = true
+
+# Forms (se necessário para feedback)
+[context.production]
+  command = ""
+  publish = "."
+
+[context.deploy-preview]
+  command = ""
+  publish = "."
+
+[context.branch-deploy]
+  command = ""
+  publish = "."
+
+# Edge functions (para futuras funcionalidades)
+[[edge_functions]]
+  function = "analytics"
+  path = "/*"
