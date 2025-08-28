@@ -50,7 +50,31 @@ Este livro apresenta conceitos de **Big Data** e **Python** através de **casos 
 
 ---
 
-## 📊 **Casos Reais Desenvolvidos**
+## � **Palavras-Chave para Profissionais de Big Data e Análise de Dados**
+
+*Skills essenciais que aparecem em vagas de emprego e são abordadas neste livro*
+
+### **Linguagens e Frameworks**
+Python, PySpark, Apache Spark, SQL, Scala, R, Java, Hadoop, Hive, Apache Kafka, Apache Airflow, Apache Beam, Apache Flink, Databricks, Snowflake, dbt, Great Expectations, MLflow, Kubeflow, TensorFlow, PyTorch, Keras, XGBoost, LightGBM, Scikit-learn, Pandas, NumPy, Matplotlib, Seaborn, Plotly, Streamlit, Dash, FastAPI, Flask, Django
+
+### **Cloud e Infraestrutura**
+AWS, Azure, Google Cloud Platform (GCP), Amazon S3, Azure Data Lake, Google BigQuery, Amazon Redshift, Azure Synapse Analytics, Google Cloud Storage, EC2, Azure VM, Google Compute Engine, Lambda, Azure Functions, Google Cloud Functions, Docker, Kubernetes, Terraform, Apache Mesos, Yarn, Spark Cluster, Elasticsearch, MongoDB, Cassandra, Redis, PostgreSQL, MySQL, Oracle, SQL Server
+
+### **Ferramentas de Dados e ETL**
+Apache Nifi, Talend, Informatica, Pentaho, SSIS, Azure Data Factory, AWS Glue, Google Cloud Dataflow, Apache Sqoop, Apache Flume, Logstash, Fivetran, Stitch, Airbyte, Singer, Apache Superset, Tableau, Power BI, Looker, Grafana, Metabase, Apache Zeppelin, Jupyter Notebooks, Google Colab, Apache Parquet, Apache Avro, JSON, XML, CSV
+
+### **Machine Learning e IA**
+Deep Learning, Neural Networks, CNN, RNN, LSTM, GAN, Transformer, BERT, GPT, Computer Vision, Natural Language Processing (NLP), Time Series Analysis, Recommender Systems, Classification, Regression, Clustering, Dimensionality Reduction, Feature Engineering, Model Selection, Cross-validation, Hyperparameter Tuning, A/B Testing, MLOps, Model Deployment, Model Monitoring, AutoML, Ensemble Methods
+
+### **Metodologias e Conceitos**
+Data Engineering, Data Science, Data Analytics, Business Intelligence, ETL/ELT, Data Pipeline, Data Warehouse, Data Lake, Lakehouse, Data Mesh, Real-time Processing, Batch Processing, Stream Processing, Data Governance, Data Quality, Data Lineage, Data Catalog, Metadata Management, GDPR, Data Privacy, Agile, Scrum, DevOps, CI/CD, Git, Version Control
+
+### **Especialização e Soft Skills**
+Statistics, Mathematics, Linear Algebra, Probability, Hypothesis Testing, Statistical Modeling, Experimentation Design, Problem Solving, Critical Thinking, Communication, Data Storytelling, Data Visualization, Business Acumen, Domain Knowledge, Project Management, Teamwork, Leadership, Continuous Learning, Adaptability, Innovation
+
+---
+
+## �📊 **Casos Reais Desenvolvidos**
 
 ### 🌉 **Ponte Hercílio Luz**
 - Análise de tráfego e sensores

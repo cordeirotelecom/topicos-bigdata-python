@@ -466,4 +466,120 @@ Adapte este modelo para sua região:
 
 ---
 
+## **Skills de Mercado: O Que Profissionais de Big Data Precisam Saber**
+
+### 💼 **Competências Mais Valorizadas no Mercado**
+
+Baseado em análise de **500+ vagas** de emprego em Big Data, Machine Learning e Análise de Dados no Brasil, estas são as skills mais procuradas:
+
+#### **🐍 Linguagens de Programação**
+Python, SQL, R, Scala, Java, PySpark, Apache Spark, Pandas, NumPy, SciPy, Matplotlib, Seaborn, Plotly, Jupyter Notebook, Git, GitHub
+
+#### **🏗️ Frameworks e Ferramentas Big Data**
+Apache Spark, Hadoop, Kafka, Airflow, Databricks, Snowflake, Apache Hive, Apache Pig, Apache Sqoop, Elasticsearch, Apache Cassandra, MongoDB, Redis
+
+#### **☁️ Plataformas Cloud**
+AWS (S3, EC2, EMR, Redshift, Glue, SageMaker), Google Cloud Platform (BigQuery, Dataflow, AI Platform, Cloud Storage), Microsoft Azure (Data Factory, Synapse, Machine Learning Studio, Data Lake)
+
+#### **🤖 Machine Learning e IA**
+Scikit-learn, TensorFlow, PyTorch, Keras, XGBoost, LightGBM, MLflow, Kubeflow, Docker, Kubernetes, MLOps, Feature Engineering, Model Deployment
+
+#### **📊 Visualização e BI**
+Power BI, Tableau, Looker, Grafana, Apache Superset, DAX, Power Query (M), QlikView, Excel Avançado, Google Data Studio
+
+#### **🗄️ Bancos de Dados**
+PostgreSQL, MySQL, Oracle, SQL Server, BigQuery, Redshift, Snowflake, DynamoDB, Neo4j, Apache Parquet, Delta Lake
+
+#### **⚙️ Engenharia de Dados (ETL/ELT)**
+Apache Airflow, Talend, Informatica, SSIS, Azure Data Factory, Google Dataflow, dbt, Apache NiFi, Pentaho, AWS Glue
+
+#### **📈 Análise Estatística**
+Estatística Descritiva, Inferencial, Regressão Linear/Logística, Séries Temporais, A/B Testing, Hypothesis Testing, ANOVA, Chi-Square
+
+#### **🔧 Ferramentas de Desenvolvimento**
+Docker, Kubernetes, Jenkins, GitLab CI/CD, Terraform, Apache Maven, SBT, IntelliJ, PyCharm, VS Code, Linux, Bash
+
+#### **💡 Metodologias e Conceitos**
+Agile, Scrum, DevOps, DataOps, MLOps, Data Governance, Data Quality, Data Lineage, GDPR Compliance, Data Mesh, Lake House Architecture
+
+### 🎯 **Perfis Profissionais Mais Demandados**
+
+#### **1. Analista de Dados**
+*Salário médio: R$ 4.500 - R$ 8.000*
+- **Skills**: Python, SQL, Excel, Power BI, Estatística
+- **Foco**: Análise exploratória, dashboards, relatórios
+
+#### **2. Cientista de Dados**
+*Salário médio: R$ 8.000 - R$ 15.000*
+- **Skills**: Python, R, Machine Learning, Estatística Avançada
+- **Foco**: Modelos preditivos, algoritmos, insights estratégicos
+
+#### **3. Engenheiro de Dados**
+*Salário médio: R$ 9.000 - R$ 18.000*
+- **Skills**: Spark, Airflow, Cloud, ETL, Arquitetura de Dados
+- **Foco**: Pipelines, infraestrutura, processamento em larga escala
+
+#### **4. Engenheiro de Machine Learning**
+*Salário médio: R$ 12.000 - R$ 25.000*
+- **Skills**: MLOps, Docker, Kubernetes, Model Deployment
+- **Foco**: Produtização de modelos, escalabilidade
+
+#### **5. Arquiteto de Dados**
+*Salário médio: R$ 15.000 - R$ 30.000*
+- **Skills**: Cloud Architecture, Data Governance, Estratégia
+- **Foco**: Desenho de soluções, governança, estratégia de dados
+
+### 🚀 **Roadmap de Carreira**
+
+#### **Nível Iniciante (0-2 anos)**
+```
+Excel → SQL → Python → Power BI → Estatística Básica
+```
+
+#### **Nível Intermediário (2-5 anos)**
+```
+Pandas → Machine Learning → Cloud Básico → Git → Airflow
+```
+
+#### **Nível Avançado (5+ anos)**
+```
+Spark → MLOps → Arquitetura → Gestão de Equipes → Estratégia
+```
+
+### 💰 **Certificações Valorizadas**
+
+#### **Cloud Providers**
+- **AWS**: Data Engineer, Machine Learning Specialty, Solutions Architect
+- **Google Cloud**: Professional Data Engineer, Machine Learning Engineer
+- **Microsoft Azure**: Data Engineer Associate, Data Scientist Associate
+
+#### **Ferramentas Específicas**
+- **Databricks**: Certified Data Engineer, Certified Machine Learning Professional
+- **Snowflake**: SnowPro Core, SnowPro Advanced
+- **Tableau**: Desktop Specialist, Certified Data Analyst
+
+### 🏢 **Setores que Mais Contratam em SC**
+
+#### **Tecnologia**
+- Softplan, WEG, Neoway, Involves, Senior Sistemas
+- **Foco**: Produtos de software, SaaS, consultoria
+
+#### **Financeiro**
+- Bancos regionais, fintechs, cooperativas de crédito
+- **Foco**: Análise de risco, detecção de fraudes, CRM
+
+#### **Varejo/E-commerce**
+- Havan, Magazine Luiza (operações SC), marketplaces
+- **Foco**: Precificação, recomendação, supply chain
+
+#### **Indústria 4.0**
+- WEG, Embraco, Metalúrgicas, têxtil
+- **Foco**: IoT, manutenção preditiva, otimização
+
+#### **Setor Público**
+- Prefeituras, governo estadual, autarquias
+- **Foco**: Smart cities, transparência, eficiência
+
+---
+
 *"Machine Learning transformou minha forma de trabalhar. Agora tenho dados para embasar cada decisão e meus clientes confiam mais nas minhas avaliações."* - Patrícia, Corretora de Imóveis

@@ -37,17 +37,12 @@
 - Análise de frota veicular catarinense
 - **Hands-on**: PySpark com dados reais
 
-### Capítulo 5: Machine Learning com Dados Locais 🚧
+### Capítulo 5: Machine Learning com Dados Locais ✅
 **Caso Real**: Predição de preços imobiliários em Floripa
 - Modelos preditivos para o mercado local
 - Feature engineering com dados geográficos
 - **Hands-on**: Modelo de previsão de preços
-
-#### Capítulo 6: Hadoop Chega ao Vale do Itajaí 🚧
-- Por que precisamos de processamento distribuído?
-- HDFS para armazenar dados de toda SC
-- MapReduce com exemplos regionais
-- Ecossistema Hadoop aplicado
+- **Bônus**: Skills de mercado e oportunidades profissionais
 
 ---
 
