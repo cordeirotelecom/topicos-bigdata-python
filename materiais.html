@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Materiais de Estudo - BigData Analytics Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: #0f172a; 
+            color: #e2e8f0; 
+            line-height: 1.6; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; color: #3b82f6; margin-bottom: 1rem; }
+        .materials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .material-card { 
+            background: #1e293b; 
+            padding: 2rem; 
+            border-radius: 12px; 
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+        .material-card:hover { transform: translateY(-5px); }
+        .back-link { 
+            display: inline-flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+            color: #3b82f6; 
+            text-decoration: none; 
+            margin-bottom: 2rem;
+        }
+        .back-link:hover { color: #60a5fa; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="../index.html" class="back-link">
+            <i class="fas fa-arrow-left"></i>
+            Voltar ao Início
+        </a>
+        
+        <div class="header">
+            <h1><i class="fas fa-book"></i> Materiais de Estudo</h1>
+            <p>Documentação e recursos para aprender análise de dados</p>
+        </div>
+        
+        <div class="materials-grid">
+            <div class="material-card">
+                <h3><i class="fas fa-file-pdf"></i> Documentação</h3>
+                <p>Guias completos sobre análise de dados e machine learning.</p>
+                <a href="../materiais.md" style="color: #3b82f6;">Ver Documentação</a>
+            </div>
+            
+            <div class="material-card">
+                <h3><i class="fas fa-play-circle"></i> Tutoriais</h3>
+                <p>Vídeos e exemplos práticos passo a passo.</p>
+                <a href="../aulas/" style="color: #3b82f6;">Acessar Aulas</a>
+            </div>
+            
+            <div class="material-card">
+                <h3><i class="fas fa-database"></i> Datasets</h3>
+                <p>Conjuntos de dados para prática e experimentação.</p>
+                <a href="../datasets/" style="color: #3b82f6;">Download Datasets</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
