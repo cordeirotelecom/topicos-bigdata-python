@@ -3,8 +3,6 @@ name: Deploy GitHub Pages
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   workflow_dispatch:
 
 permissions:
@@ -22,7 +20,9 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-      
+      with:
+        submodules: true
+        
     - name: Setup Pages
       uses: actions/configure-pages@v4
       
@@ -35,7 +35,7 @@ jobs:
         cp index.html _site/
         
         # Copiar todos os assets necessários
-        cp -r site_analise_dados _site/
+        cp -r site_analise_dados _site/ 2>/dev/null || true
         cp -r css _site/ 2>/dev/null || true
         cp -r js _site/ 2>/dev/null || true
         cp -r assets _site/ 2>/dev/null || true
@@ -43,17 +43,29 @@ jobs:
         cp -r datasets _site/ 2>/dev/null || true
         cp -r materiais _site/ 2>/dev/null || true
         cp -r docs _site/ 2>/dev/null || true
+        cp -r livro _site/ 2>/dev/null || true
+        
+        # Copiar arquivos importantes
+        cp README.md _site/ 2>/dev/null || true
+        cp _redirects _site/ 2>/dev/null || true
+        cp netlify.toml _site/ 2>/dev/null || true
         
         # Criar arquivo .nojekyll para bypass Jekyll
         touch _site/.nojekyll
         
-        # Copiar arquivos de configuração
-        cp _config.yml _site/ 2>/dev/null || true
-        cp CNAME _site/ 2>/dev/null || true
+        # Verificar se arquivos principais existem
+        echo "Verificando estrutura do site:"
+        ls -la _site/
+        echo "Conteúdo site_analise_dados:"
+        ls -la _site/site_analise_dados/ 2>/dev/null || echo "Pasta site_analise_dados não encontrada"
         
-        # Debug - listar estrutura
-        echo "Estrutura do site:"
-        find _site -type f | head -20
+        # Verificar se index.html existe e tem conteúdo
+        if [ -f "_site/index.html" ]; then
+          echo "index.html existe e tem $(wc -l < _site/index.html) linhas"
+        else
+          echo "ERRO: index.html não encontrado!"
+          exit 1
+        fi
         
     - name: Upload artifact
       uses: actions/upload-pages-artifact@v3
@@ -68,5 +80,7 @@ jobs:
     needs: build
     steps:
     - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4
       id: deployment
       uses: actions/deploy-pages@v4
