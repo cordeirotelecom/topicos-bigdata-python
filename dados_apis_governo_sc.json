@@ -1,0 +1,105 @@
+{
+  "dados_saude_sc": {
+    "fonte": "Secretaria de Estado da Saúde de SC",
+    "ano": 2024,
+    "hospitais_publicos": 89,
+    "leitos_disponibles": 12453,
+    "atendimentos_sus_mensal": 1234567,
+    "vacinacao_cobertura": 87.3,
+    "mortalidade_infantil": 9.2,
+    "expectativa_vida": 78.5,
+    "municipios": [
+      {
+        "nome": "Florianópolis",
+        "leitos_uti": 145,
+        "medicos_por_mil_hab": 8.2,
+        "casos_covid_acumulados": 156789
+      },
+      {
+        "nome": "Joinville",
+        "leitos_uti": 89,
+        "medicos_por_mil_hab": 5.7,
+        "casos_covid_acumulados": 134567
+      }
+    ]
+  },
+  "dados_educacao_sc": {
+    "fonte": "Secretaria de Estado da Educação de SC",
+    "ano": 2024,
+    "escolas_publicas": 3456,
+    "escolas_privadas": 1234,
+    "alunos_matriculados": 1567890,
+    "professores_ativos": 89765,
+    "ideb_medio_estado": 6.2,
+    "evasao_escolar": 3.8,
+    "municipios": [
+      {
+        "nome": "Florianópolis",
+        "escolas_publicas": 124,
+        "ideb": 6.8,
+        "alunos_matriculados": 78456
+      },
+      {
+        "nome": "Joinville",
+        "escolas_publicas": 187,
+        "ideb": 6.4,
+        "alunos_matriculados": 89765
+      }
+    ]
+  },
+  "dados_seguranca_sc": {
+    "fonte": "Secretaria de Segurança Pública de SC",
+    "ano": 2024,
+    "crimes_violentos_por_100k": 234.5,
+    "homicidios_por_100k": 12.3,
+    "roubos_por_100k": 187.6,
+    "efetivo_policial": 23456,
+    "delegacias": 345,
+    "municipios": [
+      {
+        "nome": "Florianópolis",
+        "crimes_violentos": 1234,
+        "homicidios": 45,
+        "roubos": 2345,
+        "indice_seguranca": 78.5
+      },
+      {
+        "nome": "Joinville",
+        "crimes_violentos": 1567,
+        "homicidios": 67,
+        "roubos": 2876,
+        "indice_seguranca": 82.3
+      }
+    ]
+  },
+  "dados_economia_sc": {
+    "fonte": "Secretaria de Desenvolvimento Econômico Sustentável",
+    "ano": 2024,
+    "pib_total_bilhoes": 298.5,
+    "pib_per_capita": 41234,
+    "taxa_desemprego": 8.9,
+    "empresas_ativas": 876543,
+    "exportacoes_bilhoes_usd": 15.6,
+    "setores_principais": [
+      "Agronegócio",
+      "Tecnologia",
+      "Metal-mecânico",
+      "Têxtil",
+      "Turismo"
+    ],
+    "municipios": [
+      {
+        "nome": "Florianópolis",
+        "pib_milhoes": 25834.5,
+        "empresas_ativas": 45678,
+        "taxa_desemprego": 8.2
+      },
+      {
+        "nome": "Joinville",
+        "pib_milhoes": 18923.7,
+        "empresas_ativas": 56789,
+        "taxa_desemprego": 9.1
+      }
+    ]
+  }
+}

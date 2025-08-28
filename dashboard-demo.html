@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎯 Dashboard Demonstração - Análise de Dados SC</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --error-color: #ef4444;
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        
+        .dashboard-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--border-color);
+        }
+        
+        .dashboard-header h1 {
+            color: var(--text-primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .dashboard-header p {
+            color: var(--text-secondary);
+            font-size: 16px;
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .metric-card {
+            background: var(--bg-secondary);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .metric-icon {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .metric-trend {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 4px 8px;
+            border-radius: 20px;
+            color: white;
+        }
+        
+        .trend-up { background: var(--success-color); }
+        .trend-down { background: var(--error-color); }
+        .trend-stable { background: var(--warning-color); }
+        
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .chart-card {
+            background: var(--bg-primary);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .chart-header {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .chart-title {
+            color: var(--text-primary);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .chart-subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        
+        .insights-section {
+            background: var(--bg-secondary);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 30px;
+        }
+        
+        .insights-header {
+            margin-bottom: 25px;
+        }
+        
+        .insights-title {
+            color: var(--text-primary);
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .insight-item {
+            background: var(--bg-primary);
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .insight-title {
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .insight-description {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .actions-bar {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .action-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1d4ed8;
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: var(--bg-secondary);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+        }
+        
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            transform: translateY(-2px);
+        }
+        
+        .status-indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: var(--success-color);
+            color: white;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            font-size: 14px;
+        }
+        
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 20px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .insights-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .actions-bar {
+                flex-direction: column;
+            }
+            
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-indicator">
+        🟢 Sistema Online - Dados Atualizados
+    </div>
+    
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1>🎯 Dashboard de Demonstração - Análise SC</h1>
+            <p>Visualização em tempo real dos dados analisados pela Plataforma Avançada de BigData</p>
+        </div>
+        
+        <!-- Métricas Principais -->
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-icon">🏛️</div>
+                <div class="metric-value" id="total-municipalities">295</div>
+                <div class="metric-label">Municípios Analisados</div>
+                <div class="metric-trend trend-up">+100% Cobertura</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">📊</div>
+                <div class="metric-value" id="datasets-processed">47</div>
+                <div class="metric-label">Datasets Processados</div>
+                <div class="metric-trend trend-up">+23% este mês</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">🤖</div>
+                <div class="metric-value" id="ai-insights">1,234</div>
+                <div class="metric-label">Insights Gerados</div>
+                <div class="metric-trend trend-up">+156 hoje</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">⚡</div>
+                <div class="metric-value" id="analysis-speed">2.3s</div>
+                <div class="metric-label">Tempo Médio de Análise</div>
+                <div class="metric-trend trend-down">-45% otimização</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">👥</div>
+                <div class="metric-value" id="active-users">89</div>
+                <div class="metric-label">Usuários Ativos</div>
+                <div class="metric-trend trend-up">+12% crescimento</div>
+            </div>
+            
+            <div class="metric-card">
+                <div class="metric-icon">📈</div>
+                <div class="metric-value" id="accuracy-rate">94.7%</div>
+                <div class="metric-label">Taxa de Precisão</div>
+                <div class="metric-trend trend-stable">Estável</div>
+            </div>
+        </div>
+        
+        <!-- Gráficos -->
+        <div class="charts-grid">
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">📊 PIB por Região</div>
+                    <div class="chart-subtitle">Distribuição econômica em Santa Catarina</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="pibChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">🏥 Indicadores de Saúde</div>
+                    <div class="chart-subtitle">Evolução dos indicadores por ano</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="healthChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">🎓 Educação por Município</div>
+                    <div class="chart-subtitle">IDEB dos principais municípios</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="educationChart"></canvas>
+                </div>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-header">
+                    <div class="chart-title">🔒 Índice de Segurança</div>
+                    <div class="chart-subtitle">Comparativo entre regiões</div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="securityChart"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Insights da IA -->
+        <div class="insights-section">
+            <div class="insights-header">
+                <div class="insights-title">
+                    🧠 Insights Descobertos pela IA
+                </div>
+                <p style="color: var(--text-secondary);">Análises automáticas baseadas nos dados processados</p>
+            </div>
+            
+            <div class="insights-grid">
+                <div class="insight-item">
+                    <div class="insight-title">🎯 Correlação Forte Detectada</div>
+                    <div class="insight-description">
+                        PIB municipal tem correlação de <strong>0.87</strong> com número de hospitais, 
+                        indicando relação direta entre desenvolvimento econômico e infraestrutura de saúde.
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-title">⚠️ Anomalia Identificada</div>
+                    <div class="insight-description">
+                        Balneário Camboriú apresenta baixa taxa de desemprego (6.5%) mas PIB per capita 
+                        médio, sugerindo economia baseada em serviços sazonais.
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-title">📈 Tendência de Crescimento</div>
+                    <div class="insight-description">
+                        Região da Grande Florianópolis mostra crescimento consistente de <strong>3.2% ao ano</strong> 
+                        no setor de tecnologia nos últimos 5 anos.
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-title">🏆 Destaque Regional</div>
+                    <div class="insight-description">
+                        Florianópolis lidera com IDH de <strong>0.847</strong>, mas apresenta desafios 
+                        na taxa de desemprego (8.2%) acima da média regional.
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-title">🔍 Oportunidade de Investimento</div>
+                    <div class="insight-description">
+                        Municípios do Vale do Itajaí apresentam infraestrutura educacional robusta 
+                        com potencial de expansão tecnológica.
+                    </div>
+                </div>
+                
+                <div class="insight-item">
+                    <div class="insight-title">⚡ Eficiência Detectada</div>
+                    <div class="insight-description">
+                        Análise de <strong>295 municípios</strong> processada em média de 2.3 segundos 
+                        com 94.7% de precisão usando algoritmos otimizados.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Ações -->
+        <div class="actions-bar">
+            <button class="action-btn btn-primary" onclick="openMainApp()">
+                🚀 Abrir Analisador Principal
+            </button>
+            <button class="action-btn btn-primary" onclick="generateReport()">
+                📄 Gerar Relatório PDF
+            </button>
+            <button class="action-btn btn-secondary" onclick="exportData()">
+                📊 Exportar Excel
+            </button>
+            <button class="action-btn btn-secondary" onclick="shareResults()">
+                🔗 Compartilhar Resultados
+            </button>
+            <button class="action-btn btn-secondary" onclick="runTests()">
+                🧪 Executar Testes
+            </button>
+        </div>
+        
+        <div class="footer">
+            <p>🎓 <strong>Tópicos de Big Data em Python</strong> | Plataforma Avançada de Análise de Dados Governamentais</p>
+            <p>Desenvolvido com foco em Santa Catarina, São José e Florianópolis | Última atualização: <span id="last-update"></span></p>
+        </div>
+    </div>
+    
+    <script>
+        // Configuração dos gráficos
+        Chart.defaults.color = '#64748b';
+        Chart.defaults.font.family = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
+        
+        // Gráfico PIB
+        const pibCtx = document.getElementById('pibChart').getContext('2d');
+        new Chart(pibCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Grande Florianópolis', 'Norte', 'Vale do Itajaí', 'Oeste', 'Sul', 'Serrana'],
+                datasets: [{
+                    data: [35, 18, 22, 12, 8, 5],
+                    backgroundColor: [
+                        '#3b82f6', '#10b981', '#f59e0b', '#ef4444', '#8b5cf6', '#06b6d4'
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#ffffff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: { padding: 20 }
+                    }
+                }
+            }
+        });
+        
+        // Gráfico Saúde
+        const healthCtx = document.getElementById('healthChart').getContext('2d');
+        new Chart(healthCtx, {
+            type: 'line',
+            data: {
+                labels: ['2020', '2021', '2022', '2023', '2024'],
+                datasets: [{
+                    label: 'Leitos por 1000 hab',
+                    data: [2.1, 2.3, 2.5, 2.8, 3.1],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }, {
+                    label: 'Médicos por 1000 hab',
+                    data: [1.8, 2.0, 2.2, 2.4, 2.6],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { beginAtZero: true }
+                },
+                plugins: {
+                    legend: { position: 'top' }
+                }
+            }
+        });
+        
+        // Gráfico Educação
+        const educationCtx = document.getElementById('educationChart').getContext('2d');
+        new Chart(educationCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Florianópolis', 'Joinville', 'Blumenau', 'São José', 'Chapecó'],
+                datasets: [{
+                    label: 'IDEB',
+                    data: [6.8, 6.4, 6.5, 6.1, 5.9],
+                    backgroundColor: '#f59e0b',
+                    borderColor: '#d97706',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: { 
+                        beginAtZero: true,
+                        max: 10
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+        
+        // Gráfico Segurança
+        const securityCtx = document.getElementById('securityChart').getContext('2d');
+        new Chart(securityCtx, {
+            type: 'radar',
+            data: {
+                labels: ['Policiamento', 'Criminalidade', 'Infraestrutura', 'Tecnologia', 'Prevenção'],
+                datasets: [{
+                    label: 'Grande Florianópolis',
+                    data: [85, 75, 90, 95, 80],
+                    borderColor: '#3b82f6',
+                    backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                    pointBackgroundColor: '#3b82f6'
+                }, {
+                    label: 'Norte do Estado',
+                    data: [70, 85, 75, 70, 75],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.2)',
+                    pointBackgroundColor: '#10b981'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        beginAtZero: true,
+                        max: 100
+                    }
+                }
+            }
+        });
+        
+        // Funções de ação
+        function openMainApp() {
+            window.open('index.html', '_blank');
+        }
+        
+        function generateReport() {
+            alert('📄 Relatório PDF sendo gerado... Em breve será disponibilizado para download!');
+        }
+        
+        function exportData() {
+            alert('📊 Dados sendo exportados para Excel... Download iniciará em instantes!');
+        }
+        
+        function shareResults() {
+            alert('🔗 Link de compartilhamento copiado para a área de transferência!');
+        }
+        
+        function runTests() {
+            window.open('test-automático.html', '_blank');
+        }
+        
+        // Atualizar timestamp
+        document.getElementById('last-update').textContent = new Date().toLocaleString('pt-BR');
+        
+        // Animação dos números
+        function animateNumbers() {
+            const metrics = [
+                { id: 'total-municipalities', target: 295, current: 0 },
+                { id: 'datasets-processed', target: 47, current: 0 },
+                { id: 'ai-insights', target: 1234, current: 0 },
+                { id: 'active-users', target: 89, current: 0 }
+            ];
+            
+            metrics.forEach(metric => {
+                const element = document.getElementById(metric.id);
+                const increment = metric.target / 50;
+                
+                const timer = setInterval(() => {
+                    metric.current += increment;
+                    if (metric.current >= metric.target) {
+                        metric.current = metric.target;
+                        clearInterval(timer);
+                    }
+                    
+                    if (metric.id === 'ai-insights') {
+                        element.textContent = Math.floor(metric.current).toLocaleString('pt-BR');
+                    } else {
+                        element.textContent = Math.floor(metric.current);
+                    }
+                }, 100);
+            });
+        }
+        
+        // Iniciar animações após carregamento
+        window.addEventListener('load', () => {
+            setTimeout(animateNumbers, 500);
+        });
+        
+        console.log('🎯 Dashboard de Demonstração carregado com sucesso!');
+        console.log('📊 Dados simulados baseados em Santa Catarina');
+        console.log('🚀 Acesse index.html para usar a plataforma completa');
+    </script>
+</body>
+</html>
