@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laboratório Hadoop - Instalação e Prática Completa</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            color: #e2e8f0;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #334155;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #f59e0b;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #f59e0b;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 3rem 0;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            border: 1px solid #475569;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: #94a3b8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: #1e293b;
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid #334155;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            color: #f59e0b;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section h3 {
+            font-size: 1.5rem;
+            color: #fbbf24;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #374151;
+        }
+
+        .step-card {
+            background: #334155;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            border-left: 4px solid #f59e0b;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(245, 158, 11, 0.2);
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2rem;
+            height: 2rem;
+            background: #f59e0b;
+            color: #0f172a;
+            border-radius: 50%;
+            font-weight: 700;
+            margin-right: 1rem;
+        }
+
+        .code-block {
+            background: #1e293b;
+            border: 1px solid #475569;
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-block::before {
+            content: attr(data-lang);
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .command {
+            background: #0f172a;
+            color: #10b981;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', monospace;
+            border-left: 4px solid #10b981;
+            margin: 1rem 0;
+        }
+
+        .warning {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid #ef4444;
+            color: #fca5a5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid #3b82f6;
+            color: #93c5fd;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .success {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            color: #6ee7b7;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .company-card {
+            background: #334155;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 1px solid #475569;
+            transition: all 0.3s;
+        }
+
+        .company-card:hover {
+            transform: translateY(-3px);
+            border-color: #f59e0b;
+        }
+
+        .download-section {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: #0f172a;
+            padding: 2rem;
+            border-radius: 16px;
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .download-btn {
+            background: #0f172a;
+            color: #f59e0b;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem;
+        }
+
+        .download-btn:hover {
+            background: #1e293b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .architecture-diagram {
+            background: #334155;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin: 2rem 0;
+            border: 1px solid #475569;
+        }
+
+        .node {
+            display: inline-block;
+            background: #f59e0b;
+            color: #0f172a;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            min-width: 120px;
+        }
+
+        .arrow {
+            color: #94a3b8;
+            font-size: 1.5rem;
+            margin: 0 1rem;
+        }
+
+        .tabs {
+            display: flex;
+            background: #334155;
+            border-radius: 8px 8px 0 0;
+            overflow: hidden;
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 1rem 2rem;
+            color: #94a3b8;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        .tab.active {
+            background: #1e293b;
+            color: #f59e0b;
+            border-bottom-color: #f59e0b;
+        }
+
+        .tab-content {
+            background: #1e293b;
+            padding: 2rem;
+            border-radius: 0 0 8px 8px;
+            border: 1px solid #334155;
+            border-top: none;
+        }
+
+        .progress-bar {
+            background: #334155;
+            border-radius: 8px;
+            height: 8px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(90deg, #f59e0b, #f97316);
+            height: 100%;
+            border-radius: 8px;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-database"></i>
+                Hadoop Lab
+            </div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#introducao">Introdução</a></li>
+                    <li><a href="#instalacao">Instalação</a></li>
+                    <li><a href="#pratica">Prática</a></li>
+                    <li><a href="#empresas">Casos de Uso</a></li>
+                    <li><a href="#download">Download</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero">
+            <h1><i class="fas fa-elephant"></i> Laboratório Hadoop</h1>
+            <p>Guia completo para instalação, configuração e uso prático do Apache Hadoop - O framework que revolucionou o Big Data</p>
+        </div>
+
+        <!-- Introdução -->
+        <section class="section" id="introducao">
+            <h2><i class="fas fa-book-open"></i> O que é Apache Hadoop?</h2>
+            
+            <p>O Apache Hadoop é um framework open-source que permite o processamento distribuído de grandes conjuntos de dados em clusters de computadores usando modelos de programação simples. Foi criado em 2006 por Doug Cutting e Mike Cafarella, baseado nos papers do Google sobre MapReduce e Google File System.</p>
+
+            <h3><i class="fas fa-cogs"></i> Componentes Principais</h3>
+
+            <div class="architecture-diagram">
+                <h4>Arquitetura Hadoop</h4>
+                <div style="margin: 2rem 0;">
+                    <div class="node">HDFS</div>
+                    <span class="arrow">↔</span>
+                    <div class="node">YARN</div>
+                    <span class="arrow">↔</span>
+                    <div class="node">MapReduce</div>
+                </div>
+                <div style="margin: 2rem 0;">
+                    <div class="node">NameNode</div>
+                    <span class="arrow">→</span>
+                    <div class="node">DataNode 1</div>
+                    <div class="node">DataNode 2</div>
+                    <div class="node">DataNode N</div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                <div class="step-card">
+                    <h4><i class="fas fa-hdd"></i> HDFS (Hadoop Distributed File System)</h4>
+                    <p>Sistema de arquivos distribuído que armazena dados em múltiplas máquinas com alta tolerância a falhas. Divide arquivos grandes em blocos de 128MB por padrão.</p>
+                </div>
+                <div class="step-card">
+                    <h4><i class="fas fa-tasks"></i> YARN (Yet Another Resource Negotiator)</h4>
+                    <p>Gerenciador de recursos que aloca CPU, memória e outros recursos para aplicações distribuídas no cluster.</p>
+                </div>
+                <div class="step-card">
+                    <h4><i class="fas fa-sitemap"></i> MapReduce</h4>
+                    <p>Modelo de programação para processamento de grandes datasets de forma paralela e distribuída.</p>
+                </div>
+            </div>
+
+            <div class="info">
+                <h4><i class="fas fa-lightbulb"></i> Quando usar Hadoop?</h4>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li>Processamento de datasets maiores que 1TB</li>
+                    <li>Análise de logs de servidores web</li>
+                    <li>ETL (Extract, Transform, Load) de data warehouses</li>
+                    <li>Análise de dados não estruturados (texto, imagens, vídeos)</li>
+                    <li>Machine Learning em grandes volumes de dados</li>
+                    <li>Backup e arquivamento de dados</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Instalação -->
+        <section class="section" id="instalacao">
+            <h2><i class="fas fa-download"></i> Instalação Completa do Hadoop</h2>
+
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 0%" id="install-progress"></div>
+            </div>
+
+            <!-- Tabs para diferentes sistemas -->
+            <div class="tabs">
+                <button class="tab active" onclick="showTab('windows')">Windows</button>
+                <button class="tab" onclick="showTab('linux')">Linux/Ubuntu</button>
+                <button class="tab" onclick="showTab('docker')">Docker</button>
+            </div>
+
+            <!-- Windows Installation -->
+            <div class="tab-content" id="windows-content">
+                <h3><i class="fab fa-windows"></i> Instalação no Windows</h3>
+
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <h4>Pré-requisitos</h4>
+                    <p>Instalar Java 8 ou 11 (recomendado OpenJDK)</p>
+                    <div class="command">
+                        # Verificar Java instalado<br>
+                        java -version<br>
+                        javac -version
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <h4>Download do Hadoop</h4>
+                    <p>Baixar Hadoop 3.3.6 (versão estável mais recente)</p>
+                    <div class="command">
+                        # Via PowerShell<br>
+                        Invoke-WebRequest -Uri "https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz" -OutFile "hadoop-3.3.6.tar.gz"
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <h4>Extrair e Configurar</h4>
+                    <div class="command">
+                        # Extrair para C:\hadoop<br>
+                        tar -xzf hadoop-3.3.6.tar.gz<br>
+                        move hadoop-3.3.6 C:\hadoop
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <h4>Configurar Variáveis de Ambiente</h4>
+                    <div class="code-block" data-lang="batch">
+# Adicionar ao PATH do Windows
+set JAVA_HOME=C:\Program Files\Java\jdk-11.0.x
+set HADOOP_HOME=C:\hadoop
+set HADOOP_CONF_DIR=%HADOOP_HOME%\etc\hadoop
+set PATH=%PATH%;%HADOOP_HOME%\bin;%HADOOP_HOME%\sbin
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">5</span>
+                    <h4>Configurar hadoop-env.cmd</h4>
+                    <div class="code-block" data-lang="batch">
+# Editar %HADOOP_HOME%\etc\hadoop\hadoop-env.cmd
+set JAVA_HOME=C:\Program Files\Java\jdk-11.0.x
+set HADOOP_PREFIX=C:\hadoop
+set HADOOP_CONF_DIR=%HADOOP_PREFIX%\etc\hadoop
+set YARN_CONF_DIR=%HADOOP_CONF_DIR%
+set PATH=%PATH%;%HADOOP_PREFIX%\bin
+                    </div>
+                </div>
+            </div>
+
+            <!-- Linux Installation -->
+            <div class="tab-content" id="linux-content" style="display: none;">
+                <h3><i class="fab fa-linux"></i> Instalação no Linux/Ubuntu</h3>
+
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <h4>Atualizar Sistema e Instalar Java</h4>
+                    <div class="command">
+                        sudo apt update<br>
+                        sudo apt install openjdk-11-jdk -y<br>
+                        java -version
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <h4>Criar Usuário Hadoop</h4>
+                    <div class="command">
+                        sudo adduser hadoop<br>
+                        sudo usermod -aG sudo hadoop<br>
+                        su - hadoop
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <h4>Configurar SSH</h4>
+                    <div class="command">
+                        sudo apt install openssh-server -y<br>
+                        ssh-keygen -t rsa -P '' -f ~/.ssh/id_rsa<br>
+                        cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys<br>
+                        chmod 0600 ~/.ssh/authorized_keys
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">4</span>
+                    <h4>Download e Instalação do Hadoop</h4>
+                    <div class="command">
+                        wget https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz<br>
+                        tar -xzf hadoop-3.3.6.tar.gz<br>
+                        sudo mv hadoop-3.3.6 /opt/hadoop<br>
+                        sudo chown -R hadoop:hadoop /opt/hadoop
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">5</span>
+                    <h4>Configurar Variáveis de Ambiente</h4>
+                    <div class="code-block" data-lang="bash">
+# Editar ~/.bashrc
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export HADOOP_HOME=/opt/hadoop
+export HADOOP_INSTALL=$HADOOP_HOME
+export HADOOP_MAPRED_HOME=$HADOOP_HOME
+export HADOOP_COMMON_HOME=$HADOOP_HOME
+export HADOOP_HDFS_HOME=$HADOOP_HOME
+export YARN_HOME=$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=$HADOOP_HOME/lib/native
+export PATH=$PATH:$HADOOP_HOME/sbin:$HADOOP_HOME/bin
+export HADOOP_OPTS="-Djava.library.path=$HADOOP_HOME/lib/native"
+
+# Aplicar mudanças
+source ~/.bashrc
+                    </div>
+                </div>
+            </div>
+
+            <!-- Docker Installation -->
+            <div class="tab-content" id="docker-content" style="display: none;">
+                <h3><i class="fab fa-docker"></i> Instalação via Docker</h3>
+
+                <div class="step-card">
+                    <span class="step-number">1</span>
+                    <h4>Instalar Docker</h4>
+                    <div class="command">
+                        # Ubuntu/Debian<br>
+                        curl -fsSL https://get.docker.com -o get-docker.sh<br>
+                        sudo sh get-docker.sh<br>
+                        sudo usermod -aG docker $USER
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">2</span>
+                    <h4>Criar docker-compose.yml</h4>
+                    <div class="code-block" data-lang="yaml">
+version: '3.8'
+services:
+  namenode:
+    image: apache/hadoop:3.3.6
+    hostname: namenode
+    command: ["hdfs", "namenode"]
+    ports:
+      - 9870:9870
+      - 9000:9000
+    env_file:
+      - ./hadoop.env
+    environment:
+      - CLUSTER_NAME=test
+
+  datanode:
+    image: apache/hadoop:3.3.6
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hadoop.env
+
+  resourcemanager:
+    image: apache/hadoop:3.3.6
+    hostname: resourcemanager
+    command: ["yarn", "resourcemanager"]
+    ports:
+      - 8088:8088
+    env_file:
+      - ./hadoop.env
+
+  nodemanager:
+    image: apache/hadoop:3.3.6
+    command: ["yarn", "nodemanager"]
+    env_file:
+      - ./hadoop.env
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <span class="step-number">3</span>
+                    <h4>Iniciar Cluster</h4>
+                    <div class="command">
+                        docker-compose up -d<br>
+                        docker-compose ps
+                    </div>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-cog"></i> Configuração dos Arquivos</h3>
+
+            <div class="step-card">
+                <h4>core-site.xml</h4>
+                <div class="code-block" data-lang="xml">
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;fs.defaultFS&lt;/name&gt;
+        &lt;value&gt;hdfs://localhost:9000&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;
+        &lt;value&gt;/tmp/hadoop-${user.name}&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h4>hdfs-site.xml</h4>
+                <div class="code-block" data-lang="xml">
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.replication&lt;/name&gt;
+        &lt;value&gt;1&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+        &lt;value&gt;file:///home/hadoop/hadoopdata/hdfs/namenode&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+        &lt;value&gt;file:///home/hadoop/hadoopdata/hdfs/datanode&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h4>yarn-site.xml</h4>
+                <div class="code-block" data-lang="xml">
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;
+        &lt;value&gt;mapreduce_shuffle&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;yarn.nodemanager.aux-services.mapreduce.shuffle.class&lt;/name&gt;
+        &lt;value&gt;org.apache.hadoop.mapred.ShuffleHandler&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+                </div>
+            </div>
+
+            <div class="step-card">
+                <h4>mapred-site.xml</h4>
+                <div class="code-block" data-lang="xml">
+&lt;configuration&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.framework.name&lt;/name&gt;
+        &lt;value&gt;yarn&lt;/value&gt;
+    &lt;/property&gt;
+    &lt;property&gt;
+        &lt;name&gt;mapreduce.application.classpath&lt;/name&gt;
+        &lt;value&gt;$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/*:$HADOOP_MAPRED_HOME/share/hadoop/mapreduce/lib/*&lt;/value&gt;
+    &lt;/property&gt;
+&lt;/configuration&gt;
+                </div>
+            </div>
+
+            <div class="success">
+                <h4><i class="fas fa-check-circle"></i> Verificar Instalação</h4>
+                <div class="command" style="margin-top: 1rem;">
+                    # Formatar NameNode (apenas primeira vez)<br>
+                    hdfs namenode -format<br><br>
+                    # Iniciar serviços<br>
+                    start-dfs.sh<br>
+                    start-yarn.sh<br><br>
+                    # Verificar se está funcionando<br>
+                    jps<br>
+                    hdfs dfsadmin -report
+                </div>
+            </div>
+        </section>
+
+        <!-- Prática -->
+        <section class="section" id="pratica">
+            <h2><i class="fas fa-flask"></i> Laboratório Prático</h2>
+
+            <h3><i class="fas fa-play"></i> Exemplo 1: Comandos Básicos HDFS</h3>
+
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <h4>Operações Básicas de Arquivos</h4>
+                <div class="command">
+                    # Criar diretório no HDFS<br>
+                    hdfs dfs -mkdir /user<br>
+                    hdfs dfs -mkdir /user/input<br><br>
+                    # Listar arquivos<br>
+                    hdfs dfs -ls /<br>
+                    hdfs dfs -ls /user<br><br>
+                    # Copiar arquivo local para HDFS<br>
+                    echo "Hello Hadoop World!" > hello.txt<br>
+                    hdfs dfs -put hello.txt /user/input/<br><br>
+                    # Visualizar conteúdo<br>
+                    hdfs dfs -cat /user/input/hello.txt
+                </div>
+            </div>
+
+            <h3><i class="fas fa-code"></i> Exemplo 2: WordCount em Python</h3>
+
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <h4>Mapper (mapper.py)</h4>
+                <div class="code-block" data-lang="python">
+#!/usr/bin/env python3
+import sys
+
+def mapper():
+    for line in sys.stdin:
+        # Remove espaços e converte para minúsculo
+        line = line.strip().lower()
+        # Divide a linha em palavras
+        words = line.split()
+        
+        # Emite cada palavra com contagem 1
+        for word in words:
+            if word:  # Ignora palavras vazias
+                print(f"{word}\t1")
+
+if __name__ == "__main__":
+    mapper()
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-number">2</span>
+                <h4>Reducer (reducer.py)</h4>
+                <div class="code-block" data-lang="python">
+#!/usr/bin/env python3
+import sys
+from collections import defaultdict
+
+def reducer():
+    word_count = defaultdict(int)
+    
+    for line in sys.stdin:
+        line = line.strip()
+        if line:
+            word, count = line.split('\t')
+            word_count[word] += int(count)
+    
+    # Ordena e exibe os resultados
+    for word in sorted(word_count.keys()):
+        print(f"{word}\t{word_count[word]}")
+
+if __name__ == "__main__":
+    reducer()
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-number">3</span>
+                <h4>Executar Job MapReduce</h4>
+                <div class="command">
+                    # Tornar scripts executáveis<br>
+                    chmod +x mapper.py reducer.py<br><br>
+                    # Criar arquivo de teste<br>
+                    echo "Apache Hadoop is great for big data processing" > data.txt<br>
+                    echo "Hadoop processes large datasets efficiently" >> data.txt<br>
+                    echo "Big data analytics with Hadoop MapReduce" >> data.txt<br><br>
+                    # Copiar para HDFS<br>
+                    hdfs dfs -put data.txt /user/input/<br><br>
+                    # Executar job<br>
+                    hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \<br>
+                    &nbsp;&nbsp;-files mapper.py,reducer.py \<br>
+                    &nbsp;&nbsp;-mapper mapper.py \<br>
+                    &nbsp;&nbsp;-reducer reducer.py \<br>
+                    &nbsp;&nbsp;-input /user/input/data.txt \<br>
+                    &nbsp;&nbsp;-output /user/output
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-number">4</span>
+                <h4>Verificar Resultados</h4>
+                <div class="command">
+                    # Ver resultado<br>
+                    hdfs dfs -cat /user/output/part-00000<br><br>
+                    # Copiar resultado para local<br>
+                    hdfs dfs -get /user/output/part-00000 result.txt<br>
+                    cat result.txt
+                </div>
+            </div>
+
+            <h3><i class="fas fa-chart-bar"></i> Exemplo 3: Análise de Logs de Servidor</h3>
+
+            <div class="step-card">
+                <span class="step-number">1</span>
+                <h4>Gerador de Logs (log_generator.py)</h4>
+                <div class="code-block" data-lang="python">
+#!/usr/bin/env python3
+import random
+import datetime
+
+def generate_apache_logs(num_lines=1000):
+    ips = ['192.168.1.1', '10.0.0.1', '172.16.0.1', '203.0.113.1']
+    methods = ['GET', 'POST', 'PUT', 'DELETE']
+    urls = ['/index.html', '/api/users', '/login', '/dashboard', '/api/data']
+    status_codes = [200, 404, 500, 302, 401]
+    user_agents = [
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36'
+    ]
+    
+    for _ in range(num_lines):
+        ip = random.choice(ips)
+        timestamp = datetime.datetime.now().strftime('[%d/%b/%Y:%H:%M:%S +0000]')
+        method = random.choice(methods)
+        url = random.choice(urls)
+        status = random.choice(status_codes)
+        size = random.randint(100, 5000)
+        user_agent = random.choice(user_agents)
+        
+        log_line = f'{ip} - - {timestamp} "{method} {url} HTTP/1.1" {status} {size} "-" "{user_agent}"'
+        print(log_line)
+
+if __name__ == "__main__":
+    generate_apache_logs(10000)
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-number">2</span>
+                <h4>Análise de Status Codes (status_mapper.py)</h4>
+                <div class="code-block" data-lang="python">
+#!/usr/bin/env python3
+import sys
+import re
+
+def extract_status_code():
+    # Regex para logs do Apache
+    log_pattern = r'(\S+) - - \[(.*?)\] "(.*?)" (\d+) (\d+)'
+    
+    for line in sys.stdin:
+        match = re.match(log_pattern, line.strip())
+        if match:
+            status_code = match.group(4)
+            print(f"{status_code}\t1")
+
+if __name__ == "__main__":
+    extract_status_code()
+                </div>
+            </div>
+
+            <div class="step-card">
+                <span class="step-number">3</span>
+                <h4>Executar Análise</h4>
+                <div class="command">
+                    # Gerar logs de teste<br>
+                    python3 log_generator.py > server_logs.txt<br><br>
+                    # Enviar para HDFS<br>
+                    hdfs dfs -put server_logs.txt /user/input/<br><br>
+                    # Executar análise<br>
+                    hadoop jar $HADOOP_HOME/share/hadoop/tools/lib/hadoop-streaming-*.jar \<br>
+                    &nbsp;&nbsp;-files status_mapper.py,reducer.py \<br>
+                    &nbsp;&nbsp;-mapper status_mapper.py \<br>
+                    &nbsp;&nbsp;-reducer reducer.py \<br>
+                    &nbsp;&nbsp;-input /user/input/server_logs.txt \<br>
+                    &nbsp;&nbsp;-output /user/status_analysis
+                </div>
+            </div>
+
+            <div class="info">
+                <h4><i class="fas fa-chart-line"></i> Monitoramento via Web UI</h4>
+                <p>Acesse as interfaces web para monitorar seus jobs:</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>NameNode:</strong> http://localhost:9870</li>
+                    <li><strong>ResourceManager:</strong> http://localhost:8088</li>
+                    <li><strong>Job History:</strong> http://localhost:19888</li>
+                    <li><strong>DataNode:</strong> http://localhost:9864</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Empresas que usam Hadoop -->
+        <section class="section" id="empresas">
+            <h2><i class="fas fa-building"></i> Hadoop no Mundo Real</h2>
+
+            <p>O Hadoop é amplamente utilizado por empresas líderes mundiais para processar e analisar grandes volumes de dados. Aqui estão alguns casos de uso reais:</p>
+
+            <h3><i class="fas fa-globe"></i> Empresas que Utilizam Hadoop</h3>
+
+            <div class="company-grid">
+                <div class="company-card">
+                    <i class="fab fa-facebook" style="font-size: 2rem; color: #1877f2;"></i>
+                    <h4>Meta (Facebook)</h4>
+                    <p>300+ PB de dados<br>Análise de comportamento de usuários</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-twitter" style="font-size: 2rem; color: #1da1f2;"></i>
+                    <h4>Twitter (X)</h4>
+                    <p>Análise de tweets em tempo real<br>Sistemas de recomendação</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-linkedin" style="font-size: 2rem; color: #0077b5;"></i>
+                    <h4>LinkedIn</h4>
+                    <p>Perfis profissionais<br>Algoritmos de matching</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-spotify" style="font-size: 2rem; color: #1db954;"></i>
+                    <h4>Spotify</h4>
+                    <p>Recomendações musicais<br>Análise de streaming</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-uber" style="font-size: 2rem; color: #000;"></i>
+                    <h4>Uber</h4>
+                    <p>Otimização de rotas<br>Análise de demanda</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-airbnb" style="font-size: 2rem; color: #ff5a5f;"></i>
+                    <h4>Airbnb</h4>
+                    <p>Análise de mercado<br>Algoritmos de preços</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-shopping-cart" style="font-size: 2rem; color: #ff9900;"></i>
+                    <h4>Amazon</h4>
+                    <p>Sistema de recomendações<br>Análise de vendas</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fab fa-google" style="font-size: 2rem; color: #4285f4;"></i>
+                    <h4>Google</h4>
+                    <p>Processamento de índices<br>Analytics em larga escala</p>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-use-case"></i> Casos de Uso Específicos</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 2rem; margin: 2rem 0;">
+                <div class="step-card">
+                    <h4><i class="fas fa-chart-line"></i> E-commerce - Amazon</h4>
+                    <p><strong>Desafio:</strong> Processar bilhões de interações de clientes</p>
+                    <p><strong>Solução:</strong> Hadoop para análise de comportamento e sistema de recomendações que aumentou vendas em 29%</p>
+                    <p><strong>Volume:</strong> Mais de 1 exabyte de dados</p>
+                </div>
+                
+                <div class="step-card">
+                    <h4><i class="fas fa-music"></i> Streaming - Spotify</h4>
+                    <p><strong>Desafio:</strong> Analisar 50+ bilhões de horas de música</p>
+                    <p><strong>Solução:</strong> Machine Learning com Hadoop para criar playlists personalizadas</p>
+                    <p><strong>Resultado:</strong> 40% de aumento no engajamento</p>
+                </div>
+                
+                <div class="step-card">
+                    <h4><i class="fas fa-car"></i> Mobilidade - Uber</h4>
+                    <p><strong>Desafio:</strong> Processar dados de GPS em tempo real</p>
+                    <p><strong>Solução:</strong> Hadoop + Spark para otimização de rotas e preços dinâmicos</p>
+                    <p><strong>Volume:</strong> 15+ milhões de viagens por dia</p>
+                </div>
+                
+                <div class="step-card">
+                    <h4><i class="fas fa-home"></i> Hospedagem - Airbnb</h4>
+                    <p><strong>Desafio:</strong> Análise de mercado imobiliário global</p>
+                    <p><strong>Solução:</strong> Hadoop para análise de preços e detecção de fraudes</p>
+                    <p><strong>Economia:</strong> Redução de 60% em fraudes</p>
+                </div>
+            </div>
+
+            <h3><i class="fas fa-industry"></i> Setores que Mais Utilizam</h3>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                <div class="company-card">
+                    <i class="fas fa-university" style="font-size: 1.5rem; color: #f59e0b;"></i>
+                    <h4>Serviços Financeiros</h4>
+                    <p>Detecção de fraudes, análise de risco, trading algorítmico</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-heartbeat" style="font-size: 1.5rem; color: #ef4444;"></i>
+                    <h4>Saúde</h4>
+                    <p>Análise de prontuários, pesquisa genômica, epidemiologia</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-shopping-bag" style="font-size: 1.5rem; color: #10b981;"></i>
+                    <h4>Varejo</h4>
+                    <p>Análise de vendas, gestão de estoque, comportamento do cliente</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-satellite" style="font-size: 1.5rem; color: #8b5cf6;"></i>
+                    <h4>Telecomunicações</h4>
+                    <p>Análise de rede, detecção de falhas, otimização de tráfego</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-shield-alt" style="font-size: 1.5rem; color: #f97316;"></i>
+                    <h4>Governo e Segurança</h4>
+                    <p>Análise de inteligência, segurança nacional, censos</p>
+                </div>
+                
+                <div class="company-card">
+                    <i class="fas fa-play" style="font-size: 1.5rem; color: #ec4899;"></i>
+                    <h4>Mídia e Entretenimento</h4>
+                    <p>Análise de audiência, recomendações de conteúdo</p>
+                </div>
+            </div>
+
+            <div class="success">
+                <h4><i class="fas fa-rocket"></i> Por que as empresas escolhem Hadoop?</h4>
+                <ul style="margin-left: 2rem; margin-top: 1rem;">
+                    <li><strong>Escalabilidade:</strong> Processa petabytes de dados</li>
+                    <li><strong>Custo-benefício:</strong> Usa hardware commodity</li>
+                    <li><strong>Flexibilidade:</strong> Processa dados estruturados e não estruturados</li>
+                    <li><strong>Tolerância a falhas:</strong> Sistema altamente disponível</li>
+                    <li><strong>Ecossistema:</strong> Integração com Spark, Hive, HBase, etc.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Download Section -->
+        <section class="section download-section" id="download">
+            <h2><i class="fas fa-download"></i> Download e Scripts de Instalação</h2>
+            <p>Baixe os scripts automatizados para instalar o Hadoop no seu sistema</p>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 2rem 0;">
+                <button class="download-btn" onclick="downloadScript('windows')">
+                    <i class="fab fa-windows"></i>
+                    Script Windows (.ps1)
+                </button>
+                
+                <button class="download-btn" onclick="downloadScript('linux')">
+                    <i class="fab fa-linux"></i>
+                    Script Linux (.sh)
+                </button>
+                
+                <button class="download-btn" onclick="downloadScript('docker')">
+                    <i class="fab fa-docker"></i>
+                    Docker Compose
+                </button>
+                
+                <a href="https://downloads.apache.org/hadoop/common/hadoop-3.3.6/" class="download-btn" target="_blank">
+                    <i class="fas fa-elephant"></i>
+                    Hadoop Official
+                </a>
+            </div>
+
+            <div style="background: rgba(15, 23, 42, 0.7); padding: 1rem; border-radius: 8px; margin-top: 2rem;">
+                <p><strong>Versão Recomendada:</strong> Apache Hadoop 3.3.6</p>
+                <p><strong>Requisitos:</strong> Java 8 ou 11, 4GB RAM, 20GB espaço livre</p>
+                <p><strong>Sistemas Suportados:</strong> Windows 10+, Ubuntu 18.04+, CentOS 7+, macOS 10.14+</p>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <script>
+        // Tab switching
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-content').style.display = 'block';
+            
+            // Add active class to selected tab
+            event.target.classList.add('active');
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Progress bar animation
+        let progress = 0;
+        const progressBar = document.getElementById('install-progress');
+        
+        function updateProgress() {
+            if (progress < 100) {
+                progress += 1;
+                progressBar.style.width = progress + '%';
+                setTimeout(updateProgress, 50);
+            }
+        }
+
+        // Start progress when installation section is visible
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.target.id === 'instalacao') {
+                    updateProgress();
+                    observer.unobserve(entry.target);
+                }
+            });
+        });
+
+        observer.observe(document.getElementById('instalacao'));
+
+        // Download scripts
+        function downloadScript(type) {
+            let filename, content;
+            
+            switch(type) {
+                case 'windows':
+                    filename = 'install_hadoop_windows.ps1';
+                    content = `# Hadoop Installation Script for Windows
+# Execute as Administrator
+
+Write-Host "🚀 Installing Hadoop on Windows..." -ForegroundColor Green
+
+# Check Java
+$java = java -version 2>&1
+if ($LASTEXITCODE -ne 0) {
+    Write-Host "❌ Java not found. Installing OpenJDK 11..." -ForegroundColor Red
+    winget install Microsoft.OpenJDK.11
+}
+
+# Download Hadoop
+$hadoopUrl = "https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz"
+$hadoopFile = "hadoop-3.3.6.tar.gz"
+
+Write-Host "📥 Downloading Hadoop 3.3.6..." -ForegroundColor Yellow
+Invoke-WebRequest -Uri $hadoopUrl -OutFile $hadoopFile
+
+# Extract
+Write-Host "📂 Extracting Hadoop..." -ForegroundColor Yellow
+tar -xzf $hadoopFile
+Move-Item hadoop-3.3.6 C:\\hadoop
+
+# Set Environment Variables
+Write-Host "⚙️ Setting environment variables..." -ForegroundColor Yellow
+[Environment]::SetEnvironmentVariable("HADOOP_HOME", "C:\\hadoop", "Machine")
+[Environment]::SetEnvironmentVariable("JAVA_HOME", "C:\\Program Files\\Microsoft\\jdk-11.0.19.7-hotspot", "Machine")
+
+$path = [Environment]::GetEnvironmentVariable("PATH", "Machine")
+$newPath = $path + ";C:\\hadoop\\bin;C:\\hadoop\\sbin"
+[Environment]::SetEnvironmentVariable("PATH", $newPath, "Machine")
+
+Write-Host "✅ Hadoop installation completed!" -ForegroundColor Green
+Write-Host "🔄 Please restart your terminal and run: hadoop version" -ForegroundColor Cyan`;
+                    break;
+                    
+                case 'linux':
+                    filename = 'install_hadoop_linux.sh';
+                    content = `#!/bin/bash
+# Hadoop Installation Script for Linux/Ubuntu
+
+echo "🚀 Installing Hadoop on Linux..."
+
+# Update system
+sudo apt update
+
+# Install Java
+echo "☕ Installing Java 11..."
+sudo apt install openjdk-11-jdk -y
+
+# Create hadoop user
+echo "👤 Creating hadoop user..."
+sudo adduser hadoop --disabled-password --gecos ""
+sudo usermod -aG sudo hadoop
+
+# Setup SSH
+echo "🔐 Setting up SSH..."
+sudo apt install openssh-server -y
+sudo -u hadoop ssh-keygen -t rsa -P '' -f /home/hadoop/.ssh/id_rsa
+sudo -u hadoop cat /home/hadoop/.ssh/id_rsa.pub >> /home/hadoop/.ssh/authorized_keys
+sudo -u hadoop chmod 0600 /home/hadoop/.ssh/authorized_keys
+
+# Download Hadoop
+echo "📥 Downloading Hadoop 3.3.6..."
+cd /tmp
+wget https://downloads.apache.org/hadoop/common/hadoop-3.3.6/hadoop-3.3.6.tar.gz
+tar -xzf hadoop-3.3.6.tar.gz
+sudo mv hadoop-3.3.6 /opt/hadoop
+sudo chown -R hadoop:hadoop /opt/hadoop
+
+# Set environment variables
+echo "⚙️ Setting environment variables..."
+sudo -u hadoop bash -c 'cat >> /home/hadoop/.bashrc << EOF
+export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64
+export HADOOP_HOME=/opt/hadoop
+export HADOOP_INSTALL=\\$HADOOP_HOME
+export HADOOP_MAPRED_HOME=\\$HADOOP_HOME
+export HADOOP_COMMON_HOME=\\$HADOOP_HOME
+export HADOOP_HDFS_HOME=\\$HADOOP_HOME
+export YARN_HOME=\\$HADOOP_HOME
+export HADOOP_COMMON_LIB_NATIVE_DIR=\\$HADOOP_HOME/lib/native
+export PATH=\\$PATH:\\$HADOOP_HOME/sbin:\\$HADOOP_HOME/bin
+export HADOOP_OPTS="-Djava.library.path=\\$HADOOP_HOME/lib/native"
+EOF'
+
+echo "✅ Hadoop installation completed!"
+echo "🔄 Please login as hadoop user: su - hadoop"
+echo "🚀 Then run: source ~/.bashrc && hadoop version"`;
+                    break;
+                    
+                case 'docker':
+                    filename = 'docker-compose.yml';
+                    content = `version: '3.8'
+
+services:
+  namenode:
+    image: apache/hadoop:3.3.6
+    hostname: namenode
+    command: ["hdfs", "namenode"]
+    ports:
+      - 9870:9870
+      - 9000:9000
+    environment:
+      - CLUSTER_NAME=hadoop-cluster
+    volumes:
+      - hadoop_namenode:/hadoop/dfs/name
+
+  datanode:
+    image: apache/hadoop:3.3.6
+    command: ["hdfs", "datanode"]
+    environment:
+      - SERVICE_PRECONDITION=namenode:9870
+    volumes:
+      - hadoop_datanode:/hadoop/dfs/data
+
+  resourcemanager:
+    image: apache/hadoop:3.3.6
+    hostname: resourcemanager
+    command: ["yarn", "resourcemanager"]
+    ports:
+      - 8088:8088
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 namenode:9870 datanode:9864
+
+  nodemanager:
+    image: apache/hadoop:3.3.6
+    command: ["yarn", "nodemanager"]
+    environment:
+      - SERVICE_PRECONDITION=namenode:9000 namenode:9870 datanode:9864 resourcemanager:8088
+
+volumes:
+  hadoop_namenode:
+  hadoop_datanode:`;
+                    break;
+            }
+            
+            // Create and download file
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+            
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Downloaded!';
+            btn.style.background = '#10b981';
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.style.background = '#0f172a';
+            }, 2000);
+        }
+
+        // Console welcome message
+        console.log(`
+🚀 Hadoop Laboratory - Big Data Processing
+======================================
+📚 Complete installation and practical guide
+🔧 Scripts available for Windows, Linux, and Docker
+🌐 Web interfaces: 
+   - NameNode: http://localhost:9870
+   - ResourceManager: http://localhost:8088
+📊 Ready for big data analytics!
+        `);
+    </script>
+</body>
+</html>
