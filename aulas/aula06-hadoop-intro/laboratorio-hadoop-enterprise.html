@@ -3,50 +3,746 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🐘 Apache Hadoop - Laboratório Empresarial Completo</title>
-    <meta name="description" content="Guia profissional completo do Apache Hadoop - Instalação, configuração e casos de uso empresariais detalhados">
+    <title>Apache Hadoop - Laboratório Professional Enterprise</title>
+    <meta name="description" content="Guia completo e profissional do Apache Hadoop - Instalação detalhada, configuração empresarial e casos reais">
     
-    <!-- Fonts -->
+    <!-- Fonts Professional -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
-    <!-- Icons -->
+    <!-- Icons Minimal -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     
     <style>
         :root {
-            /* Tema Branco Profissional */
-            --hadoop-orange: #ff6b35;
-            --hadoop-dark-orange: #e55a2b;
-            --hadoop-yellow: #ffa726;
-            --hadoop-light: #fff5f0;
+            /* Core Hadoop Colors */
+            --hadoop-primary: #ff6b35;
+            --hadoop-secondary: #e55a2b;
+            --hadoop-accent: #ffa726;
             
-            /* Cores Base Brancas */
-            --bg-primary: #ffffff;
-            --bg-secondary: #f8fafc;
+            /* White Theme Base */
+            --bg-white: #ffffff;
+            --bg-light: #fafbfc;
             --bg-card: #ffffff;
-            --bg-hover: #f1f5f9;
-            --bg-accent: #fef7f0;
+            --bg-section: #f8f9fa;
             
-            /* Bordas e Separadores */
-            --border-light: #e2e8f0;
-            --border-medium: #cbd5e1;
-            --border-strong: #94a3b8;
+            /* Borders Clean */
+            --border: #e1e5e9;
+            --border-light: #f1f3f4;
+            --border-focus: #ff6b35;
             
-            /* Textos */
-            --text-primary: #1e293b;
-            --text-secondary: #475569;
-            --text-muted: #64748b;
-            --text-light: #94a3b8;
+            /* Text Hierarchy */
+            --text-dark: #2d3748;
+            --text-medium: #4a5568;
+            --text-light: #718096;
+            --text-muted: #a0aec0;
             
-            /* Estados */
-            --success: #059669;
-            --success-light: #10b981;
-            --warning: #d97706;
-            --error: #dc2626;
-            --info: #0284c7;
+            /* Status Colors */
+            --success: #48bb78;
+            --warning: #ed8936;
+            --error: #f56565;
+            --info: #4299e1;
+            
+            /* Shadows Subtle */
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+            --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-white);
+            color: var(--text-dark);
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        /* Header Minimal Clean */
+        .header {
+            background: var(--bg-white);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 0.75rem 0;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--hadoop-primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: 1.1rem; /* ÍCONE PEQUENO */
+        }
+
+        .nav {
+            display: flex;
+            gap: 1.5rem;
+            list-style: none;
+        }
+
+        .nav a {
+            color: var(--text-medium);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+        }
+
+        .nav a:hover {
+            color: var(--hadoop-primary);
+            background: var(--bg-section);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem;
+        }
+
+        /* Hero Ultra Clean */
+        .hero {
+            text-align: center;
+            padding: 2.5rem 0;
+            background: var(--bg-light);
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .hero h1 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 i {
+            color: var(--hadoop-primary);
+            font-size: 2.2rem; /* ÍCONE PEQUENO */
+            margin-right: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-medium);
+            max-width: 600px;
+            margin: 0 auto 1.5rem;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .stat {
+            background: var(--bg-white);
+            padding: 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--hadoop-primary);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 0.25rem;
+        }
+
+        /* Section Professional */
+        .section {
+            background: var(--bg-white);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section h2 {
+            font-family: 'Manrope', sans-serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section h2 i {
+            font-size: 1.2rem; /* ÍCONE PEQUENO */
+            color: var(--hadoop-primary);
+        }
+
+        .section h3 {
+            font-size: 1.2rem;
+            color: var(--hadoop-primary);
+            margin: 1.5rem 0 0.75rem 0;
+            font-weight: 600;
+        }
+
+        .section h3 i {
+            font-size: 1rem; /* ÍCONE PEQUENO */
+            margin-right: 0.5rem;
+        }
+
+        /* Step Cards Clean */
+        .step {
+            background: var(--bg-section);
+            padding: 1.5rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 3px solid var(--hadoop-primary);
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .step-number {
+            background: var(--hadoop-primary);
+            color: white;
+            width: 1.5rem;
+            height: 1.5rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .step-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .step-title i {
+            font-size: 0.9rem; /* ÍCONE PEQUENO */
+            color: var(--hadoop-primary);
+            margin-right: 0.5rem;
+        }
+
+        .step-content {
+            color: var(--text-medium);
+            line-height: 1.6;
+        }
+
+        /* Code Blocks Professional */
+        .code-block {
+            background: var(--bg-white);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: var(--bg-light);
+            padding: 0.5rem 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+        }
+
+        .code-lang {
+            color: var(--text-light);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .copy-btn {
+            background: var(--hadoop-primary);
+            color: white;
+            border: none;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--hadoop-secondary);
+        }
+
+        .copy-btn i {
+            font-size: 0.7rem; /* ÍCONE PEQUENO */
+        }
+
+        .code-content {
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            line-height: 1.5;
+            color: var(--text-dark);
+            background: #fafafa;
+            overflow-x: auto;
+        }
+
+        /* Terminal Clean */
+        .terminal {
+            background: #1a1a1a;
+            border-radius: 6px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.25rem;
+        }
+
+        .terminal-dot {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-title {
+            color: #ccc;
+            font-size: 0.7rem;
+            margin-left: 0.5rem;
+        }
+
+        .terminal-content {
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #e2e2e2;
+        }
+
+        .prompt {
+            color: #4ade80;
+        }
+
+        .command {
+            color: #fbbf24;
+        }
+
+        /* Alerts Clean */
+        .alert {
+            padding: 1rem;
+            border-radius: 6px;
+            margin: 1rem 0;
+            border-left: 3px solid;
+        }
+
+        .alert h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert h4 i {
+            font-size: 0.8rem; /* ÍCONE PEQUENO */
+        }
+
+        .alert.info {
+            background: #ebf8ff;
+            border-color: var(--info);
+            color: #2b6cb0;
+        }
+
+        .alert.warning {
+            background: #fffbeb;
+            border-color: var(--warning);
+            color: #c05621;
+        }
+
+        .alert.success {
+            background: #f0fff4;
+            border-color: var(--success);
+            color: #276749;
+        }
+
+        .alert.error {
+            background: #fed7d7;
+            border-color: var(--error);
+            color: #c53030;
+        }
+
+        /* Company Grid Expanded */
+        .companies {
+            background: var(--bg-section);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .companies h2 {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .company-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .company-card {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .company-logo {
+            font-size: 1.5rem; /* ÍCONE PEQUENO */
+            margin-bottom: 0.75rem;
+        }
+
+        .company-name {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .company-stats {
+            font-size: 0.8rem;
+            color: var(--hadoop-primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-desc {
+            font-size: 0.8rem;
+            color: var(--text-medium);
+            line-height: 1.5;
+        }
+
+        /* Tabs Clean */
+        .tabs {
+            display: flex;
+            background: var(--bg-light);
+            border-radius: 6px 6px 0 0;
+            border: 1px solid var(--border);
+            border-bottom: none;
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 0.75rem 1rem;
+            color: var(--text-light);
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .tab.active {
+            background: var(--bg-white);
+            color: var(--hadoop-primary);
+            border-bottom: 2px solid var(--hadoop-primary);
+        }
+
+        .tab i {
+            font-size: 0.8rem; /* ÍCONE PEQUENO */
+            margin-right: 0.25rem;
+        }
+
+        .tab-content {
+            background: var(--bg-white);
+            padding: 1.5rem;
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero h1 i {
+                font-size: 1.8rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+            
+            .nav {
+                gap: 1rem;
+            }
+        }
+
+        /* Utilities */
+        .mt-1 { margin-top: 0.5rem; }
+        .mt-2 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 0.5rem; }
+        .mb-2 { margin-bottom: 1rem; }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <!-- Header Clean -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-database"></i>
+                Apache Hadoop Laboratory
+            </a>
+            <nav class="nav">
+                <a href="#intro">Introdução</a>
+                <a href="#empresas">Empresas</a>
+                <a href="#install">Instalação</a>
+                <a href="#practice">Prática</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero Professional -->
+        <div class="hero">
+            <h1><i class="fas fa-elephant"></i>Apache Hadoop</h1>
+            <p>Framework revolucionário para processamento distribuído de Big Data em escala empresarial. Guia completo com instalação passo a passo, configuração profissional e casos reais de implementação.</p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <span class="stat-number">5000+</span>
+                    <span class="stat-label">Empresas</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Open Source</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">18+</span>
+                    <span class="stat-label">Anos</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">∞</span>
+                    <span class="stat-label">Scale</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Introdução Detalhada -->
+        <section class="section" id="intro">
+            <h2><i class="fas fa-info-circle"></i>O que é Apache Hadoop?</h2>
+            
+            <p style="margin-bottom: 1.5rem; font-size: 1.05rem;">
+                O <strong>Apache Hadoop</strong> é um framework open-source que revolucionou o mundo do Big Data, 
+                permitindo o processamento e armazenamento distribuído de grandes volumes de dados em clusters 
+                de computadores commodity. Desenvolvido por <strong>Doug Cutting</strong> e <strong>Mike Cafarella</strong> 
+                em 2006, baseado nos famosos papers do Google sobre MapReduce e Google File System.
+            </p>
+
+            <div class="alert info">
+                <h4><i class="fas fa-lightbulb"></i>Por que Hadoop é Revolucionário?</h4>
+                <ul style="margin-left: 1.5rem; margin-top: 0.75rem;">
+                    <li><strong>Escalabilidade Linear:</strong> Crescimento proporcional com adição de nodes</li>
+                    <li><strong>Tolerância a Falhas:</strong> Funciona mesmo com falhas de hardware</li>
+                    <li><strong>Hardware Commodity:</strong> Usa servidores padrão, não supercomputadores</li>
+                    <li><strong>Processamento Local:</strong> Move código para dados, otimizando transferências</li>
+                    <li><strong>Flexibilidade Total:</strong> Dados estruturados, semi-estruturados e não-estruturados</li>
+                </ul>
+            </div>
+
+            <h3><i class="fas fa-history"></i>Evolução Histórica Completa</h3>
+            
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">1</span>
+                    <div class="step-title"><i class="fas fa-scroll"></i>2003-2004: Papers Fundacionais do Google</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Marco Inicial:</strong> Google publica os papers revolucionários que inspiraram o Hadoop:</p>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li><strong>"The Google File System" (SOSP 2003):</strong> Fundamentos do armazenamento distribuído</li>
+                        <li><strong>"MapReduce: Simplified Data Processing" (OSDI 2004):</strong> Modelo de programação paralela</li>
+                    </ul>
+                    <p><strong>Impacto:</strong> Demonstrou como processar petabytes de dados com hardware commodity, 
+                    inspirando toda uma nova geração de sistemas distribuídos.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">2</span>
+                    <div class="step-title"><i class="fas fa-seedling"></i>2005-2006: Nascimento do Hadoop</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Criação:</strong> Doug Cutting (criador do Lucene) e Mike Cafarella desenvolvem o Hadoop 
+                    como parte do projeto <strong>Nutch</strong> no Yahoo!, focando em indexação web distribuída.</p>
+                    <p><strong>Nome Curioso:</strong> "Hadoop" vem do nome do elefante de pelúcia amarelo do filho 
+                    de Doug Cutting - daí o mascote elefante!</p>
+                    <p><strong>Objetivo Inicial:</strong> Competir com Google na indexação de bilhões de páginas web.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">3</span>
+                    <div class="step-title"><i class="fas fa-university"></i>2008: Apache Foundation</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Governança:</strong> Hadoop torna-se projeto top-level da Apache Software Foundation, 
+                    ganhando estrutura formal de governança e comunidade global de desenvolvedores.</p>
+                    <p><strong>Versão 0.20:</strong> Primeira versão estável com APIs definidas e documentação completa.</p>
+                    <p><strong>Adoção Inicial:</strong> Yahoo! processa mais de 10 petabytes de dados em produção.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">4</span>
+                    <div class="step-title"><i class="fas fa-puzzle-piece"></i>2009-2011: Expansão do Ecossistema</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Surgimento de Ferramentas Complementares:</strong></p>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li><strong>Apache Hive (2009):</strong> SQL para Hadoop - facilita análises com linguagem familiar</li>
+                        <li><strong>Apache HBase (2010):</strong> Banco NoSQL distribuído sobre HDFS</li>
+                        <li><strong>Apache Pig (2010):</strong> Linguagem de alto nível para transformações de dados</li>
+                        <li><strong>Apache Flume (2011):</strong> Coleta distribuída de logs em tempo real</li>
+                        <li><strong>Apache Oozie (2011):</strong> Orquestração de workflows complexos</li>
+                    </ul>
+                    <p><strong>Resultado:</strong> Hadoop evolui de framework de armazenamento para plataforma completa de Big Data.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">5</span>
+                    <div class="step-title"><i class="fas fa-rocket"></i>2012: Revolução YARN (Hadoop 2.0)</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Game Changer:</strong> Introdução do <strong>YARN (Yet Another Resource Negotiator)</strong>, 
+                    a maior evolução desde a criação do Hadoop.</p>
+                    
+                    <div class="alert warning mt-1">
+                        <h4><i class="fas fa-exclamation-triangle"></i>Breaking Change Importante</h4>
+                        <p>Hadoop 2.0 introduz incompatibilidades com versão 1.x, mas oferece flexibilidade revolucionária.</p>
+                    </div>
+                    
+                    <p><strong>Benefícios do YARN:</strong></p>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li>Separação do gerenciamento de recursos do processamento</li>
+                        <li>Múltiplas aplicações simultâneas além do MapReduce</li>
+                        <li>Melhor utilização de recursos do cluster</li>
+                        <li>Suporte nativo para Spark, Storm e outras engines</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">6</span>
+                    <div class="step-title"><i class="fas fa-building"></i>2013-2017: Maturidade Empresarial</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Adoção Enterprise:</strong> Hadoop atinge maturidade para uso empresarial crítico:</p>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li><strong>Apache Spark (2013):</strong> Engine de processamento in-memory 100x mais rápida</li>
+                        <li><strong>Apache Kafka (2014):</strong> Streaming distribuído para dados em tempo real</li>
+                        <li><strong>Security Enhancement:</strong> Kerberos, encryption, autorização granular</li>
+                        <li><strong>Cloud Integration:</strong> AWS EMR, Azure HDInsight, Google Dataproc</li>
+                        <li><strong>SQL-on-Hadoop:</strong> Impala, Presto, Drill para analytics interativo</li>
+                    </ul>
+                    <p><strong>Milestone:</strong> Facebook processa 300+ petabytes diariamente com Hadoop.</p>
+                </div>
+            </div>
+
+            <div class="step">
+                <div class="step-header">
+                    <span class="step-number">7</span>
+                    <div class="step-title"><i class="fas fa-cloud"></i>2018-2025: Era Cloud-Native</div>
+                </div>
+                <div class="step-content">
+                    <p><strong>Adaptação Moderna:</strong> Hadoop evolui para realidades cloud e containers:</p>
+                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                        <li><strong>Kubernetes Integration:</strong> Deployers nativos para containers</li>
+                        <li><strong>Storage Separation:</strong> Compute e storage independentes (S3, Azure Data Lake)</li>
+                        <li><strong>Edge Computing:</strong> Processing distribuído em dispositivos IoT</li>
+                        <li><strong>AI/ML Native:</strong> TensorFlow, PyTorch integrados nativamente</li>
+                        <li><strong>Serverless Hadoop:</strong> Functions-as-a-Service para MapReduce</li>
+                    </ul>
+                    <p><strong>Futuro:</strong> Hadoop 4.0 promete compatibilidade total com arquiteturas serverless e edge.</p>
+                </div>
+            </div>
+        </section>
             
             /* Sombras */
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
