@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aulas - BigData Analytics Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: white; 
+            color: #333; 
+            line-height: 1.6; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; color: #2563eb; margin-bottom: 1rem; }
+        .breadcrumb { margin-bottom: 2rem; }
+        .breadcrumb a { color: #2563eb; text-decoration: none; }
+        .modules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .module-card { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 1.5rem; 
+            transition: all 0.3s ease;
+        }
+        .module-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .module-card h3 { color: #1e40af; margin-bottom: 1rem; }
+        .module-card .icon { font-size: 2rem; color: #3b82f6; margin-bottom: 1rem; }
+        .module-card p { color: #64748b; margin-bottom: 1rem; }
+        .aula-list { list-style: none; }
+        .aula-list li { 
+            padding: 0.5rem 0; 
+            border-bottom: 1px solid #e2e8f0; 
+        }
+        .aula-list li:last-child { border-bottom: none; }
+        .aula-list a { 
+            color: #2563eb; 
+            text-decoration: none; 
+            font-size: 0.9rem;
+        }
+        .aula-list a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Início</a> / 
+            <strong>Aulas</strong>
+        </div>
+
+        <div class="header">
+            <h1><i class="fas fa-graduation-cap"></i> Aulas do Curso</h1>
+            <p>Material didático e laboratórios práticos</p>
+        </div>
+
+        <div class="modules-grid">
+            <div class="module-card">
+                <div class="icon"><i class="fas fa-play-circle"></i></div>
+                <h3>Aulas Individuais</h3>
+                <ul class="aula-list">
+                    <li><a href="aula01-intro-bigdata/">📚 Aula 01 - Introdução ao Big Data</a></li>
+                    <li><a href="aula02-iot-computacao/">🌐 Aula 02 - IoT e Computação</a></li>
+                    <li><a href="aula03-cloud-streaming/">☁️ Aula 03 - Cloud e Streaming</a></li>
+                    <li><a href="aula04-revisao-python/">🐍 Aula 04 - Revisão Python</a></li>
+                    <li><a href="aula05-analise-dados-resumo/">📊 Aula 05 - Análise de Dados</a></li>
+                    <li><a href="aula06-hadoop-intro/">🐘 Aula 06 - Hadoop (com laboratório!)</a></li>
+                    <li><a href="aula07-spark-fundamentals/">⚡ Aula 07 - Spark Fundamentals</a></li>
+                    <li><a href="aula08-kafka-streaming/">🔄 Aula 08 - Kafka Streaming</a></li>
+                    <li><a href="aula09-ml-bigdata/">🤖 Aula 09 - ML + Big Data</a></li>
+                    <li><a href="aula10-ml-distribuido/">🧠 Aula 10 - ML Distribuído</a></li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <div class="icon"><i class="fas fa-layer-group"></i></div>
+                <h3>Módulos Organizados</h3>
+                <ul class="aula-list">
+                    <li><a href="modulo1-fundamentos/">🎯 Módulo 1 - Fundamentos</a></li>
+                    <li><a href="modulo2-hadoop/">🐘 Módulo 2 - Hadoop</a></li>
+                    <li><a href="modulo3-spark/">⚡ Módulo 3 - Spark</a></li>
+                    <li><a href="modulo4-pandas/">🐼 Módulo 4 - Pandas</a></li>
+                    <li><a href="modulo5-ml-dl/">🧠 Módulo 5 - ML & Deep Learning</a></li>
+                </ul>
+            </div>
+
+            <div class="module-card">
+                <div class="icon"><i class="fas fa-star" style="color: #ff6b35;"></i></div>
+                <h3>🔥 Destaques</h3>
+                <ul class="aula-list">
+                    <li><a href="aula06-hadoop-intro/laboratorio-hadoop-pratico.html">🐘 <strong>Laboratório Hadoop Prático</strong></a></li>
+                    <li><a href="aula06-hadoop-intro/laboratorio-hadoop-ultra-pro.html">🏢 Hadoop Ultra-Pro (Design Corporativo)</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

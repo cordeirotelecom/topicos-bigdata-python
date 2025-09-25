@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datasets - BigData Analytics Pro</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: white; 
+            color: #333; 
+            line-height: 1.6; 
+        }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .header { text-align: center; margin-bottom: 3rem; }
+        .header h1 { font-size: 2.5rem; color: #2563eb; margin-bottom: 1rem; }
+        .breadcrumb { margin-bottom: 2rem; }
+        .breadcrumb a { color: #2563eb; text-decoration: none; }
+        .datasets-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; }
+        .dataset-card { 
+            background: #f8fafc; 
+            border: 1px solid #e2e8f0; 
+            border-radius: 12px; 
+            padding: 1.5rem; 
+            transition: all 0.3s ease;
+        }
+        .dataset-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .dataset-card h3 { color: #1e40af; margin-bottom: 1rem; }
+        .dataset-card .icon { font-size: 2rem; color: #3b82f6; margin-bottom: 1rem; }
+        .dataset-card p { color: #64748b; margin-bottom: 1rem; }
+        .dataset-card .btn { 
+            background: #2563eb; 
+            color: white; 
+            padding: 0.5rem 1rem; 
+            border-radius: 6px; 
+            text-decoration: none; 
+            display: inline-block; 
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i> Início</a> / 
+            <strong>Datasets</strong>
+        </div>
+
+        <div class="header">
+            <h1><i class="fas fa-database"></i> Datasets Disponíveis</h1>
+            <p>Conjuntos de dados prontos para análise e experimentação</p>
+        </div>
+
+        <div class="datasets-grid">
+            <div class="dataset-card">
+                <div class="icon"><i class="fas fa-map-marked-alt"></i></div>
+                <h3>Santa Catarina</h3>
+                <p>Dados governamentais e estatísticas de SC</p>
+                <a href="santa-catarina/" class="btn">Acessar</a>
+            </div>
+
+            <div class="dataset-card">
+                <div class="icon"><i class="fas fa-flag"></i></div>
+                <h3>Brasil</h3>
+                <p>Dados nacionais e indicadores brasileiros</p>
+                <a href="brasil/" class="btn">Acessar</a>
+            </div>
+
+            <div class="dataset-card">
+                <div class="icon"><i class="fas fa-file-csv"></i></div>
+                <h3>Exemplo SC</h3>
+                <p>Dataset de exemplo para testes</p>
+                <a href="../dados_exemplo_sc.csv" class="btn">Download CSV</a>
+            </div>
+
+            <div class="dataset-card">
+                <div class="icon"><i class="fas fa-code"></i></div>
+                <h3>APIs Governo SC</h3>
+                <p>Endpoints de APIs governamentais</p>
+                <a href="../dados_apis_governo_sc.json" class="btn">Download JSON</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
