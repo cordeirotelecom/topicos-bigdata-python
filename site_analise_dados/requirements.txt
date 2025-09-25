@@ -1,0 +1,84 @@
+# Big Data em Python - Storytelling Educativo com Patrick
+# Projeto: Casos Práticos de Santa Catarina
+# Atualizado: Agosto 2025
+
+# ===== ANÁLISE DE DADOS FUNDAMENTAIS =====
+pandas>=2.1.0                 # Manipulação e análise de dados
+numpy>=1.24.0                 # Computação numérica 
+scipy>=1.11.0                 # Estatística e matemática científica
+
+# ===== VISUALIZAÇÃO DE DADOS =====
+matplotlib>=3.7.0             # Gráficos básicos
+seaborn>=0.12.0              # Visualização estatística
+plotly>=5.15.0               # Gráficos interativos
+
+# ===== BIG DATA E PROCESSAMENTO DISTRIBUÍDO =====
+pyspark>=3.5.0               # Apache Spark para Python
+findspark>=2.0.1             # Localizar instalação do Spark
+
+# ===== MACHINE LEARNING =====
+scikit-learn>=1.3.0          # ML clássico e modelagem
+xgboost>=1.7.0               # Gradient boosting
+
+# ===== JUPYTER E DESENVOLVIMENTO =====
+jupyter>=1.0.0               # Jupyter metapackage
+jupyterlab>=4.0.0            # Ambiente de desenvolvimento
+ipykernel>=6.25.0            # Kernel Python para Jupyter
+notebook>=7.0.0              # Notebook clássico
+ipywidgets>=8.0.0            # Widgets interativos
+
+# ===== MANIPULAÇÃO DE ARQUIVOS =====
+openpyxl>=3.1.0              # Excel files (.xlsx)
+pyarrow>=13.0.0              # Parquet files (formato Big Data)
+requests>=2.31.0             # HTTP requests para APIs
+
+# ===== UTILITÁRIOS =====
+tqdm>=4.66.0                 # Barras de progresso
+python-dotenv>=1.0.0         # Variáveis de ambiente
+
+# ===== APLICAÇÕES WEB (OPCIONAL) =====
+streamlit>=1.25.0            # Criação de dashboards
+
+# ===== INSTRUÇÕES DE INSTALAÇÃO =====
+# 
+# PASSO 1: Instalar dependências
+# pip install -r requirements.txt
+# 
+# PASSO 2: Verificar Java (necessário para PySpark)
+# java -version
+# 
+# PASSO 3: Testar instalação
+# python -c "import pandas, numpy, matplotlib, pyspark; print('✅ Tudo funcionando!')"
+#
+# PASSO 4: Iniciar Jupyter
+# jupyter lab
+#
+# ===== EXEMPLO DE USO RÁPIDO =====
+# 
+# import pandas as pd
+# import matplotlib.pyplot as plt
+# 
+# # Dados de exemplo da Ponte Hercílio Luz
+# dados = pd.DataFrame({
+#     'hora': range(24),
+#     'veiculos': [50, 30, 20, 25, 45, 120, 350, 500, 400, 300, 
+#                  250, 280, 320, 300, 350, 400, 500, 600, 450, 300, 200, 150, 100, 70]
+# })
+# 
+# plt.plot(dados['hora'], dados['veiculos'])
+# plt.title('Tráfego na Ponte Hercílio Luz')
+# plt.show()
+#
+# ===== SOLUÇÃO DE PROBLEMAS =====
+#
+# Erro "Java not found":
+# - Windows: Instalar OpenJDK 8 ou 11
+# - macOS: brew install openjdk@8
+# - Linux: sudo apt install openjdk-8-jdk
+#
+# Erro "Module not found":
+# - Verificar ambiente virtual ativo
+# - pip install --upgrade -r requirements.txt
+#
+# ===== SUPORTE =====
+# GitHub Issues: https://github.com/cordeirotelecom/topicos-bigdata-python/issues
