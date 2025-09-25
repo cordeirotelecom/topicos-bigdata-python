@@ -3,842 +3,1191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BigData Analytics Pro - Plataforma de Análise de Dados</title>
-    <meta name="description" content="Plataforma profissional de análise de dados com Machine Learning, visualizações interativas e APIs governamentais.">
+    <title>BigData Analytics Pro - Santa Catarina</title>
+    <meta name="description" content="Plataforma avançada de análise de dados governamentais de SC com Apache Hadoop, Machine Learning, APIs em tempo real e visualizações profissionais.">
+    <meta name="keywords" content="big data, hadoop, spark, santa catarina, dados governamentais, machine learning, python, análise de dados">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Poppins:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     
     <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Header */
-        header {
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid #334155;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-        }
-
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 0;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #3b82f6;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #e2e8f0;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #3b82f6;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 8rem 0 4rem;
-            text-align: center;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .hero p {
-            font-size: 1.25rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 1rem 2rem;
-            background: #3b82f6;
-            color: white;
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: 2px solid #3b82f6;
-        }
-
-        .btn:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #475569;
-            color: #e2e8f0;
-        }
-
-        .btn-secondary:hover {
-            background: #475569;
-            border-color: #64748b;
-        }
-
-        /* Features Section */
-        .features {
-            padding: 4rem 0;
-            background: #1e293b;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #f1f5f9;
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .feature-card {
-            background: #334155;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid #475569;
-            transition: all 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            border-color: #3b82f6;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #3b82f6;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 1rem;
-            color: #f1f5f9;
-        }
-
-        .feature-card p {
-            color: #94a3b8;
-        }
-
-        /* Quick Access */
-        .quick-access {
-            padding: 4rem 0;
-            background: #0f172a;
-        }
-
-        .quick-access h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #f1f5f9;
-        }
-
-        .access-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .access-card {
-            background: linear-gradient(135deg, #334155, #475569);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            border: 1px solid #64748b;
-            transition: all 0.3s;
-        }
-
-        .access-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-
-        .access-card a {
-            color: #f1f5f9;
-            text-decoration: none;
-            display: block;
-        }
-
-        .access-card i {
-            font-size: 2rem;
-            color: #3b82f6;
-            margin-bottom: 1rem;
-        }
-
-        .access-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .access-card p {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        /* Footer */
-        footer {
-            background: #1e293b;
-            border-top: 1px solid #334155;
-            padding: 2rem 0;
-            text-align: center;
-        }
-
-        .footer-content {
-            color: #94a3b8;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                gap: 1rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* Loading Animation */
-        .loading {
-            display: inline-block;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        /* Status Indicators */
-        .status-online {
-            color: #10b981;
-        }
-
-        .status-indicator {
-            display: inline-block;
-            width: 8px;
-            height: 8px;
-            background: #10b981;
-            border-radius: 50%;
-            margin-right: 0.5rem;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
-    </style>
+    <!-- Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#6366f1">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="DataScience Pro - Análise de Dados para Todos">
+    <meta property="og:description" content="Plataforma completa para análise de dados científicos com tutoriais didáticos">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://datascience-pro.netlify.app/og-image.jpg">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "DataScience Pro",
+        "description": "Plataforma completa para análise de dados científicos",
+        "url": "https://datascience-pro.netlify.app",
+        "applicationCategory": "EducationalApplication",
+        "operatingSystem": "Web Browser"
+    }
+    </script>
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <nav class="container">
-            <div class="logo">
-                <i class="fas fa-chart-line"></i>
-                BigData Analytics Pro
+    <header class="header" id="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="#" class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <span>BigData Analytics Pro</span>
+                </a>
+                
+                <nav class="main-nav">
+                    <a href="#guia" class="nav-link active" data-tab="guia">
+                        <i class="fas fa-graduation-cap"></i>
+                        <span>Aprender</span>
+                    </a>
+                    <a href="#analise" class="nav-link" data-tab="analise">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>Analisar</span>
+                    </a>
+                    <a href="#referencias" class="nav-link" data-tab="referencias">
+                        <i class="fas fa-book"></i>
+                        <span>Referências</span>
+                    </a>
+                    <a href="#exemplos" class="nav-link" data-tab="exemplos">
+                        <i class="fas fa-lightbulb"></i>
+                        <span>Exemplos</span>
+                    </a>
+                </nav>
             </div>
-            <ul class="nav-links">
-                <li><a href="#features">Recursos</a></li>
-                <li><a href="#access">Acesso</a></li>
-                <li><a href="https://github.com/cordeirotelecom/topicos-bigdata-python" target="_blank">GitHub</a></li>
-            </ul>
-        </nav>
+        </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Análise de Dados Profissional</h1>
-            <p>Plataforma completa para análise de dados com Machine Learning, visualizações interativas e APIs governamentais integradas.</p>
-            
-            <div class="cta-buttons">
-                <a href="./site_analise_dados/index.html" class="btn">
-                    <i class="fas fa-rocket"></i>
-                    Acessar Plataforma
-                </a>
-                <a href="#features" class="btn btn-secondary">
-                    <i class="fas fa-info-circle"></i>
-                    Saiba Mais
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section class="features" id="features">
-        <div class="container">
-            <h2>Recursos Principais</h2>
-            <div class="feature-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-upload"></i>
-                    </div>
-                    <h3>Upload de Dados</h3>
-                    <p>Carregue arquivos CSV, Excel e JSON com processamento automático e validação de dados.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Machine Learning</h3>
-                    <p>Algoritmos de classificação, regressão e clustering com explicações didáticas detalhadas.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-chart-bar"></i>
-                    </div>
-                    <h3>Visualizações</h3>
-                    <p>Gráficos interativos com Chart.js, histogramas, scatter plots e dashboards personalizados.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-database"></i>
-                    </div>
-                    <h3>APIs Integradas</h3>
-                    <p>Acesso direto a dados do governo de Santa Catarina e datasets brasileiros.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Responsivo</h3>
-                    <p>Interface otimizada para desktop, tablet e smartphone com design moderno.</p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Educacional</h3>
-                    <p>Tutoriais interativos e explicações detalhadas de cada algoritmo e técnica.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Access Section -->
-    <section class="quick-access" id="access">
-        <div class="container">
-            <h2>Acesso Rápido</h2>
-            <div class="access-grid">
-                <div class="access-card">
-                    <a href="./site_analise_dados/index.html">
-                        <i class="fas fa-chart-line"></i>
-                        <h3><span class="status-indicator"></span>Plataforma Principal</h3>
-                        <p>Análise completa de dados</p>
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    Big Data em Python<br>
+                    <span style="background: linear-gradient(135deg, #2563eb, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Santa Catarina</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Plataforma completa para análise de dados governamentais de SC.<br>
+                    Apache Hadoop, Machine Learning e visualizações profissionais.
+                </p>
+                <div class="hero-cta">
+                    <a href="./site_analise_dados/index.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i>
+                        Acessar Plataforma
                     </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="./materiais.html">
-                        <i class="fas fa-book"></i>
-                        <h3>Materiais de Estudo</h3>
-                        <p>Documentação e tutoriais</p>
-                    </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="./aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html">
+                    <a href="./aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html" class="btn btn-outline btn-lg">
                         <i class="fas fa-elephant"></i>
-                        <h3>🐘 Laboratório Hadoop</h3>
-                        <p>MapReduce e HDFS na prática</p>
+                        Laboratório Hadoop
+                    </a>
+                    <a href="./aulas/" class="btn btn-ghost btn-lg">
+                        <i class="fas fa-graduation-cap"></i>
+                        Ver Aulas
                     </a>
                 </div>
-
-                <div class="access-card">
-                    <a href="./datasets/">
-                        <i class="fas fa-folder-open"></i>
-                        <h3>Datasets</h3>
-                        <p>Dados de exemplo prontos</p>
-                    </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="./aulas/">
-                        <i class="fas fa-play-circle"></i>
-                        <h3>Aulas</h3>
-                        <p>Conteúdo do curso</p>
-                    </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="./aulas/aula06-hadoop-intro/laboratorio-hadoop-ultra-pro.html">
-                        <i class="fas fa-elephant" style="color: #ff6b35;"></i>
-                        <h3><span class="status-indicator"></span>🏢 Hadoop Ultra-Pro</h3>
-                        <p>Design Corporativo • Micro-Ícones • Conteúdo Técnico Avançado</p>
-                    </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="https://github.com/cordeirotelecom/topicos-bigdata-python" target="_blank">
-                        <i class="fab fa-github"></i>
-                        <h3>Código Fonte</h3>
-                        <p>Repositório GitHub</p>
-                    </a>
-                </div>
-
-                <div class="access-card">
-                    <a href="./contato.html">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Contato</h3>
-                        <p>Suporte e informações</p>
-                    </a>
+                
+                <!-- Stats rápidas -->
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Tutoriais</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">30+</div>
+                        <div class="stat-label">Referências</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Gratuito</div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Tab Container -->
+        <div class="tabs-container">
+            <!-- Tab Navigation -->
+            <div class="tabs-nav">
+                <button class="tab-button active" data-tab="guia">
+                    <i class="tab-icon fas fa-graduation-cap"></i>
+                    <span>Aprender Data Science</span>
+                </button>
+                <button class="tab-button" data-tab="analise">
+                    <i class="tab-icon fas fa-chart-bar"></i>
+                    <span>Ferramenta de Análise</span>
+                </button>
+                <button class="tab-button" data-tab="exemplos">
+                    <i class="tab-icon fas fa-lightbulb"></i>
+                    <span>Exemplos Práticos</span>
+                </button>
+                <button class="tab-button" data-tab="referencias">
+                    <i class="tab-icon fas fa-book"></i>
+                    <span>Biblioteca</span>
+                </button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- GUIA CIENTÍFICO - SUPER DIDÁTICO -->
+                <div id="guia" class="tab-panel active">
+                    <div class="container">
+                        <!-- Introdução Amigável -->
+                        <div class="intro-section">
+                            <h2>👋 Bem-vindo à Análise de Dados!</h2>
+                            <p class="intro-text">
+                                Não importa se você é iniciante ou experiente - este guia vai te ensinar 
+                                análise de dados de forma simples e prática. Vamos do básico ao avançado, 
+                                passo a passo!
+                            </p>
+                        </div>
+
+                        <!-- Roadmap Visual -->
+                        <div class="learning-path">
+                            <h3><i class="fas fa-map"></i> Seu Caminho de Aprendizado</h3>
+                            <div class="path-steps">
+                                <div class="step-card step-1">
+                                    <div class="step-icon">📊</div>
+                                    <h4>1. O que são Dados?</h4>
+                                    <p>Entenda o básico: tipos de dados, onde encontrar e como organizar</p>
+                                    <div class="step-time">⏱️ 15 min</div>
+                                </div>
+                                
+                                <div class="step-arrow">→</div>
+                                
+                                <div class="step-card step-2">
+                                    <div class="step-icon">🧹</div>
+                                    <h4>2. Limpeza de Dados</h4>
+                                    <p>Aprenda a preparar seus dados para análise (Excel/Python)</p>
+                                    <div class="step-time">⏱️ 30 min</div>
+                                </div>
+                                
+                                <div class="step-arrow">→</div>
+                                
+                                <div class="step-card step-3">
+                                    <div class="step-icon">📈</div>
+                                    <h4>3. Análise Visual</h4>
+                                    <p>Crie gráficos que contam histórias com seus dados</p>
+                                    <div class="step-time">⏱️ 25 min</div>
+                                </div>
+                                
+                                <div class="step-arrow">→</div>
+                                
+                                <div class="step-card step-4">
+                                    <div class="step-icon">🤖</div>
+                                    <h4>4. Machine Learning</h4>
+                                    <p>Faça previsões e descobra padrões automaticamente</p>
+                                    <div class="step-time">⏱️ 45 min</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Seções Didáticas -->
+                        <div class="learning-sections">
+                            <!-- Seção 1: Fundamentos -->
+                            <div class="learning-section">
+                                <div class="section-header">
+                                    <h3>📊 1. Fundamentos - O que são Dados?</h3>
+                                    <span class="difficulty easy">Fácil</span>
+                                </div>
+                                
+                                <div class="section-content">
+                                    <div class="concept-explanation">
+                                        <h4>🤔 Pense assim:</h4>
+                                        <p>Dados são informações sobre qualquer coisa! Exemplos do dia a dia:</p>
+                                        
+                                        <div class="examples-grid">
+                                            <div class="example-card">
+                                                <i class="fas fa-thermometer-half"></i>
+                                                <h5>Temperatura</h5>
+                                                <p>23°C, 25°C, 28°C...</p>
+                                            </div>
+                                            <div class="example-card">
+                                                <i class="fas fa-users"></i>
+                                                <h5>Pessoas</h5>
+                                                <p>João, 25 anos, São Paulo</p>
+                                            </div>
+                                            <div class="example-card">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <h5>Vendas</h5>
+                                                <p>R$ 150, Pizza, 19h30</p>
+                                            </div>
+                                            <div class="example-card">
+                                                <i class="fas fa-heart"></i>
+                                                <h5>Saúde</h5>
+                                                <p>75 bpm, 120/80 mmHg</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="practical-exercise">
+                                        <h4>🎯 Exercício Prático:</h4>
+                                        <div class="exercise-box">
+                                            <p><strong>Sua missão:</strong> Abra o Excel e anote dados sobre você!</p>
+                                            <ul>
+                                                <li>Nome, idade, cidade</li>
+                                                <li>Horas de sono dos últimos 7 dias</li>
+                                                <li>Gastos da semana</li>
+                                            </ul>
+                                            <button class="btn btn-secondary btn-sm">
+                                                <i class="fas fa-download"></i>
+                                                Baixar Planilha Modelo
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seção 2: Limpeza -->
+                            <div class="learning-section">
+                                <div class="section-header">
+                                    <h3>🧹 2. Limpeza de Dados - Deixando Tudo Organizado</h3>
+                                    <span class="difficulty medium">Médio</span>
+                                </div>
+                                
+                                <div class="section-content">
+                                    <div class="concept-explanation">
+                                        <h4>🛠️ Por que limpar dados?</h4>
+                                        <p>Imagine tentar cozinhar com ingredientes sujos ou desarrumados. O mesmo vale para dados!</p>
+                                        
+                                        <div class="before-after">
+                                            <div class="before">
+                                                <h5>❌ Dados Sujos</h5>
+                                                <div class="data-example messy">
+                                                    <code>
+                                                        João, 25, sp<br>
+                                                        maria,, São Paulo<br>
+                                                        Pedro, vinte e cinco, SP<br>
+                                                        , 30, são paulo
+                                                    </code>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="after">
+                                                <h5>✅ Dados Limpos</h5>
+                                                <div class="data-example clean">
+                                                    <code>
+                                                        João, 25, São Paulo<br>
+                                                        Maria, 28, São Paulo<br>
+                                                        Pedro, 25, São Paulo<br>
+                                                        Ana, 30, São Paulo
+                                                    </code>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="step-by-step">
+                                        <h4>📋 Passo a Passo no Excel:</h4>
+                                        <div class="steps-list">
+                                            <div class="step-item">
+                                                <div class="step-number">1</div>
+                                                <div class="step-content">
+                                                    <h5>Remover linhas vazias</h5>
+                                                    <p>Selecione tudo → Dados → Filtro → Remover em branco</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="step-item">
+                                                <div class="step-number">2</div>
+                                                <div class="step-content">
+                                                    <h5>Padronizar texto</h5>
+                                                    <p>Use MAIÚSCULA(), minúscula() ou Primeira.Maiúscula()</p>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="step-item">
+                                                <div class="step-number">3</div>
+                                                <div class="step-content">
+                                                    <h5>Verificar números</h5>
+                                                    <p>Certifique-se que números estão formatados corretamente</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="interactive-demo">
+                                        <h4>🎮 Demonstração Interativa:</h4>
+                                        <div class="demo-box">
+                                            <p>Clique nos dados sujos para ver como fica após a limpeza:</p>
+                                            <div class="clean-demo" id="cleanDemo">
+                                                <div class="dirty-data" onclick="cleanData(this)">João,25,sp</div>
+                                                <div class="dirty-data" onclick="cleanData(this)">maria,0,São Paulo</div>
+                                                <div class="dirty-data" onclick="cleanData(this)">Pedro, vinte e cinco,SP</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seção 3: Visualização -->
+                            <div class="learning-section">
+                                <div class="section-header">
+                                    <h3>📈 3. Visualização - Transformando Números em Histórias</h3>
+                                    <span class="difficulty medium">Médio</span>
+                                </div>
+                                
+                                <div class="section-content">
+                                    <div class="concept-explanation">
+                                        <h4>🎨 Por que visualizar?</h4>
+                                        <p>Uma imagem vale mais que mil números! Veja a diferença:</p>
+                                        
+                                        <div class="viz-comparison">
+                                            <div class="numbers-only">
+                                                <h5>📋 Só números:</h5>
+                                                <p>Jan: 100, Fev: 120, Mar: 90, Abr: 150, Mai: 200...</p>
+                                                <span class="confusion">😵 Confuso?</span>
+                                            </div>
+                                            
+                                            <div class="with-chart">
+                                                <h5>📊 Com gráfico:</h5>
+                                                <canvas id="sampleChart" width="300" height="150"></canvas>
+                                                <span class="clarity">😍 Muito melhor!</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="chart-types">
+                                        <h4>🎯 Qual gráfico usar?</h4>
+                                        <div class="chart-guide">
+                                            <div class="chart-option">
+                                                <i class="fas fa-chart-bar"></i>
+                                                <h5>Barras</h5>
+                                                <p>Comparar categorias</p>
+                                                <small>Ex: Vendas por região</small>
+                                            </div>
+                                            
+                                            <div class="chart-option">
+                                                <i class="fas fa-chart-line"></i>
+                                                <h5>Linha</h5>
+                                                <p>Mostrar tendências</p>
+                                                <small>Ex: Vendas ao longo do tempo</small>
+                                            </div>
+                                            
+                                            <div class="chart-option">
+                                                <i class="fas fa-chart-pie"></i>
+                                                <h5>Pizza</h5>
+                                                <p>Mostrar partes do todo</p>
+                                                <small>Ex: % de cada produto</small>
+                                            </div>
+                                            
+                                            <div class="chart-option">
+                                                <i class="fas fa-braille"></i>
+                                                <h5>Dispersão</h5>
+                                                <p>Relação entre variáveis</p>
+                                                <small>Ex: Altura vs Peso</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Seção 4: Machine Learning Simples -->
+                            <div class="learning-section">
+                                <div class="section-header">
+                                    <h3>🤖 4. Machine Learning - Fazendo Previsões</h3>
+                                    <span class="difficulty hard">Avançado</span>
+                                </div>
+                                
+                                <div class="section-content">
+                                    <div class="concept-explanation">
+                                        <h4>🧠 O que é Machine Learning?</h4>
+                                        <p>É ensinar o computador a encontrar padrões nos dados, como um detetive digital!</p>
+                                        
+                                        <div class="ml-analogy">
+                                            <div class="analogy-step">
+                                                <div class="step-icon">🔍</div>
+                                                <h5>1. Observar</h5>
+                                                <p>O computador analisa seus dados históricos</p>
+                                            </div>
+                                            
+                                            <div class="step-arrow">→</div>
+                                            
+                                            <div class="analogy-step">
+                                                <div class="step-icon">🧩</div>
+                                                <h5>2. Encontrar Padrões</h5>
+                                                <p>Descobre relações entre as informações</p>
+                                            </div>
+                                            
+                                            <div class="step-arrow">→</div>
+                                            
+                                            <div class="analogy-step">
+                                                <div class="step-icon">🔮</div>
+                                                <h5>3. Prever</h5>
+                                                <p>Faz previsões sobre novos dados</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="simple-examples">
+                                        <h4>💡 Exemplos Simples:</h4>
+                                        <div class="examples-grid">
+                                            <div class="ml-example">
+                                                <i class="fas fa-home"></i>
+                                                <h5>Preço de Imóveis</h5>
+                                                <p>Baseado em: tamanho, localização, quartos</p>
+                                                <button class="btn btn-sm btn-outline">Ver Exemplo</button>
+                                            </div>
+                                            
+                                            <div class="ml-example">
+                                                <i class="fas fa-shopping-cart"></i>
+                                                <h5>Recomendação</h5>
+                                                <p>Baseado em: compras anteriores, preferências</p>
+                                                <button class="btn btn-sm btn-outline">Ver Exemplo</button>
+                                            </div>
+                                            
+                                            <div class="ml-example">
+                                                <i class="fas fa-chart-line"></i>
+                                                <h5>Vendas Futuras</h5>
+                                                <p>Baseado em: histórico, sazonalidade, tendências</p>
+                                                <button class="btn btn-sm btn-outline">Ver Exemplo</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ferramentas Recomendadas -->
+                        <div class="tools-section">
+                            <h3><i class="fas fa-tools"></i> Ferramentas que Você Vai Usar</h3>
+                            <div class="tools-grid">
+                                <div class="tool-card beginner">
+                                    <div class="tool-icon">📊</div>
+                                    <h4>Excel</h4>
+                                    <p>Perfeito para iniciantes</p>
+                                    <div class="tool-features">
+                                        <span class="feature">✓ Fácil de usar</span>
+                                        <span class="feature">✓ Gráficos simples</span>
+                                        <span class="feature">✓ Análise básica</span>
+                                    </div>
+                                    <div class="difficulty-badge easy">Fácil</div>
+                                </div>
+                                
+                                <div class="tool-card intermediate">
+                                    <div class="tool-icon">🐍</div>
+                                    <h4>Python</h4>
+                                    <p>Linguagem mais popular</p>
+                                    <div class="tool-features">
+                                        <span class="feature">✓ Muito poderoso</span>
+                                        <span class="feature">✓ Muitas bibliotecas</span>
+                                        <span class="feature">✓ Gratuito</span>
+                                    </div>
+                                    <div class="difficulty-badge medium">Médio</div>
+                                </div>
+                                
+                                <div class="tool-card advanced">
+                                    <div class="tool-icon">📈</div>
+                                    <h4>R</h4>
+                                    <p>Especialista em estatística</p>
+                                    <div class="tool-features">
+                                        <span class="feature">✓ Análise avançada</span>
+                                        <span class="feature">✓ Visualizações incríveis</span>
+                                        <span class="feature">✓ Comunidade acadêmica</span>
+                                    </div>
+                                    <div class="difficulty-badge hard">Avançado</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Call to Action -->
+                        <div class="cta-section">
+                            <h3>🚀 Pronto para Começar?</h3>
+                            <p>Agora que você entende o básico, vamos colocar a mão na massa!</p>
+                            <div class="cta-buttons">
+                                <button class="btn btn-primary btn-lg" onclick="switchTab('analise')">
+                                    <i class="fas fa-play"></i>
+                                    Usar Ferramenta de Análise
+                                </button>
+                                <button class="btn btn-secondary btn-lg" onclick="switchTab('exemplos')">
+                                    <i class="fas fa-lightbulb"></i>
+                                    Ver Exemplos Práticos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FERRAMENTA DE ANÁLISE MELHORADA -->
+                <div id="analise" class="tab-panel">
+                    <div class="container">
+                        <div class="analysis-intro">
+                            <h2>🔬 Ferramenta de Análise Profissional</h2>
+                            <p class="intro-text">
+                                Faça upload dos seus dados e descubra insights incríveis automaticamente!
+                                Nossa ferramenta analisa seus dados e gera relatórios profissionais.
+                            </p>
+                        </div>
+
+                        <!-- Upload Section Aprimorada -->
+                        <div class="upload-section">
+                            <div class="upload-area" id="upload-area">
+                                <div class="upload-icon">
+                                    <i class="fas fa-cloud-upload-alt"></i>
+                                </div>
+                                <div class="upload-text">Arraste seus dados aqui</div>
+                                <div class="upload-hint">ou clique para selecionar arquivo</div>
+                                <div class="upload-formats">
+                                    <span class="format-badge">CSV</span>
+                                    <span class="format-badge">EXCEL</span>
+                                    <span class="format-badge">JSON</span>
+                                </div>
+                                <input type="file" id="file-input" accept=".csv,.xlsx,.xls,.json" hidden>
+                            </div>
+                            <div id="upload-status" class="upload-status" style="display: none;"></div>
+                        </div>
+
+                        <!-- Dados de Exemplo Melhorados -->
+                        <div class="sample-section">
+                            <h3><i class="fas fa-database"></i> Ou experimente com nossos dados de exemplo:</h3>
+                            <div class="sample-data">
+                                <div class="sample-card" data-sample="covid">
+                                    <div class="sample-icon" style="background: var(--gradient-accent);">
+                                        <i class="fas fa-virus"></i>
+                                    </div>
+                                    <div class="sample-title">COVID-19 & Qualidade do Ar</div>
+                                    <div class="sample-description">
+                                        Dados reais de poluição e casos de COVID-19 para análise de correlação
+                                    </div>
+                                    <div class="sample-stats">
+                                        <span>📊 100 registros</span>
+                                        <span>📈 7 variáveis</span>
+                                    </div>
+                                    <button class="btn btn-outline sample-btn" data-sample="covid">
+                                        <i class="fas fa-play"></i>
+                                        Analisar Agora
+                                    </button>
+                                </div>
+                                
+                                <div class="sample-card" data-sample="climate">
+                                    <div class="sample-icon" style="background: var(--gradient-secondary);">
+                                        <i class="fas fa-cloud-sun"></i>
+                                    </div>
+                                    <div class="sample-title">Dados Climáticos</div>
+                                    <div class="sample-description">
+                                        Dados meteorológicos anuais com temperatura, chuva, umidade e mais
+                                    </div>
+                                    <div class="sample-stats">
+                                        <span>📊 365 registros</span>
+                                        <span>📈 8 variáveis</span>
+                                    </div>
+                                    <button class="btn btn-outline sample-btn" data-sample="climate">
+                                        <i class="fas fa-play"></i>
+                                        Analisar Agora
+                                    </button>
+                                </div>
+                                
+                                <div class="sample-card" data-sample="sales">
+                                    <div class="sample-icon" style="background: var(--gradient-primary);">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    <div class="sample-title">Vendas & Marketing</div>
+                                    <div class="sample-description">
+                                        Dados de vendas por produto, região e campanha de marketing
+                                    </div>
+                                    <div class="sample-stats">
+                                        <span>📊 200 registros</span>
+                                        <span>📈 8 variáveis</span>
+                                    </div>
+                                    <button class="btn btn-outline sample-btn" data-sample="sales">
+                                        <i class="fas fa-play"></i>
+                                        Analisar Agora
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Dashboard de Análise -->
+                        <div id="analysis-dashboard" class="analysis-dashboard">
+                            <div class="dashboard-header">
+                                <h3><i class="fas fa-chart-pie"></i> Resultados da Análise</h3>
+                                <div class="dashboard-actions">
+                                    <button id="export-summary" class="btn btn-secondary">
+                                        <i class="fas fa-file-alt"></i>
+                                        Relatório
+                                    </button>
+                                    <button id="export-processed" class="btn btn-primary">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Overview dos Dados -->
+                            <div class="dashboard-section">
+                                <div class="section-header">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Visão Geral dos Dados</span>
+                                </div>
+                                <div class="section-content">
+                                    <div id="data-overview" class="overview-grid">
+                                        <!-- Será preenchido dinamicamente -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Grid do Dashboard -->
+                            <div class="dashboard-grid">
+                                <!-- Estatísticas Descritivas -->
+                                <div class="dashboard-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-calculator"></i>
+                                        <span>Estatísticas Descritivas</span>
+                                    </div>
+                                    <div class="section-content">
+                                        <div id="stats-container">
+                                            <!-- Tabela de estatísticas -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Qualidade dos Dados -->
+                                <div class="dashboard-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Qualidade dos Dados</span>
+                                    </div>
+                                    <div class="section-content">
+                                        <div id="quality-metrics" class="quality-grid">
+                                            <!-- Métricas de qualidade -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Correlações -->
+                                <div class="dashboard-section full-width">
+                                    <div class="section-header">
+                                        <i class="fas fa-link"></i>
+                                        <span>Matriz de Correlação</span>
+                                    </div>
+                                    <div class="section-content">
+                                        <div class="chart-container">
+                                            <canvas id="correlation-heatmap"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Distribuições -->
+                                <div class="dashboard-section full-width">
+                                    <div class="section-header">
+                                        <i class="fas fa-chart-area"></i>
+                                        <span>Análise de Distribuição</span>
+                                    </div>
+                                    <div class="section-content">
+                                        <div class="form-group">
+                                            <label for="variable-selector" class="form-label">Selecione uma variável:</label>
+                                            <select id="variable-selector" class="form-select">
+                                                <option value="">Escolha uma variável para analisar</option>
+                                            </select>
+                                        </div>
+                                        <div class="chart-container">
+                                            <canvas id="distribution-chart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Detecção de Outliers -->
+                                <div class="dashboard-section">
+                                    <div class="section-header">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <span>Detecção de Outliers</span>
+                                    </div>
+                                    <div class="section-content">
+                                        <div id="outliers-container">
+                                            <!-- Resultados de outliers -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EXEMPLOS PRÁTICOS NOVOS -->
+                <div id="exemplos" class="tab-panel">
+                    <div class="container">
+                        <div class="examples-intro">
+                            <h2>💡 Exemplos Práticos do Mundo Real</h2>
+                            <p class="intro-text">
+                                Veja como a análise de dados é usada na prática com casos reais e aprenda fazendo!
+                            </p>
+                        </div>
+
+                        <!-- Categorias de Exemplos -->
+                        <div class="examples-categories">
+                            <div class="category-filter">
+                                <button class="filter-btn active" data-category="all">Todos</button>
+                                <button class="filter-btn" data-category="business">Negócios</button>
+                                <button class="filter-btn" data-category="health">Saúde</button>
+                                <button class="filter-btn" data-category="science">Ciência</button>
+                                <button class="filter-btn" data-category="social">Social</button>
+                            </div>
+                        </div>
+
+                        <!-- Grid de Exemplos -->
+                        <div class="examples-grid">
+                            <!-- Exemplo 1: E-commerce -->
+                            <div class="example-card" data-category="business">
+                                <div class="example-header">
+                                    <div class="example-icon">🛒</div>
+                                    <div class="example-meta">
+                                        <h4>Análise de E-commerce</h4>
+                                        <span class="category-badge business">Negócios</span>
+                                        <span class="difficulty-badge medium">Médio</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como uma loja online aumentou vendas em 40% usando análise de dados para entender comportamento de clientes.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Análise de funil de vendas</li>
+                                        <li>Segmentação de clientes</li>
+                                        <li>Previsão de demanda</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">Excel</span>
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">Tableau</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exemplo 2: Saúde Pública -->
+                            <div class="example-card" data-category="health">
+                                <div class="example-header">
+                                    <div class="example-icon">🏥</div>
+                                    <div class="example-meta">
+                                        <h4>Surto de Dengue</h4>
+                                        <span class="category-badge health">Saúde</span>
+                                        <span class="difficulty-badge easy">Fácil</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como autoridades de saúde usaram dados para prever e controlar surto de dengue em uma cidade.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Análise temporal de doenças</li>
+                                        <li>Correlação com clima</li>
+                                        <li>Mapas de calor geográficos</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">R</span>
+                                    <span class="tool-tag">QGIS</span>
+                                    <span class="tool-tag">Power BI</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exemplo 3: Agricultura -->
+                            <div class="example-card" data-category="science">
+                                <div class="example-header">
+                                    <div class="example-icon">🌾</div>
+                                    <div class="example-meta">
+                                        <h4>Agricultura Inteligente</h4>
+                                        <span class="category-badge science">Ciência</span>
+                                        <span class="difficulty-badge hard">Avançado</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como fazendeiros usam sensores IoT e machine learning para otimizar irrigação e aumentar produtividade.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Análise de séries temporais</li>
+                                        <li>Machine Learning aplicado</li>
+                                        <li>Otimização de recursos</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">TensorFlow</span>
+                                    <span class="tool-tag">IoT</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exemplo 4: Redes Sociais -->
+                            <div class="example-card" data-category="social">
+                                <div class="example-header">
+                                    <div class="example-icon">📱</div>
+                                    <div class="example-meta">
+                                        <h4>Análise de Sentimento</h4>
+                                        <span class="category-badge social">Social</span>
+                                        <span class="difficulty-badge medium">Médio</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como empresas analisam sentimentos em redes sociais para melhorar produtos e atendimento.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Processamento de texto</li>
+                                        <li>Análise de sentimentos</li>
+                                        <li>Visualização de redes</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">NLTK</span>
+                                    <span class="tool-tag">Twitter API</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exemplo 5: Educação -->
+                            <div class="example-card" data-category="social">
+                                <div class="example-header">
+                                    <div class="example-icon">🎓</div>
+                                    <div class="example-meta">
+                                        <h4>Performance Estudantil</h4>
+                                        <span class="category-badge social">Social</span>
+                                        <span class="difficulty-badge easy">Fácil</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como escolas usam dados para identificar alunos em risco e personalizar ensino.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Análise de performance</li>
+                                        <li>Identificação de padrões</li>
+                                        <li>Dashboards educacionais</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">Excel</span>
+                                    <span class="tool-tag">Power BI</span>
+                                    <span class="tool-tag">Google Sheets</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Exemplo 6: Finanças -->
+                            <div class="example-card" data-category="business">
+                                <div class="example-header">
+                                    <div class="example-icon">💰</div>
+                                    <div class="example-meta">
+                                        <h4>Detecção de Fraude</h4>
+                                        <span class="category-badge business">Negócios</span>
+                                        <span class="difficulty-badge hard">Avançado</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="example-description">
+                                    <p>Como bancos usam machine learning para detectar transações fraudulentas em tempo real.</p>
+                                </div>
+                                
+                                <div class="example-insights">
+                                    <h5>🎯 O que você vai aprender:</h5>
+                                    <ul>
+                                        <li>Detecção de anomalias</li>
+                                        <li>Machine Learning em tempo real</li>
+                                        <li>Métricas de risco</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="example-tools">
+                                    <span class="tool-tag">Python</span>
+                                    <span class="tool-tag">Scikit-learn</span>
+                                    <span class="tool-tag">Apache Kafka</span>
+                                </div>
+                                
+                                <div class="example-actions">
+                                    <button class="btn btn-primary btn-sm">
+                                        <i class="fas fa-play"></i>
+                                        Ver Exemplo
+                                    </button>
+                                    <button class="btn btn-outline btn-sm">
+                                        <i class="fas fa-download"></i>
+                                        Baixar Dados
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tutorial em Destaque -->
+                        <div class="featured-tutorial">
+                            <div class="tutorial-content">
+                                <h3>🏆 Tutorial em Destaque: Análise de Vendas Passo a Passo</h3>
+                                <p>Aprenda a analisar dados de vendas de uma empresa real e descobrir insights que podem aumentar o faturamento em 30%!</p>
+                                
+                                <div class="tutorial-features">
+                                    <div class="feature">
+                                        <i class="fas fa-video"></i>
+                                        <span>Vídeo explicativo</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-file-excel"></i>
+                                        <span>Planilha para download</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-code"></i>
+                                        <span>Código Python</span>
+                                    </div>
+                                    <div class="feature">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Dashboard interativo</span>
+                                    </div>
+                                </div>
+                                
+                                <button class="btn btn-primary btn-lg">
+                                    <i class="fas fa-play"></i>
+                                    Começar Tutorial
+                                </button>
+                            </div>
+                            
+                            <div class="tutorial-preview">
+                                <div class="preview-image">
+                                    <i class="fas fa-chart-bar"></i>
+                                    <span>Preview do Dashboard</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BIBLIOTECA DE REFERÊNCIAS MELHORADA -->
+                <div id="referencias" class="tab-panel">
+                    <div class="container">
+                        <div class="references-intro">
+                            <h2>📚 Biblioteca de Conhecimento</h2>
+                            <p class="intro-text">
+                                Recursos científicos, tutoriais e ferramentas cuidadosamente selecionados para sua jornada em Data Science.
+                            </p>
+                        </div>
+
+                        <!-- Busca Avançada -->
+                        <div class="references-search">
+                            <div class="search-grid">
+                                <div class="search-input-group">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="ref-search" placeholder="Buscar por título, autor ou tema..." class="form-input">
+                                </div>
+                                
+                                <select id="category-filter" class="form-select">
+                                    <option value="">Todas as categorias</option>
+                                    <option value="livros">📖 Livros</option>
+                                    <option value="artigos">📄 Artigos Científicos</option>
+                                    <option value="documentacao">📋 Documentação</option>
+                                    <option value="cursos">🎓 Cursos Online</option>
+                                    <option value="ferramentas">🛠️ Ferramentas</option>
+                                </select>
+                            </div>
+                            
+                            <div class="search-stats">
+                                <span id="search-results-count">30+ recursos disponíveis</span>
+                            </div>
+                        </div>
+
+                        <!-- Categorias em Destaque -->
+                        <div class="featured-categories">
+                            <div class="category-card">
+                                <i class="fas fa-book"></i>
+                                <h4>Livros Essenciais</h4>
+                                <p>15 livros fundamentais para Data Science</p>
+                            </div>
+                            
+                            <div class="category-card">
+                                <i class="fas fa-university"></i>
+                                <h4>Cursos Gratuitos</h4>
+                                <p>10 cursos online de universidades renomadas</p>
+                            </div>
+                            
+                            <div class="category-card">
+                                <i class="fas fa-tools"></i>
+                                <h4>Ferramentas</h4>
+                                <p>8 ferramentas essenciais para análise</p>
+                            </div>
+                        </div>
+
+                        <!-- Lista de Referências -->
+                        <div id="references-list" class="references-list">
+                            <!-- Será preenchido dinamicamente pelo JavaScript -->
+                        </div>
+
+                        <!-- Recurso Premium -->
+                        <div class="premium-resource">
+                            <div class="premium-content">
+                                <h3>⭐ Recurso Premium: Biblioteca Completa de Datasets</h3>
+                                <p>Acesso a mais de 1000 datasets limpos e documentados para praticar análise de dados em diversos domínios.</p>
+                                
+                                <div class="premium-features">
+                                    <div class="feature">✓ 1000+ datasets</div>
+                                    <div class="feature">✓ Dados limpos</div>
+                                    <div class="feature">✓ Documentação completa</div>
+                                    <div class="feature">✓ Suporte dedicado</div>
+                                </div>
+                                
+                                <button class="btn btn-primary">
+                                    <i class="fas fa-star"></i>
+                                    Acessar Premium
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <!-- Footer -->
-    <footer>
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
-                <p>&copy; 2025 BigData Analytics Pro. Desenvolvido para Tópicos de Big Data em Python.</p>
-                <p>
-                    <span class="status-online">
-                        <i class="fas fa-circle"></i> Online
-                    </span> | 
-                    <a href="https://datascience-pro.netlify.app" style="color: #3b82f6;">datascience-pro.netlify.app</a>
-                </p>
+                <div class="footer-section">
+                    <h4>DataScience Pro</h4>
+                    <p>Tornando a análise de dados acessível para todos.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Recursos</h5>
+                    <ul>
+                        <li><a href="#guia">Guia Completo</a></li>
+                        <li><a href="#analise">Ferramenta</a></li>
+                        <li><a href="#exemplos">Exemplos</a></li>
+                        <li><a href="#referencias">Biblioteca</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Suporte</h5>
+                    <ul>
+                        <li><a href="#">Documentação</a></li>
+                        <li><a href="#">Tutoriais</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contato</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-section">
+                    <h5>Comunidade</h5>
+                    <ul>
+                        <li><a href="#">Discord</a></li>
+                        <li><a href="#">Fórum</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Newsletter</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 DataScience Pro. Feito com ❤️ para a comunidade de dados.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/analysis-tool.js"></script>
+    <script src="js/app.js"></script>
+    
+    <!-- Analytics -->
     <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Loading state for main platform link
-        document.querySelector('a[href*="site_analise_dados"]').addEventListener('click', function(e) {
-            const icon = this.querySelector('i');
-            icon.className = 'fas fa-spinner loading';
-            
-            setTimeout(() => {
-                icon.className = 'fas fa-rocket';
-            }, 2000);
-        });
-
-        // Check if links are working
-        function validateLinks() {
-            const links = document.querySelectorAll('a[href^="./"]');
-            links.forEach(link => {
-                const href = link.getAttribute('href');
-                fetch(href, { method: 'HEAD' })
-                    .catch(() => {
-                        link.style.opacity = '0.6';
-                        link.title = 'Link pode estar indisponível';
-                    });
-            });
-        }
-
-        // Run validation after page load
-        window.addEventListener('load', validateLinks);
-
-        console.log('🚀 BigData Analytics Pro carregado com sucesso!');
-        console.log('📊 Plataforma: https://datascience-pro.netlify.app/site_analise_dados/');
-    </script>
-</body>
-</html>
-        }
-
-        .title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #fff, #f0f0f0);
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            color: transparent;
-        }
-
-        .subtitle {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .feature {
-            background: rgba(255, 255, 255, 0.1);
-            padding: 1.5rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .feature:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .feature-title {
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-top: 2rem;
-        }
-
-        .btn {
-            padding: 1rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        .btn-primary {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-primary:hover {
-            background: rgba(255, 255, 255, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .stats {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .stat {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2rem;
-            font-weight: 800;
-            display: block;
-        }
-
-        .stat-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        .countdown {
-            margin: 1rem 0;
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 53%, 80%, 100% {
-                transform: translate3d(0, 0, 0);
-            }
-            40%, 43% {
-                transform: translate3d(0, -30px, 0);
-            }
-            70% {
-                transform: translate3d(0, -15px, 0);
-            }
-            90% {
-                transform: translate3d(0, -4px, 0);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .title {
-                font-size: 2rem;
-            }
-            
-            .logo {
-                font-size: 3rem;
-            }
-            
-            .features {
-                grid-template-columns: 1fr;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .stats {
-                gap: 1rem;
-            }
-        }
-
-        .loading-dots {
-            display: inline-flex;
-            gap: 0.3rem;
-            margin-left: 0.5rem;
-        }
-
-        .loading-dots span {
-            width: 8px;
-            height: 8px;
-            background: white;
-            border-radius: 50%;
-            animation: loading 1.4s ease-in-out infinite both;
-        }
-
-        .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
-        .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
-
-        @keyframes loading {
-            0%, 80%, 100% { transform: scale(0); }
-            40% { transform: scale(1); }
-        }
-    </style>
-</head>
-<body>
-    <div class="landing-container">
-        <div class="logo">🚀</div>
-        
-        <h1 class="title">BigData Analytics Pro</h1>
-        
-        <p class="subtitle">
-            Plataforma completa de análise de dados com Machine Learning,<br>
-            APIs em tempo real e visualizações profissionais
-        </p>
-        
-        <div class="features">
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <div class="feature-title">Análise Inteligente</div>
-                <div class="feature-description">Upload e análise automática</div>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">🤖</div>
-                <div class="feature-title">Machine Learning</div>
-                <div class="feature-description">IA com explicações detalhadas</div>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">🌐</div>
-                <div class="feature-title">APIs Tempo Real</div>
-                <div class="feature-description">Dados governamentais de SC</div>
-            </div>
-            
-            <div class="feature">
-                <div class="feature-icon">📈</div>
-                <div class="feature-title">Visualizações</div>
-                <div class="feature-description">Gráficos interativos</div>
-            </div>
-        </div>
-        
-        <div class="stats">
-            <div class="stat">
-                <span class="stat-number">100+</span>
-                <span class="stat-label">Funcionalidades</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">24/7</span>
-                <span class="stat-label">Disponível</span>
-            </div>
-            <div class="stat">
-                <span class="stat-number">100%</span>
-                <span class="stat-label">Gratuito</span>
-            </div>
-        </div>
-        
-        <div class="countdown" id="countdown">
-            Redirecionando automaticamente em <span id="timer">5</span> segundos...
-            <div class="loading-dots">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-        
-        <div class="cta-buttons">
-            <a href="./site_analise_dados/index.html" class="btn btn-primary" id="accessBtn">
-                <i class="fas fa-rocket"></i>
-                Acessar Plataforma
-            </a>
-            
-            <a href="./README.md" class="btn btn-secondary">
-                <i class="fas fa-book"></i>
-                Documentação
-            </a>
-        </div>
-    </div>
-
-    <script>
-        // Countdown timer
-        let timeLeft = 5;
-        const timerElement = document.getElementById('timer');
-        const countdownElement = document.getElementById('countdown');
-        
-        const countdown = setInterval(() => {
-            timeLeft--;
-            timerElement.textContent = timeLeft;
-            
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                window.location.href = './site_analise_dados/index.html';
-            }
-        }, 1000);
-        
-        // Immediate access button
-        document.getElementById('accessBtn').addEventListener('click', (e) => {
-            e.preventDefault();
-            clearInterval(countdown);
-            countdownElement.innerHTML = 'Carregando plataforma...';
-            window.location.href = './site_analise_dados/index.html';
-        });
-        
-        // Analytics tracking (if needed)
-        if (typeof gtag !== 'undefined') {
-            gtag('event', 'page_view', {
-                page_title: 'BigData Analytics Pro - Landing',
-                page_location: window.location.href
-            });
-        }
-        
-        // Error handling
-        window.addEventListener('error', (e) => {
-            console.error('Landing page error:', e);
-        });
-        
-        // Service worker registration (optional)
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('/sw.js').catch(err => {
-                console.log('Service worker registration failed:', err);
-            });
-        }
+        // Google Analytics ou outro sistema de analytics
+        // gtag('config', 'GA_MEASUREMENT_ID');
     </script>
 </body>
 </html>
