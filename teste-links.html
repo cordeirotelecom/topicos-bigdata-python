@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Links - BigData Analytics Pro</title>
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            margin: 40px;
+            background: white;
+            color: black;
+        }
+        .test-link {
+            display: block;
+            padding: 10px;
+            margin: 10px 0;
+            background: #f0f0f0;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+        }
+        .test-link:hover { background: #e0e0e0; }
+    </style>
+</head>
+<body>
+    <h1>🔗 Teste de Links</h1>
+    
+    <h2>Links Locais:</h2>
+    <a href="./materiais.html" class="test-link">📚 Materiais de Estudo</a>
+    <a href="./contato.html" class="test-link">📧 Contato</a>
+    <a href="./site_analise_dados/index.html" class="test-link">📊 Plataforma Principal</a>
+    <a href="./aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html" class="test-link">🐘 Laboratório Hadoop</a>
+    
+    <h2>Links de Diretórios:</h2>
+    <a href="./aulas/" class="test-link">📁 Pasta Aulas</a>
+    <a href="./datasets/" class="test-link">📁 Pasta Datasets</a>
+    
+    <h2>Status:</h2>
+    <p>✅ Arquivo criado em: <strong id="timestamp"></strong></p>
+    
+    <script>
+        document.getElementById('timestamp').textContent = new Date().toLocaleString('pt-BR');
+    </script>
+</body>
+</html>
