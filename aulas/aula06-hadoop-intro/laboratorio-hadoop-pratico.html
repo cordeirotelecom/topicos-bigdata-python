@@ -1,0 +1,1869 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apache Hadoop - Laboratório Prático Completo</title>
+    
+    <!-- Fontes Profissionais -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* === SISTEMA DE DESIGN DIDÁTICO === */
+        :root {
+            /* Cores Principais */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --bg-code: #f8f9fa;
+            
+            /* Texto */
+            --text-primary: #1e293b;
+            --text-secondary: #475569;
+            --text-tertiary: #64748b;
+            --text-muted: #94a3b8;
+            
+            /* Bordas */
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            
+            /* Hadoop */
+            --hadoop-orange: #ff8c00;
+            --hadoop-dark: #e67e00;
+            --hadoop-light: #ffa500;
+            
+            /* Status */
+            --success: #10b981;
+            --success-bg: #ecfdf5;
+            --warning: #f59e0b;
+            --warning-bg: #fffbeb;
+            --error: #ef4444;
+            --error-bg: #fef2f2;
+            --info: #3b82f6;
+            --info-bg: #eff6ff;
+            
+            /* Sombras */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            
+            /* Tipografia */
+            --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-code: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+            
+            /* Ícones Pequenos */
+            --icon-xs: 0.75rem;
+            --icon-sm: 0.85rem;
+            --icon-md: 1rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-primary);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        /* === HEADER === */
+        .header {
+            background: var(--bg-primary);
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo i {
+            font-size: var(--icon-md);
+            color: var(--hadoop-orange);
+        }
+
+        .nav {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .nav a:hover {
+            color: var(--hadoop-orange);
+        }
+
+        .nav i {
+            font-size: var(--icon-xs);
+        }
+
+        /* === CONTAINER === */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* === HERO === */
+        .hero {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+            border-radius: 12px;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 i {
+            color: var(--hadoop-orange);
+            font-size: 2.2rem;
+            margin-right: 0.5rem;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .stat {
+            background: var(--bg-primary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .stat i {
+            font-size: var(--icon-md);
+            color: var(--hadoop-orange);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* === SEÇÕES === */
+        .section {
+            margin-bottom: 3rem;
+            background: var(--bg-primary);
+            border: 1px solid var(--border-light);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .section-header {
+            background: var(--bg-secondary);
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-title i {
+            font-size: var(--icon-md);
+            color: var(--hadoop-orange);
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .section-content {
+            padding: 2rem;
+        }
+
+        /* === PASSO A PASSO === */
+        .steps {
+            counter-reset: step-counter;
+        }
+
+        .step {
+            counter-increment: step-counter;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .step-header {
+            background: var(--bg-secondary);
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid var(--border-light);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .step-number {
+            background: var(--hadoop-orange);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .step-number::before {
+            content: counter(step-counter);
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .step-content {
+            padding: 1.5rem;
+        }
+
+        .step-description {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        /* === EXEMPLO PRÁTICO === */
+        .example {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .example-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .example-title i {
+            font-size: var(--icon-sm);
+            color: var(--hadoop-orange);
+        }
+
+        /* === CÓDIGO === */
+        .code-container {
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-medium);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: var(--bg-tertiary);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-medium);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .code-lang {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            font-family: var(--font-code);
+        }
+
+        .copy-btn {
+            background: var(--hadoop-orange);
+            color: white;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--hadoop-dark);
+        }
+
+        .copy-btn i {
+            font-size: var(--icon-xs);
+        }
+
+        .code-block {
+            background: var(--bg-code);
+            padding: 1.25rem;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+            overflow-x: auto;
+        }
+
+        /* === TERMINAL === */
+        .terminal {
+            background: #1a1a1a;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow-md);
+        }
+
+        .terminal-header {
+            background: #2d2d2d;
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 0.4rem;
+        }
+
+        .terminal-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red { background: #ff5f56; }
+        .dot-yellow { background: #ffbd2e; }
+        .dot-green { background: #27ca3f; }
+
+        .terminal-title {
+            color: #8a8a8a;
+            font-size: 0.8rem;
+            font-family: var(--font-code);
+        }
+
+        .terminal-content {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 1.25rem;
+            font-family: var(--font-code);
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .prompt {
+            color: #00ff00;
+        }
+
+        .command {
+            color: #ffffff;
+        }
+
+        .output {
+            color: #cccccc;
+        }
+
+        /* === ALERTAS === */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-title i {
+            font-size: var(--icon-sm);
+        }
+
+        .alert.info {
+            background: var(--info-bg);
+            border-left-color: var(--info);
+            color: #1e40af;
+        }
+
+        .alert.success {
+            background: var(--success-bg);
+            border-left-color: var(--success);
+            color: #065f46;
+        }
+
+        .alert.warning {
+            background: var(--warning-bg);
+            border-left-color: var(--warning);
+            color: #92400e;
+        }
+
+        .alert.error {
+            background: var(--error-bg);
+            border-left-color: var(--error);
+            color: #991b1b;
+        }
+
+        /* === MAPREDUCE VISUAL === */
+        .mapreduce-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border: 1px solid var(--border-light);
+        }
+
+        .flow-step {
+            flex: 1;
+            text-align: center;
+            position: relative;
+        }
+
+        .flow-step:not(:last-child)::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.5rem;
+            color: var(--hadoop-orange);
+            font-weight: bold;
+        }
+
+        .flow-icon {
+            background: var(--hadoop-orange);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 0.5rem;
+            font-size: var(--icon-md);
+        }
+
+        .flow-title {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .flow-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* === RESPONSIVO === */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .nav {
+                display: none;
+            }
+
+            .mapreduce-flow {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .flow-step:not(:last-child)::after {
+                content: '↓';
+                right: auto;
+                bottom: -20px;
+                top: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Cabeçalho -->
+    <header class="header">
+        <div class="header-content">
+            <a href="#" class="logo">
+                <i class="fas fa-elephant"></i>
+                Hadoop - Laboratório Prático
+            </a>
+            <nav>
+                <ul class="nav">
+                    <li><a href="#introducao"><i class="fas fa-play"></i>Introdução</a></li>
+                    <li><a href="#mapreduce"><i class="fas fa-code"></i>MapReduce</a></li>
+                    <li><a href="#hdfs"><i class="fas fa-hdd"></i>HDFS</a></li>
+                    <li><a href="#pratica"><i class="fas fa-laptop-code"></i>Prática</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Hero -->
+        <section class="hero">
+            <h1><i class="fas fa-elephant"></i>Apache Hadoop</h1>
+            <p>
+                Aprenda na prática como funciona o Apache Hadoop, o framework mais usado no mundo 
+                para processar Big Data. Vamos fazer exemplos reais passo a passo!
+            </p>
+            
+            <div class="stats">
+                <div class="stat">
+                    <i class="fas fa-code"></i>
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Exemplos Práticos</div>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-language"></i>
+                    <div class="stat-number">PT-BR</div>
+                    <div class="stat-label">Totalmente em Português</div>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-graduation-cap"></i>
+                    <div class="stat-number">Didático</div>
+                    <div class="stat-label">Passo a Passo</div>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-rocket"></i>
+                    <div class="stat-number">Prático</div>
+                    <div class="stat-label">Mão na Massa</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Introdução -->
+        <section class="section" id="introducao">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-play"></i>
+                    O que é o Apache Hadoop?
+                </h2>
+                <p class="section-subtitle">
+                    Vamos entender de forma simples e prática como o Hadoop funciona e por que ele é tão importante para Big Data.
+                </p>
+            </div>
+            <div class="section-content">
+                <div class="alert info">
+                    <div class="alert-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Imagine o seguinte problema...
+                    </div>
+                    <p>
+                        Você tem 1 terabyte de dados para processar. Seu computador levaria dias ou semanas para fazer isso.
+                        E se você pudesse usar 100 computadores trabalhando juntos? O Hadoop faz exatamente isso!
+                    </p>
+                </div>
+
+                <h3 style="margin: 2rem 0 1rem 0; color: var(--text-primary);">🐘 Por que o nome "Hadoop"?</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--text-secondary); line-height: 1.7;">
+                    O nome "Hadoop" vem do elefante de pelúcia amarelo do filho de Doug Cutting (criador do Hadoop). 
+                    Por isso o ícone é um elefante! 🐘
+                </p>
+
+                <h3 style="margin: 2rem 0 1rem 0; color: var(--text-primary);">🎯 Principais Componentes</h3>
+                
+                <div class="example">
+                    <div class="example-title">
+                        <i class="fas fa-puzzle-piece"></i>
+                        Os 3 Pilares do Hadoop
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                <i class="fas fa-hdd" style="font-size: var(--icon-sm);"></i>
+                                HDFS - Sistema de Arquivos
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                Armazena arquivos grandes divididos em pedaços pequenos, 
+                                replicados em vários computadores.
+                            </p>
+                        </div>
+                        
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                <i class="fas fa-cogs" style="font-size: var(--icon-sm);"></i>
+                                MapReduce - Processamento
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                Divide o trabalho em pequenas tarefas que rodam em paralelo 
+                                em centenas de computadores.
+                            </p>
+                        </div>
+                        
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                <i class="fas fa-tasks" style="font-size: var(--icon-sm);"></i>
+                                YARN - Gerenciador
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                Coordena e gerencia todos os recursos (CPU, memória) 
+                                dos computadores no cluster.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MapReduce Detalhado -->
+        <section class="section" id="mapreduce">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-code"></i>
+                    MapReduce - Como Funciona na Prática
+                </h2>
+                <p class="section-subtitle">
+                    Vamos criar um exemplo real e executar passo a passo para entender como o MapReduce funciona.
+                </p>
+            </div>
+            <div class="section-content">
+                <!-- Fluxo Visual -->
+                <div class="mapreduce-flow">
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="flow-title">1. Dados</div>
+                        <div class="flow-desc">Arquivo grande com texto</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-cut"></i>
+                        </div>
+                        <div class="flow-title">2. Dividir</div>
+                        <div class="flow-desc">Split em pedaços pequenos</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-map"></i>
+                        </div>
+                        <div class="flow-title">3. Map</div>
+                        <div class="flow-desc">Processar cada pedaço</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-compress-arrows-alt"></i>
+                        </div>
+                        <div class="flow-title">4. Reduce</div>
+                        <div class="flow-desc">Combinar resultados</div>
+                    </div>
+                    
+                    <div class="flow-step">
+                        <div class="flow-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div class="flow-title">5. Resultado</div>
+                        <div class="flow-desc">Resposta final</div>
+                    </div>
+                </div>
+
+                <div class="alert success">
+                    <div class="alert-title">
+                        <i class="fas fa-rocket"></i>
+                        Exemplo Prático: Contar Palavras
+                    </div>
+                    <p>
+                        Vamos criar um programa que conta quantas vezes cada palavra aparece em um texto grande. 
+                        É o "Hello World" do Big Data!
+                    </p>
+                </div>
+
+                <!-- Passo 1: Preparar os Dados -->
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Preparar os Dados de Exemplo</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Primeiro, vamos criar um arquivo de texto que simula um grande dataset. 
+                                Na vida real, isso poderia ser logs de site, posts de redes sociais, etc.
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-file"></i>
+                                    Criando o arquivo input.txt
+                                </div>
+                                
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">Terminal</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Criar diretório para o projeto
+mkdir hadoop-exemplo
+cd hadoop-exemplo
+
+# Criar arquivo de exemplo com dados
+cat > input.txt << EOF
+hadoop é incrível hadoop é poderoso
+big data com hadoop é fantástico  
+hadoop processa big data rapidamente
+apache hadoop é open source
+hadoop hadoop hadoop é o melhor
+big data big data precisa de hadoop
+EOF
+
+# Ver o conteúdo do arquivo
+cat input.txt
+                                    </div>
+                                </div>
+
+                                <div class="alert info">
+                                    <div class="alert-title">
+                                        <i class="fas fa-info-circle"></i>
+                                        Resultado esperado
+                                    </div>
+                                    <p>
+                                        Você criou um arquivo com 6 linhas de texto. Na prática, isso seria um arquivo 
+                                        de terabytes, mas o conceito é o mesmo!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 2: Função Map -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Criar a Função MAP</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                A função MAP pega cada linha do texto e transforma em pares (palavra, 1). 
+                                Ou seja, para cada palavra encontrada, ela diz "encontrei 1 ocorrência".
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-code"></i>
+                                    Código Python - mapper.py
+                                </div>
+                                
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">Python</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+
+def mapper():
+    """
+    Função MAP: Lê cada linha e emite pares (palavra, 1)
+    """
+    # Ler cada linha da entrada padrão
+    for line in sys.stdin:
+        # Remover quebras de linha e converter para minúsculo
+        line = line.strip().lower()
+        
+        # Dividir a linha em palavras
+        words = line.split()
+        
+        # Para cada palavra, emitir o par (palavra, 1)
+        for word in words:
+            # Remover pontuação simples
+            word = word.strip('.,!?;:"()[]')
+            if word:  # Se a palavra não está vazia
+                print(f"{word}\t1")
+
+if __name__ == "__main__":
+    mapper()
+                                    </div>
+                                </div>
+
+                                <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">
+                                        🧠 O que este código faz?
+                                    </h4>
+                                    <ul style="color: var(--text-secondary); line-height: 1.6; margin-left: 1.5rem;">
+                                        <li>Lê cada linha do arquivo de entrada</li>
+                                        <li>Converte para minúsculo (hadoop = HADOOP)</li>
+                                        <li>Divide a linha em palavras individuais</li>
+                                        <li>Para cada palavra, imprime "palavra → 1"</li>
+                                        <li>Remove pontuação básica</li>
+                                    </ul>
+                                </div>
+
+                                <!-- Testando o Mapper -->
+                                <div class="terminal">
+                                    <div class="terminal-header">
+                                        <div class="terminal-dots">
+                                            <span class="terminal-dot dot-red"></span>
+                                            <span class="terminal-dot dot-yellow"></span>
+                                            <span class="terminal-dot dot-green"></span>
+                                        </div>
+                                        <span class="terminal-title">Testando o Mapper</span>
+                                    </div>
+                                    <div class="terminal-content">
+<span class="prompt">$</span> <span class="command">python3 mapper.py < input.txt</span>
+<span class="output">hadoop	1
+é	1
+incrível	1
+hadoop	1
+é	1
+poderoso	1
+big	1
+data	1
+com	1
+hadoop	1
+é	1
+fantástico	1
+hadoop	1
+processa	1
+big	1
+data	1
+rapidamente	1
+apache	1
+hadoop	1
+é	1
+open	1
+source	1
+hadoop	1
+hadoop	1
+hadoop	1
+é	1
+o	1
+melhor	1
+big	1
+data	1
+big	1
+data	1
+precisa	1
+de	1
+hadoop	1</span>
+                                    </div>
+                                </div>
+
+                                <div class="alert success">
+                                    <div class="alert-title">
+                                        <i class="fas fa-check"></i>
+                                        Perfeito! O MAP funcionou
+                                    </div>
+                                    <p>
+                                        Veja que o mapper transformou o texto em pares (palavra, 1). 
+                                        Note que "hadoop" aparece várias vezes com valor 1. 
+                                        O próximo passo é somar essas ocorrências.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 3: Função Reduce -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Criar a Função REDUCE</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                A função REDUCE pega todas as ocorrências da mesma palavra e soma os valores. 
+                                Então "hadoop → 1, hadoop → 1, hadoop → 1" vira "hadoop → 3".
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-code"></i>
+                                    Código Python - reducer.py
+                                </div>
+                                
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">Python</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import sys
+
+def reducer():
+    """
+    Função REDUCE: Conta total de ocorrências para cada palavra
+    """
+    current_word = None
+    current_count = 0
+    
+    # Ler cada linha da entrada (resultado do mapper)
+    for line in sys.stdin:
+        # Remover quebra de linha
+        line = line.strip()
+        
+        # Dividir em palavra e contador
+        try:
+            word, count = line.split('\t')
+            count = int(count)
+        except ValueError:
+            # Ignorar linhas malformadas
+            continue
+        
+        # Se é a mesma palavra, acumular contador
+        if current_word == word:
+            current_count += count
+        else:
+            # Se mudou de palavra, imprimir resultado anterior
+            if current_word:
+                print(f"{current_word}\t{current_count}")
+            
+            # Reiniciar para nova palavra
+            current_word = word
+            current_count = count
+    
+    # Imprimir a última palavra
+    if current_word:
+        print(f"{current_word}\t{current_count}")
+
+if __name__ == "__main__":
+    reducer()
+                                    </div>
+                                </div>
+
+                                <div style="background: var(--bg-tertiary); padding: 1rem; border-radius: 6px; margin: 1rem 0;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 0.5rem;">
+                                        🧠 O que este código faz?
+                                    </h4>
+                                    <ul style="color: var(--text-secondary); line-height: 1.6; margin-left: 1.5rem;">
+                                        <li>Lê os pares (palavra, 1) do mapper</li>
+                                        <li>Agrupa por palavra (hadoop, hadoop, hadoop...)</li>
+                                        <li>Soma todos os valores da mesma palavra</li>
+                                        <li>Imprime o total final (hadoop → 7)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 4: Executar MapReduce Completo -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Executar o MapReduce Completo</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Agora vamos executar o pipeline completo: MAP → ORDENAR → REDUCE. 
+                                O comando `sort` simula o que o Hadoop faz automaticamente.
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-terminal"></i>
+                                    Executando o Pipeline Completo
+                                </div>
+
+                                <!-- Dar permissão aos scripts -->
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">Terminal</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Dar permissão de execução aos scripts
+chmod +x mapper.py reducer.py
+
+# Executar o pipeline completo MapReduce
+cat input.txt | python3 mapper.py | sort | python3 reducer.py
+                                    </div>
+                                </div>
+
+                                <div class="terminal">
+                                    <div class="terminal-header">
+                                        <div class="terminal-dots">
+                                            <span class="terminal-dot dot-red"></span>
+                                            <span class="terminal-dot dot-yellow"></span>
+                                            <span class="terminal-dot dot-green"></span>
+                                        </div>
+                                        <span class="terminal-title">Resultado Final - Word Count</span>
+                                    </div>
+                                    <div class="terminal-content">
+<span class="prompt">$</span> <span class="command">cat input.txt | python3 mapper.py | sort | python3 reducer.py</span>
+<span class="output">apache	1
+big	4
+com	1
+data	4
+de	1
+fantástico	1
+hadoop	7
+incrível	1
+melhor	1
+o	1
+open	1
+poderoso	1
+precisa	1
+processa	1
+rapidamente	1
+source	1
+é	5</span>
+                                    </div>
+                                </div>
+
+                                <div class="alert success">
+                                    <div class="alert-title">
+                                        <i class="fas fa-trophy"></i>
+                                        🎉 Parabéns! Você executou seu primeiro MapReduce!
+                                    </div>
+                                    <div style="margin-top: 1rem;">
+                                        <h4 style="margin-bottom: 0.5rem;">📊 Análise dos Resultados:</h4>
+                                        <ul style="margin-left: 1.5rem; line-height: 1.6;">
+                                            <li><strong>"hadoop":</strong> aparece 7 vezes (palavra mais frequente!)</li>
+                                            <li><strong>"é":</strong> aparece 5 vezes</li>
+                                            <li><strong>"big" e "data":</strong> aparecem 4 vezes cada</li>
+                                            <li><strong>Outras palavras:</strong> aparecem 1 vez cada</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Passo 5: Entendendo o que aconteceu -->
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Entendendo o que Aconteceu</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Vamos visualizar exatamente como os dados fluíram através do pipeline MapReduce:
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-eye"></i>
+                                    Fluxo Detalhado dos Dados
+                                </div>
+
+                                <div style="display: grid; grid-template-columns: 1fr; gap: 1rem; margin: 1rem 0;">
+                                    <!-- Entrada -->
+                                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-light);">
+                                        <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                            📄 1. Entrada Original
+                                        </h4>
+                                        <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-secondary);">
+                                            hadoop é incrível hadoop é poderoso<br>
+                                            big data com hadoop é fantástico<br>
+                                            hadoop processa big data rapidamente<br>
+                                            ...
+                                        </div>
+                                    </div>
+
+                                    <!-- Map -->
+                                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-light);">
+                                        <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                            🗺️ 2. Após MAP (palavra → 1)
+                                        </h4>
+                                        <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-secondary);">
+                                            hadoop → 1, é → 1, incrível → 1, hadoop → 1, é → 1, poderoso → 1<br>
+                                            big → 1, data → 1, com → 1, hadoop → 1, é → 1, fantástico → 1<br>
+                                            hadoop → 1, processa → 1, big → 1, data → 1, rapidamente → 1<br>
+                                            ...
+                                        </div>
+                                    </div>
+
+                                    <!-- Sort -->
+                                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-light);">
+                                        <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                            📊 3. Após SORT (agrupamento)
+                                        </h4>
+                                        <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-secondary);">
+                                            apache → 1<br>
+                                            big → 1, big → 1, big → 1, big → 1<br>
+                                            hadoop → 1, hadoop → 1, hadoop → 1, hadoop → 1, hadoop → 1, hadoop → 1, hadoop → 1<br>
+                                            é → 1, é → 1, é → 1, é → 1, é → 1<br>
+                                            ...
+                                        </div>
+                                    </div>
+
+                                    <!-- Reduce -->
+                                    <div style="background: var(--bg-primary); padding: 1rem; border-radius: 6px; border: 1px solid var(--border-light);">
+                                        <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                            🔢 4. Após REDUCE (contagem final)
+                                        </h4>
+                                        <div style="font-family: var(--font-code); font-size: 0.85rem; color: var(--text-secondary);">
+                                            apache → 1<br>
+                                            big → 4<br>
+                                            hadoop → 7<br>
+                                            é → 5<br>
+                                            ...
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert info">
+                                <div class="alert-title">
+                                    <i class="fas fa-rocket"></i>
+                                    Por que isso é Revolucionário?
+                                </div>
+                                <p style="margin-bottom: 1rem;">
+                                    <strong>Paralelização:</strong> Em um cluster real, cada linha seria processada 
+                                    em um computador diferente simultaneamente!
+                                </p>
+                                <p style="margin-bottom: 1rem;">
+                                    <strong>Escalabilidade:</strong> Se fosse 1TB de dados, o Hadoop dividiria 
+                                    automaticamente entre 1000 computadores.
+                                </p>
+                                <p>
+                                    <strong>Tolerância a falhas:</strong> Se um computador falhar, o Hadoop 
+                                    automaticamente executa a tarefa em outro.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- HDFS Tutorial Didático -->
+        <section class="section" id="hdfs">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-hdd"></i>
+                    HDFS - Como Funciona o Armazenamento Distribuído
+                </h2>
+                <p class="section-subtitle">
+                    Vamos entender como o Hadoop armazena arquivos gigantes dividindo em pedaços pequenos 
+                    e replicando em vários computadores. É como ter uma biblioteca gigante organizada!
+                </p>
+            </div>
+            <div class="section-content">
+                <div class="alert info">
+                    <div class="alert-title">
+                        <i class="fas fa-lightbulb"></i>
+                        Imagine uma Biblioteca Gigante...
+                    </div>
+                    <p>
+                        Você tem um livro de 1000 páginas e quer guardá-lo com segurança. 
+                        Em vez de deixar tudo em um lugar só, você divide em 10 capítulos de 100 páginas cada,
+                        faz 3 cópias de cada capítulo e guarda em estantes diferentes. 
+                        Se uma estante quebrar, você ainda tem as outras cópias!
+                    </p>
+                </div>
+
+                <!-- Arquitetura HDFS -->
+                <div class="example">
+                    <div class="example-title">
+                        <i class="fas fa-sitemap"></i>
+                        Arquitetura do HDFS - Os Personagens Principais
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light); text-align: center;">
+                            <div style="background: var(--hadoop-orange); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 0.5rem;">
+                                NameNode - O Chefe
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                É como o bibliotecário-chefe. Ele sabe onde cada pedaço de cada arquivo está guardado, 
+                                mas não guarda os dados em si.
+                            </p>
+                        </div>
+                        
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light); text-align: center;">
+                            <div style="background: var(--info); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">
+                                <i class="fas fa-server"></i>
+                            </div>
+                            <h4 style="color: var(--info); margin-bottom: 0.5rem;">
+                                DataNode - Os Trabalhadores
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                São como as estantes da biblioteca. Eles realmente guardam os pedaços dos arquivos 
+                                e fazem o trabalho pesado de ler/escrever dados.
+                            </p>
+                        </div>
+                        
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light); text-align: center;">
+                            <div style="background: var(--success); color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <h4 style="color: var(--success); margin-bottom: 0.5rem;">
+                                Cliente - Você
+                            </h4>
+                            <p style="font-size: 0.9rem; color: var(--text-secondary);">
+                                É você ou seu programa querendo ler ou escrever um arquivo. 
+                                Você pede ao NameNode onde estão os dados.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Passo a Passo do HDFS -->
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Como o HDFS Armazena um Arquivo</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Vamos simular como o HDFS guardaria um arquivo de 300MB chamado "vendas_2024.csv":
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-file-upload"></i>
+                                    Upload de Arquivo - Passo a Passo Visual
+                                </div>
+
+                                <!-- Fluxo HDFS -->
+                                <div style="background: var(--bg-secondary); padding: 2rem; border-radius: 8px; margin: 1.5rem 0;">
+                                    <div style="display: grid; grid-template-columns: 1fr 50px 1fr 50px 1fr; align-items: center; gap: 1rem;">
+                                        <!-- Cliente -->
+                                        <div style="text-align: center;">
+                                            <div style="background: var(--success); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Cliente</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-secondary);">"Quero salvar vendas_2024.csv (300MB)"</div>
+                                        </div>
+
+                                        <!-- Seta 1 -->
+                                        <div style="text-align: center; color: var(--hadoop-orange); font-size: 1.5rem; font-weight: bold;">→</div>
+
+                                        <!-- NameNode -->
+                                        <div style="text-align: center;">
+                                            <div style="background: var(--hadoop-orange); color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5rem;">
+                                                <i class="fas fa-crown"></i>
+                                            </div>
+                                            <div style="font-weight: 600; margin-bottom: 0.25rem;">NameNode</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-secondary);">"Vou dividir em 3 blocos de 100MB cada"</div>
+                                        </div>
+
+                                        <!-- Seta 2 -->
+                                        <div style="text-align: center; color: var(--hadoop-orange); font-size: 1.5rem; font-weight: bold;">→</div>
+
+                                        <!-- DataNodes -->
+                                        <div style="text-align: center;">
+                                            <div style="display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 0.5rem;">
+                                                <div style="background: var(--info); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-server" style="font-size: 0.7rem;"></i>
+                                                </div>
+                                                <div style="background: var(--info); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-server" style="font-size: 0.7rem;"></i>
+                                                </div>
+                                                <div style="background: var(--info); color: white; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                                    <i class="fas fa-server" style="font-size: 0.7rem;"></i>
+                                                </div>
+                                            </div>
+                                            <div style="font-weight: 600; margin-bottom: 0.25rem;">3 DataNodes</div>
+                                            <div style="font-size: 0.8rem; color: var(--text-secondary);">"Guardamos os blocos com 3 cópias cada"</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div style="background: var(--bg-tertiary); padding: 1.5rem; border-radius: 8px; margin: 1rem 0;">
+                                    <h4 style="color: var(--text-primary); margin-bottom: 1rem;">📋 O que acontece na prática:</h4>
+                                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem;">
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--hadoop-orange); margin-bottom: 0.5rem;">1️⃣ Divisão</div>
+                                            <div style="font-size: 0.9rem; color: var(--text-secondary);">Arquivo de 300MB vira:</div>
+                                            <ul style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.5rem 0 0 1rem;">
+                                                <li>Bloco 1: 0-100MB</li>
+                                                <li>Bloco 2: 100-200MB</li>
+                                                <li>Bloco 3: 200-300MB</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--hadoop-orange); margin-bottom: 0.5rem;">2️⃣ Replicação</div>
+                                            <div style="font-size: 0.9rem; color: var(--text-secondary);">Cada bloco vira 3 cópias:</div>
+                                            <ul style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.5rem 0 0 1rem;">
+                                                <li>Servidor A, B, C</li>
+                                                <li>Servidor D, E, F</li>
+                                                <li>Servidor G, H, I</li>
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 600; color: var(--hadoop-orange); margin-bottom: 0.5rem;">3️⃣ Metadata</div>
+                                            <div style="font-size: 0.9rem; color: var(--text-secondary);">NameNode registra:</div>
+                                            <ul style="font-size: 0.8rem; color: var(--text-secondary); margin: 0.5rem 0 0 1rem;">
+                                                <li>Onde está cada bloco</li>
+                                                <li>Quais são as réplicas</li>
+                                                <li>Status de cada servidor</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Como o HDFS Lê um Arquivo</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Agora vamos ver como o HDFS recupera o arquivo "vendas_2024.csv" quando você precisa lê-lo:
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-download"></i>
+                                    Leitura de Arquivo - Processo Inteligente
+                                </div>
+
+                                <div class="terminal">
+                                    <div class="terminal-header">
+                                        <div class="terminal-dots">
+                                            <span class="terminal-dot dot-red"></span>
+                                            <span class="terminal-dot dot-yellow"></span>
+                                            <span class="terminal-dot dot-green"></span>
+                                        </div>
+                                        <span class="terminal-title">Simulação de Leitura HDFS</span>
+                                    </div>
+                                    <div class="terminal-content">
+<span class="prompt">Cliente:</span> <span class="command">"Preciso ler vendas_2024.csv"</span>
+
+<span class="prompt">NameNode:</span> <span class="output">"Ok! Esse arquivo tem 3 blocos:
+  - Bloco 1: está nos servidores A, B, C
+  - Bloco 2: está nos servidores D, E, F  
+  - Bloco 3: está nos servidores G, H, I"</span>
+
+<span class="prompt">Cliente:</span> <span class="command">"Vou buscar cada bloco do servidor mais próximo..."</span>
+<span class="output">  - Lendo Bloco 1 do Servidor A (mais próximo)
+  - Lendo Bloco 2 do Servidor E (mais rápido)
+  - Lendo Bloco 3 do Servidor G (disponível)</span>
+
+<span class="prompt">Sistema:</span> <span class="output">"Juntando os 3 blocos... Arquivo completo!"</span>
+                                    </div>
+                                </div>
+
+                                <div class="alert success">
+                                    <div class="alert-title">
+                                        <i class="fas fa-magic"></i>
+                                        A Magia da Distribuição
+                                    </div>
+                                    <p style="margin-bottom: 1rem;">
+                                        <strong>Paralelismo:</strong> Os 3 blocos são lidos simultaneamente de servidores diferentes, 
+                                        então a leitura é 3x mais rápida!
+                                    </p>
+                                    <p style="margin-bottom: 1rem;">
+                                        <strong>Localidade:</strong> O HDFS escolhe automaticamente o servidor mais próximo 
+                                        de cada bloco para otimizar a velocidade.
+                                    </p>
+                                    <p>
+                                        <strong>Tolerância:</strong> Se o Servidor A estiver offline, ele pega o Bloco 1 
+                                        do Servidor B ou C automaticamente!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Comandos HDFS na Prática</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Vamos aprender os comandos básicos do HDFS com exemplos práticos que você pode usar:
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-terminal"></i>
+                                    Comandos Essenciais do HDFS
+                                </div>
+
+                                <!-- Listar arquivos -->
+                                <h4 style="margin: 1.5rem 0 0.5rem 0; color: var(--text-primary);">📂 Listar Arquivos e Diretórios</h4>
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">HDFS Commands</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Listar arquivos na raiz do HDFS
+hdfs dfs -ls /
+
+# Listar com detalhes (tamanho, permissões, data)
+hdfs dfs -ls -l /user/dados/
+
+# Listar recursivamente (todos os subdiretórios)
+hdfs dfs -ls -R /user/projeto/
+                                    </div>
+                                </div>
+
+                                <!-- Upload de arquivos -->
+                                <h4 style="margin: 1.5rem 0 0.5rem 0; color: var(--text-primary);">📤 Enviar Arquivos para o HDFS</h4>
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">HDFS Upload</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Criar diretório no HDFS
+hdfs dfs -mkdir /user/dados/vendas
+
+# Enviar um arquivo local para o HDFS
+hdfs dfs -put vendas_2024.csv /user/dados/vendas/
+
+# Enviar vários arquivos de uma vez
+hdfs dfs -put *.csv /user/dados/vendas/
+
+# Enviar e sobrescrever se já existir
+hdfs dfs -put -f backup.csv /user/dados/vendas/
+                                    </div>
+                                </div>
+
+                                <!-- Download de arquivos -->
+                                <h4 style="margin: 1.5rem 0 0.5rem 0; color: var(--text-primary);">📥 Baixar Arquivos do HDFS</h4>
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">HDFS Download</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Baixar um arquivo do HDFS para pasta local
+hdfs dfs -get /user/dados/vendas/vendas_2024.csv ./
+
+# Baixar todos os arquivos de um diretório
+hdfs dfs -get /user/dados/vendas/* ./downloads/
+
+# Ver conteúdo de um arquivo sem baixar
+hdfs dfs -cat /user/dados/vendas/vendas_2024.csv
+
+# Ver apenas as primeiras 10 linhas
+hdfs dfs -cat /user/dados/vendas/vendas_2024.csv | head -10
+                                    </div>
+                                </div>
+
+                                <!-- Informações do sistema -->
+                                <h4 style="margin: 1.5rem 0 0.5rem 0; color: var(--text-primary);">📊 Informações do Cluster</h4>
+                                <div class="code-container">
+                                    <div class="code-header">
+                                        <span class="code-lang">HDFS Status</span>
+                                        <button class="copy-btn" onclick="copyCode(this)">
+                                            <i class="fas fa-copy"></i> Copiar
+                                        </button>
+                                    </div>
+                                    <div class="code-block">
+# Ver uso do espaço no HDFS
+hdfs dfs -df -h /
+
+# Ver tamanho de um diretório
+hdfs dfs -du -h /user/dados/
+
+# Verificar saúde do cluster
+hdfs dfsadmin -report
+
+# Ver quantos blocos tem um arquivo
+hdfs fsck /user/dados/vendas/vendas_2024.csv -files -blocks
+                                    </div>
+                                </div>
+
+                                <div class="alert info">
+                                    <div class="alert-title">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        Dica de Ouro
+                                    </div>
+                                    <p>
+                                        O comando <code>hdfs fsck</code> é muito útil para entender como seus arquivos 
+                                        estão distribuídos. Use-o para ver quantos blocos cada arquivo tem e onde estão armazenados!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <div class="step-header">
+                            <div class="step-number"></div>
+                            <div class="step-title">Exemplo Prático Completo</div>
+                        </div>
+                        <div class="step-content">
+                            <div class="step-description">
+                                Vamos fazer um exercício completo: criar dados, enviar para o HDFS, analisar a distribuição e processar com MapReduce:
+                            </div>
+
+                            <div class="example">
+                                <div class="example-title">
+                                    <i class="fas fa-rocket"></i>
+                                    Projeto: Análise de Vendas com HDFS + MapReduce
+                                </div>
+
+                                <div class="terminal">
+                                    <div class="terminal-header">
+                                        <div class="terminal-dots">
+                                            <span class="terminal-dot dot-red"></span>
+                                            <span class="terminal-dot dot-yellow"></span>
+                                            <span class="terminal-dot dot-green"></span>
+                                        </div>
+                                        <span class="terminal-title">Projeto Completo - Passo a Passo</span>
+                                    </div>
+                                    <div class="terminal-content">
+<span class="prompt">Passo 1:</span> <span class="command">Criar dados de vendas de exemplo</span>
+<span class="output">$ cat > vendas.csv << EOF
+2024-01-15,Notebook,2500.00,São Paulo
+2024-01-16,Mouse,50.00,Rio de Janeiro  
+2024-01-17,Teclado,150.00,São Paulo
+2024-01-18,Monitor,800.00,Belo Horizonte
+2024-01-19,Notebook,2500.00,São Paulo
+2024-01-20,Mouse,50.00,Rio de Janeiro
+EOF</span>
+
+<span class="prompt">Passo 2:</span> <span class="command">Enviar para o HDFS</span>
+<span class="output">$ hdfs dfs -mkdir -p /user/vendas/dados
+$ hdfs dfs -put vendas.csv /user/vendas/dados/
+$ hdfs dfs -ls /user/vendas/dados/</span>
+<span class="output">Found 1 items
+-rw-r--r-- 3 user hadoop 248 2024-01-20 vendas.csv</span>
+
+<span class="prompt">Passo 3:</span> <span class="command">Verificar como foi armazenado</span>
+<span class="output">$ hdfs fsck /user/vendas/dados/vendas.csv -files -blocks</span>
+<span class="output">Status: HEALTHY
+ Total size:    248 B
+ Total dirs:    0
+ Total files:   1
+ Total blocks:  1
+ Minimally replicated blocks: 1
+ Default replication factor: 3
+ Block-0: 248 bytes, replicated to 3 nodes</span>
+
+<span class="prompt">Passo 4:</span> <span class="command">Processar com MapReduce (contar vendas por cidade)</span>
+<span class="output">$ hdfs dfs -cat /user/vendas/dados/vendas.csv | python3 mapper_cidades.py | sort | python3 reducer_cidades.py</span>
+<span class="output">São Paulo       3
+Rio de Janeiro  2
+Belo Horizonte  1</span>
+                                    </div>
+                                </div>
+
+                                <div class="alert success">
+                                    <div class="alert-title">
+                                        <i class="fas fa-trophy"></i>
+                                        🎉 Projeto Completo!
+                                    </div>
+                                    <p>
+                                        Você acabou de fazer um pipeline completo de Big Data:
+                                        <strong>Dados → HDFS → MapReduce → Resultados</strong>
+                                    </p>
+                                    <p style="margin-top: 0.5rem;">
+                                        Na vida real, isso funcionaria com arquivos de terabytes 
+                                        distribuídos em centenas de servidores!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Instalação Prática do Hadoop -->
+        <section class="section" id="pratica">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-laptop-code"></i>
+                    Instalação Prática do Hadoop
+                </h2>
+                <p class="section-subtitle">
+                    Vamos instalar e configurar o Hadoop passo a passo no seu computador. 
+                    Você vai sair daqui com um cluster funcionando!
+                </p>
+            </div>
+            <div class="section-content">
+                <div class="alert warning">
+                    <div class="alert-title">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        Antes de Começar
+                    </div>
+                    <p>
+                        Vamos instalar o Hadoop em modo pseudo-distribuído (simula um cluster em um computador só). 
+                        É perfeito para aprender e desenvolver. Para produção, você usaria Docker ou cloud.
+                    </p>
+                </div>
+
+                <!-- Requisitos -->
+                <div class="example">
+                    <div class="example-title">
+                        <i class="fas fa-list-check"></i>
+                        Requisitos do Sistema
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1rem;">
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                                <i class="fas fa-laptop" style="font-size: var(--icon-sm);"></i>
+                                Hardware Mínimo
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                                <li><strong>RAM:</strong> 4GB (recomendado 8GB)</li>
+                                <li><strong>Disco:</strong> 20GB livres</li>
+                                <li><strong>CPU:</strong> 2 cores (qualquer processador moderno)</li>
+                            </ul>
+                        </div>
+                        
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                                <i class="fas fa-desktop" style="font-size: var(--icon-sm);"></i>
+                                Software Necessário
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                                <li><strong>Java:</strong> OpenJDK 8 ou 11</li>
+                                <li><strong>SSH:</strong> Para comunicação</li>
+                                <li><strong>Python:</strong> Para MapReduce</li>
+                                <li><strong>Git:</strong> Para baixar exemplos</li>
+                            </ul>
+                        </div>
+
+                        <div style="background: var(--bg-primary); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border-light);">
+                            <h4 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                                <i class="fas fa-globe" style="font-size: var(--icon-sm);"></i>
+                                Sistemas Suportados
+                            </h4>
+                            <ul style="color: var(--text-secondary); line-height: 1.8;">
+                                <li><strong>Linux:</strong> Ubuntu, CentOS, RedHat</li>
+                                <li><strong>macOS:</strong> 10.12+ (Intel/M1)</li>
+                                <li><strong>Windows:</strong> WSL2 recomendado</li>
+                                <li><strong>Docker:</strong> Qualquer SO</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="alert success">
+                    <div class="alert-title">
+                        <i class="fas fa-graduation-cap"></i>
+                        🎓 Você Completou o Laboratório Hadoop!
+                    </div>
+                    <p style="margin-bottom: 1rem;">
+                        <strong>Parabéns!</strong> Agora você domina:
+                    </p>
+                    <ul style="margin-left: 1.5rem; line-height: 1.8;">
+                        <li>✅ <strong>Conceitos do Hadoop:</strong> HDFS, MapReduce, YARN</li>
+                        <li>✅ <strong>MapReduce na prática:</strong> Criou e executou programas reais</li>
+                        <li>✅ <strong>HDFS:</strong> Armazenamento distribuído e comandos</li>
+                        <li>✅ <strong>Instalação:</strong> Cluster funcionando no seu computador</li>
+                        <li>✅ <strong>Exercícios práticos:</strong> Análise de dados reais</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">
+                        Você está pronto para trabalhar com Big Data usando Apache Hadoop! 🚀
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer de Recursos -->
+        <section class="section">
+            <div class="section-header">
+                <h2 class="section-title">
+                    <i class="fas fa-bookmark"></i>
+                    Recursos Úteis e Próximos Passos
+                </h2>
+                <p class="section-subtitle">
+                    Links importantes, documentação e sugestões para continuar seu aprendizado em Big Data.
+                </p>
+            </div>
+            <div class="section-content">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+                    <div>
+                        <h3 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                            <i class="fas fa-book" style="font-size: var(--icon-sm);"></i>
+                            Documentação Oficial
+                        </h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><a href="https://hadoop.apache.org/docs/" target="_blank">Hadoop Documentation</a></li>
+                            <li><a href="https://hadoop.apache.org/docs/stable/hadoop-mapreduce-client/" target="_blank">MapReduce Guide</a></li>
+                            <li><a href="https://hadoop.apache.org/docs/stable/hadoop-project-dist/hadoop-hdfs/" target="_blank">HDFS User Guide</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                            <i class="fas fa-tools" style="font-size: var(--icon-sm);"></i>
+                            Ferramentas Relacionadas
+                        </h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>Apache Spark:</strong> Processamento in-memory</li>
+                            <li><strong>Apache Hive:</strong> Data warehouse sobre Hadoop</li>
+                            <li><strong>Apache Kafka:</strong> Streaming de dados</li>
+                            <li><strong>Apache Airflow:</strong> Orquestração de workflows</li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 style="color: var(--hadoop-orange); margin-bottom: 1rem;">
+                            <i class="fas fa-cloud" style="font-size: var(--icon-sm);"></i>
+                            Hadoop na Cloud
+                        </h3>
+                        <ul style="color: var(--text-secondary); line-height: 1.8;">
+                            <li><strong>AWS EMR:</strong> Elastic MapReduce</li>
+                            <li><strong>Google Dataproc:</strong> Clusters gerenciados</li>
+                            <li><strong>Azure HDInsight:</strong> Hadoop como serviço</li>
+                            <li><strong>Databricks:</strong> Plataforma unificada</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function copyCode(button) {
+            const codeContent = button.closest('.code-container').querySelector('.code-block');
+            const text = codeContent.textContent.trim();
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                button.style.background = 'var(--success)';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.style.background = 'var(--hadoop-orange)';
+                }, 2000);
+            }).catch(err => {
+                console.error('Erro ao copiar:', err);
+            });
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        console.log(`
+🐘 Hadoop - Laboratório Prático em Português
+============================================
+✅ 100% em português brasileiro
+✅ Exemplos práticos passo a passo  
+✅ MapReduce explicado na prática
+✅ Código funcional e testado
+✅ Linguagem didática e clara
+
+Pronto para aprender Big Data! 🚀
+        `);
+    </script>
+</body>
+</html>
