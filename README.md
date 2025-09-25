@@ -1,63 +1,92 @@
-<<<<<<< HEAD
-# Site de Análise de Dados Científicos
+# 🚀 Tópicos de Big Data em Python# 🚀 Tópicos de Big Data em Python
 
-## 📊 Sobre o Projeto
 
-Este é um site completo sobre análise de dados científicos que combina conteúdo educacional de alta qualidade com uma ferramenta interativa de análise. O projeto foi desenvolvido para ser uma referência abrangente para pesquisadores, estudantes e profissionais da área de ciência de dados.
 
-## 🌟 Características Principais
+**Plataforma completa para aprendizado de Big Data com Apache Hadoop, análise de dados científicos e laboratórios práticos.****Plataforma completa para aprendizado de Big Data com Apache Hadoop, análise de dados científicos e laboratórios práticos.**
 
-### 📚 Conteúdo Educacional
-- **Guia Completo**: Metodologia completa desde preparação de dados até modelagem avançada
-- **Rigor Científico**: Conteúdo técnico preciso e atualizado
-- **Exemplos Práticos**: Casos de uso reais e aplicações
-- **Melhores Práticas**: Padrões da indústria e academia
 
-### 🔧 Ferramenta de Análise Interativa
-- **Upload de Dados**: Suporte para CSV, JSON e Excel
-- **Análise Automática**: Estatísticas descritivas, correlações, detecção de outliers
-- **Visualizações**: Gráficos de distribuição, heatmaps de correlação
-- **Qualidade dos Dados**: Métricas de completude e integridade
-- **Exportação**: Relatórios e dados processados
 
-### 📖 Biblioteca de Referências
-- **30+ Recursos**: Livros, artigos, documentação e cursos
-- **Busca Avançada**: Filtros por categoria e texto
-- **Citações Automáticas**: Geração de citações formatadas
-- **Acesso Direto**: Links para recursos online
+[![Status](https://img.shields.io/badge/Status-Online-brightgreen)](https://datascience-pro.netlify.app)[![Status](https://img.shields.io/badge/Status-Online-brightgreen)](https://datascience-pro.netlify.app)
 
-## 🚀 Tecnologias Utilizadas
+[![Hadoop](https://img.shields.io/badge/Hadoop-3.3.4-orange)](https://hadoop.apache.org/)[![Hadoop](https://img.shields.io/badge/Hadoop-3.3.4-orange)](https://hadoop.apache.org/)
 
-### Frontend
-- **HTML5** - Estrutura semântica moderna
-- **CSS3** - Design responsivo com CSS Grid e Flexbox
-- **Vanilla JavaScript (ES6+)** - Funcionalidade interativa
-- **Chart.js** - Visualizações de dados
-- **Papa Parse** - Processamento de CSV
-- **Font Awesome** - Iconografia
+[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org/)[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org/)
 
-### Bibliotecas de Análise
-- **Estatísticas Descritivas**: Média, mediana, desvio padrão
-- **Correlações**: Coeficiente de Pearson
-- **Detecção de Outliers**: Método IQR
-- **Visualizações**: Histogramas, scatter plots, heatmaps
 
-## 📁 Estrutura do Projeto
 
-```
-site_analise_dados/
-├── index.html              # Página principal (SPA)
-├── css/
-│   └── style.css           # Estilos completos e responsivos
-├── js/
-│   ├── main.js            # Funcionalidades principais e utilitários
-│   ├── analysis-tool.js   # Ferramenta de análise de dados
+## 🌟 Recursos Principais## 🌟 Recursos Principais
+
+
+
+### 🐘 Apache Hadoop - Laboratório Completo### � Apache Hadoop - Laboratório Completo
+
+- **🇧🇷 100% em Português** - Explicações didáticas e claras- **🇧🇷 100% em Português** - Explicações didáticas e claras
+
+- **🗺️ MapReduce Prático** - Exemplos funcionais com Python- **🗺️ MapReduce Prático** - Exemplos funcionais com Python
+
+- **💾 Tutorial HDFS** - Sistema de arquivos distribuído- **💾 Tutorial HDFS** - Sistema de arquivos distribuído
+
+- **💻 Guia de Instalação** - Passo a passo no Ubuntu- **💻 Guia de Instalação** - Passo a passo no Ubuntu
+
+- **🏋️ Exercícios Hands-on** - Datasets reais para praticar- **🏋️ Exercícios Hands-on** - Datasets reais para praticar
+
+
+
+### 📊 Análise de Dados Científicos  ### � Análise de Dados Científicos  
+
+- **Upload Inteligente** - CSV, JSON, Excel- **Upload Inteligente** - CSV, JSON, Excel
+
+- **Análise Automática** - Estatísticas e correlações- **Análise Automática** - Estatísticas e correlações
+
+- **Visualizações Avançadas** - Gráficos interativos- **Visualizações Avançadas** - Gráficos interativos
+
+- **Relatórios Completos** - Exportação de resultados- **Relatórios Completos** - Exportação de resultados
+
+
+
+## 🌐 Acesso Online## 🌐 Acesso Online
+
+
+
+**🚀 Site Principal:** https://datascience-pro.netlify.app**🚀 Site Principal:** https://datascience-pro.netlify.app
+
+
+
+**🐘 Laboratório Hadoop:** https://datascience-pro.netlify.app/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html**🐘 Laboratório Hadoop:** https://datascience-pro.netlify.app/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html
+
+
+
+## 🚀 Status Atual - TUDO FUNCIONANDO! ✅## � Conteúdo Pedagógico
+
+
+
+- ✅ **Site Online e Responsivo**```
+
+- ✅ **Laboratório Hadoop 100% Português** site_analise_dados/
+
+- ✅ **MapReduce com Python Funcionando**├── index.html              # Página principal (SPA)
+
+- ✅ **HDFS Tutorial Didático Completo**├── css/
+
+- ✅ **Guia de Instalação Ubuntu**│   └── style.css           # Estilos completos e responsivos
+
+- ✅ **Exercícios com Datasets Reais**├── js/
+
+- ✅ **Design Profissional (ícones pequenos, fundo branco)**│   ├── main.js            # Funcionalidades principais e utilitários
+
+- ✅ **Deploy Netlify Automático**│   ├── analysis-tool.js   # Ferramenta de análise de dados
+
 │   └── app.js             # Inicialização e referências
-├── static/                # Arquivos estáticos (imagens, etc.)
+
+**Última atualização: 25/09/2025 - Tudo funcional!** 🎉├── static/                # Arquivos estáticos (imagens, etc.)
+
 ├── templates/             # Templates auxiliares (se necessário)
-└── uploads/               # Diretório para uploads (local)
+
+---└── uploads/               # Diretório para uploads (local)
+
 ```
 
+**🐘 O laboratório Hadoop mais completo em português está online!**
 ## 🌐 Deploy no Netlify
 
 ### Pré-requisitos
@@ -908,3 +937,6 @@ Este conteúdo é disponibilizado para fins **educacionais e não comerciais**.
 
 **Desenvolvido com ❤️ em Santa Catarina para estudantes e profissionais que buscam aprender Big Data através de storytelling educativo.**
 >>>>>>> 674e9719d70cbceeaa21432c530ca2e70cd98a61
+#   S i t e   r e b u i l d   0 9 / 2 5 / 2 0 2 5   1 2 : 2 1 : 5 8 
+ 
+ 
