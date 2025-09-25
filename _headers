@@ -1,0 +1,30 @@
+# Arquivos essenciais do site
+/
+  X-Frame-Options: DENY
+  X-XSS-Protection: 1; mode=block
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cache-Control: public, max-age=3600
+
+# Arquivos CSS e JS
+/*.css
+  Cache-Control: public, max-age=31536000
+
+/*.js  
+  Cache-Control: public, max-age=31536000
+
+# Bloqueio de arquivos desnecessários
+/*.py
+  X-Robots-Tag: noindex
+
+/*.md
+  X-Robots-Tag: noindex
+
+/README*
+  X-Robots-Tag: noindex
+
+/DEPLOY*
+  X-Robots-Tag: noindex
+
+/GUIA*
+  X-Robots-Tag: noindex

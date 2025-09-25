@@ -1,28 +1,82 @@
-[build]
-  publish = "."
+[build][build]
 
-[[redirects]]
+  publish = "."  publish = "."
+
+  ignore = "false"  ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF"
+
+
+
+# Redirects essenciais[build.environment]
+
+[[redirects]]  NODE_VERSION = "18"
+
   from = "/plataforma"
-  to = "/site_analise_dados/index.html"
-  status = 200
 
-[[redirects]]
-  from = "/analise"
-  to = "/site_analise_dados/index.html"
-  status = 200
+  to = "/site_analise_dados/index.html"# Configurações de publicação - Ignorar arquivos desnecessários
 
-[[redirects]]
-  from = "/app"
-  to = "/site_analise_dados/index.html"
-  status = 200
+  status = 200[[headers]]
 
-# Headers de segurança
-[[headers]]
+  for = "*.py"
+
+[[redirects]]  [headers.values]
+
+  from = "/analise"    X-Robots-Tag = "noindex"
+
+  to = "/site_analise_dados/index.html"
+
+  status = 200[[headers]]
+
+  for = "*.md"
+
+[[redirects]]  [headers.values]
+
+  from = "/hadoop"    X-Robots-Tag = "noindex"
+
+  to = "/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html"
+
+  status = 200[[redirects]]
+
+  from = "/plataforma"
+
+# Headers de performance  to = "/site_analise_dados/index.html"
+
+[[headers]]  status = 200
+
+  for = "/"
+
+  [headers.values][[redirects]]
+
+    Cache-Control = "public, max-age=0, must-revalidate"  from = "/analise"
+
+  to = "/site_analise_dados/index.html"
+
+[[headers]]  status = 200
+
+  for = "*.css"
+
+  [headers.values][[redirects]]
+
+    Cache-Control = "public, max-age=31536000, immutable"  from = "/app"
+
+  to = "/site_analise_dados/index.html"
+
+[[headers]]  status = 200
+
+  for = "*.js"
+
+  [headers.values]# Headers de segurança
+
+    Cache-Control = "public, max-age=31536000, immutable"[[headers]]
+
   for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
+
+[[headers]]  [headers.values]
+
+  for = "*.html"    X-Frame-Options = "DENY"
+
+  [headers.values]    X-XSS-Protection = "1; mode=block"
+
+    Cache-Control = "public, max-age=3600"    X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 

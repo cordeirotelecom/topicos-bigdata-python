@@ -1,2 +1,55 @@
 # Local Netlify folder
 .netlify
+
+# Pasta de desenvolvimento
+.dev/
+
+# Arquivos de desenvolvimento
+*.py
+config_paths.py
+fix_all_problems.py
+fix_all_python_files.py
+limpar_final.py
+limpeza_total.py
+organizacao_final.py
+remove_special_chars.py
+setup_environment.py
+simplificar_tudo.py
+
+# Scripts PowerShell
+*.ps1
+deploy_netlify.ps1
+
+# Arquivos de documentação desnecessários
+README-*.md
+RELATORIO_*.md
+RESUMO_*.md
+CASOS_PRATICOS.md
+GUIA_*.md
+INSTALACAO*.md
+INSTRUCOES-*.md
+DEPLOY*.md
+SOLUCAO_*.md
+SITE-*.md
+
+# Backups e versões alternativas
+index_*.html
+index-*.html
+*_backup.*
+*_old.*
+*-backup.*
+
+# Arquivos temporários
+.tmp
+.temp
+*.tmp
+*.temp
+.vscode/
+_config.yml.bak
+
+# Arquivos de configuração desnecessários
+snake-github-action.yml
+test-automático.html
+portal.html
+deploy-direto.html
+dashboard-demo.html
