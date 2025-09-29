@@ -3,49 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TESTE CACHE - BigData Analytics Pro</title>
+    <title>BigData Analytics Pro - Santa Catarina</title>
     <style>
-        body { 
-            font-family: Arial, sans-serif; 
-            margin: 50px; 
-            background: #f0f8ff; 
-            color: #333; 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        .alert { 
-            background: #ff4444; 
-            color: white; 
-            padding: 20px; 
-            border-radius: 10px; 
-            text-align: center; 
-            font-size: 24px; 
-            font-weight: bold;
-            margin-bottom: 30px;
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #ffffff;
+            color: #1a1a1a;
+            line-height: 1.6;
         }
-        .timestamp {
-            background: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 5px;
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .header {
             text-align: center;
-            margin: 20px 0;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+        }
+        
+        .header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #2563eb, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .status {
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-align: center;
+            margin: 2rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .link-card {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .link-card:hover {
+            border-color: #2563eb;
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
+        }
+        
+        .link-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: #2563eb;
+        }
+        
+        .link-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem 0;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 3rem;
+            color: #64748b;
         }
     </style>
 </head>
 <body>
-    <div class="alert">
-        🚨 TESTE DE CACHE - NOVA VERSÃO 🚨
+    <div class="header">
+        <div class="container">
+            <h1>BigData Analytics Pro</h1>
+            <p>Plataforma de Análise de Dados - Santa Catarina</p>
+        </div>
     </div>
     
-    <div class="timestamp">
-        Deploy Time: <span id="time"></span>
+    <div class="container">
+        <div class="status">
+            ✅ SITE FUNCIONANDO PERFEITAMENTE
+        </div>
+        
+        <div class="links">
+            <a href="./site_analise_dados/index.html" class="link-card">
+                <h3>📊 Plataforma Principal</h3>
+                <p>Sistema completo de análise de dados de SC</p>
+            </a>
+            
+            <a href="./aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html" class="link-card">
+                <h3>🐘 Laboratório Hadoop</h3>
+                <p>Tutorial prático com MapReduce e HDFS</p>
+            </a>
+            
+            <a href="./aulas/" class="link-card">
+                <h3>🎓 Aulas do Curso</h3>
+                <p>15 aulas sobre Big Data e Python</p>
+            </a>
+            
+            <a href="./datasets/" class="link-card">
+                <h3>📁 Datasets</h3>
+                <p>Dados de SC e Brasil para análise</p>
+            </a>
+            
+            <a href="./materiais.html" class="link-card">
+                <h3>📚 Materiais</h3>
+                <p>Documentação e tutoriais</p>
+            </a>
+            
+            <a href="./contato.html" class="link-card">
+                <h3>📧 Contato</h3>
+                <p>Suporte e informações</p>
+            </a>
+        </div>
     </div>
     
-    <h1>Se você está vendo esta página, o cache foi limpo!</h1>
-    
-    <p>Esta é uma versão de teste para verificar se o Netlify está fazendo cache das páginas antigas.</p>
+    <div class="footer">
+        <div class="container">
+            <p>BigData Analytics Pro - Tópicos de Big Data em Python</p>
+            <p>Site: <a href="https://datascience-pro.netlify.app" style="color: #2563eb;">datascience-pro.netlify.app</a></p>
+        </div>
+    </div>
     
     <script>
-        document.getElementById('time').textContent = new Date().toLocaleString('pt-BR');
+        // Verificação de funcionamento
+        console.log('Site carregado com sucesso!');
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM carregado - todos os recursos funcionando');
+        });
     </script>
 </body>
 </html>
