@@ -1,298 +1,303 @@
-# 🚀 Tópicos de Big Data em Python# 🚀 Tópicos de Big Data em Python
+# 🚀 Tópicos de Big Data em Python
+
+**Plataforma educacional completa para aprendizado de Big Data com Apache Hadoop, Spark, análise de dados e casos práticos de Santa Catarina.**
+
+[![Status](https://img.shields.io/badge/Status-Online-brightgreen)](https://datascience-pro.netlify.app)
+[![Hadoop](https://img.shields.io/badge/Hadoop-3.3.4-orange)](https://hadoop.apache.org/)
+[![Spark](https://img.shields.io/badge/Spark-3.5.0-red)](https://spark.apache.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org/)
+[![Questões](https://img.shields.io/badge/Quest%C3%B5es-40+-green)](questoes-concurso-bigdata.md)
+
+## 🌟 Recursos Principais
+
+### 🐘 Apache Hadoop - Laboratório Completo
+- **🇧🇷 100% em Português** - Explicações didáticas e claras
+- **🗺️ MapReduce Prático** - Exemplos funcionais com Python
+- **💾 Tutorial HDFS** - Sistema de arquivos distribuído
+- **💻 Guia de Instalação** - Passo a passo no Ubuntu
+- **🏋️ Exercícios Hands-on** - Datasets reais para praticar
+
+### ⚡ Apache Spark - Processamento Distribuído
+- **PySpark Completo** - Tutoriais práticos e avançados
+- **Spark SQL** - Análise de dados com SQL
+- **Streaming** - Processamento em tempo real
+- **Machine Learning** - MLlib para Big Data
+
+### 📊 Análise de Dados Científicos
+- **Upload Inteligente** - CSV, JSON, Excel
+- **Análise Automática** - Estatísticas e correlações
+- **Visualizações Avançadas** - Gráficos interativos
+- **Relatórios Completos** - Exportação de resultados
+
+### 🎓 Conteúdo Acadêmico
+- **15 Aulas Completas** - Do básico ao avançado
+- **5 Módulos Especializados** - Fundamentos, Hadoop, Spark, Pandas, ML/DL
+- **40+ Questões de Concurso** - Preparação para concursos públicos
+- **Casos Práticos SC** - Exemplos reais de Santa Catarina
+
+## 🌐 Acesso Online
 
 
 
-**Plataforma completa para aprendizado de Big Data com Apache Hadoop, análise de dados científicos e laboratórios práticos.****Plataforma completa para aprendizado de Big Data com Apache Hadoop, análise de dados científicos e laboratórios práticos.**
+**🚀 Site Principal:** https://datascience-pro.netlify.app
+**🐘 Laboratório Hadoop:** https://datascience-pro.netlify.app/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html
+**� Questões de Concurso:** https://datascience-pro.netlify.app/questoes-concurso-bigdata.md
 
+## 🚀 Status Atual - TUDO FUNCIONANDO! ✅
 
+- ✅ **Site Online e Responsivo**
+- ✅ **Laboratório Hadoop 100% Português** 
+- ✅ **MapReduce com Python Funcionando**
+- ✅ **HDFS Tutorial Didático Completo**
+- ✅ **Apache Spark PySpark Tutoriais**
+- ✅ **15 Aulas Estruturadas**
+- ✅ **40+ Questões de Concurso Público**
+- ✅ **5 Módulos Especializados**
+- ✅ **Design Profissional e Responsivo**
+- ✅ **Deploy Netlify Automático**
 
-[![Status](https://img.shields.io/badge/Status-Online-brightgreen)](https://datascience-pro.netlify.app)[![Status](https://img.shields.io/badge/Status-Online-brightgreen)](https://datascience-pro.netlify.app)
+**Última atualização: 29/09/2025 - Conteúdo expandido e otimizado!** 🎉
 
-[![Hadoop](https://img.shields.io/badge/Hadoop-3.3.4-orange)](https://hadoop.apache.org/)[![Hadoop](https://img.shields.io/badge/Hadoop-3.3.4-orange)](https://hadoop.apache.org/)
+## 📚 Estrutura do Curso
 
-[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org/)[![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org/)
-
-
-
-## 🌟 Recursos Principais## 🌟 Recursos Principais
-
-
-
-### 🐘 Apache Hadoop - Laboratório Completo### � Apache Hadoop - Laboratório Completo
-
-- **🇧🇷 100% em Português** - Explicações didáticas e claras- **🇧🇷 100% em Português** - Explicações didáticas e claras
-
-- **🗺️ MapReduce Prático** - Exemplos funcionais com Python- **🗺️ MapReduce Prático** - Exemplos funcionais com Python
-
-- **💾 Tutorial HDFS** - Sistema de arquivos distribuído- **💾 Tutorial HDFS** - Sistema de arquivos distribuído
-
-- **💻 Guia de Instalação** - Passo a passo no Ubuntu- **💻 Guia de Instalação** - Passo a passo no Ubuntu
-
-- **🏋️ Exercícios Hands-on** - Datasets reais para praticar- **🏋️ Exercícios Hands-on** - Datasets reais para praticar
-
-
-
-### 📊 Análise de Dados Científicos  ### � Análise de Dados Científicos  
-
-- **Upload Inteligente** - CSV, JSON, Excel- **Upload Inteligente** - CSV, JSON, Excel
-
-- **Análise Automática** - Estatísticas e correlações- **Análise Automática** - Estatísticas e correlações
-
-- **Visualizações Avançadas** - Gráficos interativos- **Visualizações Avançadas** - Gráficos interativos
-
-- **Relatórios Completos** - Exportação de resultados- **Relatórios Completos** - Exportação de resultados
-
-
-
-## 🌐 Acesso Online## 🌐 Acesso Online
-
-
-
-**🚀 Site Principal:** https://datascience-pro.netlify.app**🚀 Site Principal:** https://datascience-pro.netlify.app
-
-
-
-**🐘 Laboratório Hadoop:** https://datascience-pro.netlify.app/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html**🐘 Laboratório Hadoop:** https://datascience-pro.netlify.app/aulas/aula06-hadoop-intro/laboratorio-hadoop-pratico.html
-
-
-
-## 🚀 Status Atual - TUDO FUNCIONANDO! ✅## � Conteúdo Pedagógico
-
-
-
-- ✅ **Site Online e Responsivo**```
-
-- ✅ **Laboratório Hadoop 100% Português** site_analise_dados/
-
-- ✅ **MapReduce com Python Funcionando**├── index.html              # Página principal (SPA)
-
-- ✅ **HDFS Tutorial Didático Completo**├── css/
-
-- ✅ **Guia de Instalação Ubuntu**│   └── style.css           # Estilos completos e responsivos
-
-- ✅ **Exercícios com Datasets Reais**├── js/
-
-- ✅ **Design Profissional (ícones pequenos, fundo branco)**│   ├── main.js            # Funcionalidades principais e utilitários
-
-- ✅ **Deploy Netlify Automático**│   ├── analysis-tool.js   # Ferramenta de análise de dados
-
-│   └── app.js             # Inicialização e referências
-
-**Última atualização: 25/09/2025 - Tudo funcional!** 🎉├── static/                # Arquivos estáticos (imagens, etc.)
-
-├── templates/             # Templates auxiliares (se necessário)
-
----└── uploads/               # Diretório para uploads (local)
-
+### 📖 Aulas Principais (15 Aulas)
+```
+aulas/
+├── aula01-intro-bigdata/          # Introdução e conceitos fundamentais
+├── aula02-iot-computacao/         # IoT e computação ubíqua
+├── aula03-cloud-streaming/        # Cloud computing e streaming
+├── aula04-revisao-python/         # Revisão Python para Big Data
+├── aula05-analise-dados-resumo/   # Análise de dados e estatística
+├── aula06-hadoop-intro/           # Apache Hadoop - Introdução
+├── aula07-spark-fundamentals/     # Apache Spark - Fundamentos
+├── aula08-kafka-streaming/        # Apache Kafka - Streaming
+├── aula09-ml-bigdata/            # Machine Learning para Big Data
+├── aula10-ml-distribuido/        # ML Distribuído
+├── aula11-graph-analytics/       # Análise de Grafos
+├── aula12-databricks-cloud/      # Databricks e Cloud
+├── aula13-deep-learning-bigdata/ # Deep Learning em Big Data
+├── aula14-edge-computing-iot/    # Edge Computing e IoT
+└── aula15-quantum-computing/     # Computação Quântica
 ```
 
-**🐘 O laboratório Hadoop mais completo em português está online!**
-## 🌐 Deploy no Netlify
+### 🎯 Módulos Especializados (5 Módulos)
+```
+aulas/
+├── modulo1-fundamentos/          # Fundamentos de Big Data
+├── modulo2-hadoop/              # Ecossistema Hadoop completo
+├── modulo3-spark/               # Apache Spark avançado
+├── modulo4-pandas/              # Pandas para análise de dados
+└── modulo5-ml-dl/               # Machine Learning e Deep Learning
+```
 
-### Pré-requisitos
-1. Conta no [Netlify](https://www.netlify.com/)
-2. Repositório Git (GitHub, GitLab, ou Bitbucket)
+### � Questões de Concurso (40+ Questões)
+- **Baseadas em concursos reais** - CESPE, FCC, VUNESP, FGV, CONSULPLAN
+- **Nível técnico elevado** - Analista de TI, Analista de Sistemas
+- **Cobertura completa** - Hadoop, Spark, Kafka, NoSQL, ML, Governança
+- **Explicações detalhadas** - Conceitos e aplicação prática
+- **Caso governamental** - Tribunal de Contas de SC
 
-### Opção 1: Deploy via Git (Recomendado)
+## 🎯 Destaques do Projeto
 
-1. **Prepare o repositório:**
+### 🏆 **Big Data mais Completo em Português**
+- Tutorial Hadoop passo-a-passo com instalação Ubuntu
+- PySpark com exemplos práticos de processamento distribuído
+- Kafka para streaming de dados em tempo real
+- Machine Learning distribuído com MLlib
+
+### 📊 **Casos Reais de Santa Catarina**
+- Análise de tráfego da Ponte Hercílio Luz
+- Sistemas IoT de monitoramento urbano em São José
+- Dados turísticos de Florianópolis
+- Frota de veículos do DETRAN-SC
+- Mercado imobiliário da Grande Florianópolis
+
+### 🎓 **Preparação para Concursos**
+- 40+ questões baseadas em provas reais
+- Cobertura de tecnologias avançadas: Atlas, Ranger, Knox, Ambari
+- Governança de dados e compliance LGPD
+- Arquiteturas Lambda e Kappa
+- Cenários governamentais práticos
+## 🚀 Instalação e Primeiros Passos
+
+### 📋 Pré-requisitos
+- **Python 3.8+** - [Download oficial](https://python.org/downloads)
+- **Java 8 ou 11** - [OpenJDK](https://adoptium.net/) (para PySpark)
+- **Git** - [Download](https://git-scm.com/downloads)
+
+### ⚡ Instalação Rápida (5 minutos)
 ```bash
-git init
+# 1. Clone o repositório
+git clone https://github.com/cordeirotelecom/topicos-bigdata-python.git
+cd topicos-bigdata-python
+
+# 2. Crie ambiente virtual
+python -m venv venv
+# Windows: venv\Scripts\activate
+# Linux/macOS: source venv/bin/activate
+
+# 3. Instale dependências
+pip install -r requirements.txt
+
+# 4. Teste PySpark
+python -c "import pyspark; print('✅ PySpark OK!')"
+
+# 5. Inicie Jupyter
+jupyter lab
+```
+
+### 📖 Primeiros Passos
+1. **Abra Jupyter Lab** e navegue até `aulas/aula01-intro-bigdata/`
+2. **Execute os exemplos** interativos de análise de dados
+3. **Explore o laboratório Hadoop** em `aulas/aula06-hadoop-intro/`
+4. **Teste questões de concurso** em `questoes-concurso-bigdata.md`
+
+## 🔧 Tecnologias e Ferramentas
+
+### 🐍 **Python e Big Data**
+```python
+# Principais bibliotecas utilizadas
+pandas>=2.1.0          # Análise de dados
+numpy>=1.24.0           # Computação numérica
+pyspark>=3.5.0          # Big Data processing
+scikit-learn>=1.3.0     # Machine Learning
+matplotlib>=3.7.0       # Visualização
+seaborn>=0.12.0         # Gráficos estatísticos
+jupyter>=1.0.0          # Notebooks interativos
+```
+
+### 🛠️ **Ecossistema Hadoop**
+- **HDFS** - Sistema de arquivos distribuído
+- **MapReduce** - Processamento paralelo
+- **YARN** - Gerenciamento de recursos
+- **Hive** - SQL sobre Hadoop
+- **HBase** - Banco NoSQL distribuído
+- **Sqoop** - Integração com SGBDs
+
+### ⚡ **Apache Spark**
+- **PySpark** - API Python para Spark
+- **Spark SQL** - Consultas SQL distribuídas
+- **Spark Streaming** - Processamento de streams
+- **MLlib** - Machine Learning distribuído
+- **GraphX** - Análise de grafos
+
+### 🌊 **Streaming e Tempo Real**
+- **Apache Kafka** - Plataforma de streaming
+- **Apache Storm** - Processamento de streams
+- **Apache Flink** - Stream processing avançado
+
+## 💡 Casos de Uso Práticos
+
+### 🏛️ **Setor Público**
+- **Transparência governamental** - Análise de gastos públicos
+- **Smart cities** - Monitoramento urbano com IoT
+- **Saúde pública** - Análise epidemiológica
+- **Educação** - Métricas de desempenho escolar
+- **Segurança** - Análise de dados criminais
+
+### 🏢 **Setor Privado**
+- **E-commerce** - Sistemas de recomendação
+- **Finanças** - Detecção de fraudes
+- **Telecomunicações** - Análise de tráfego de rede
+- **Varejo** - Análise de comportamento do consumidor
+- **Logística** - Otimização de rotas e entregas
+
+### 🎓 **Acadêmico e Pesquisa**
+- **Preparação para concursos** - 40+ questões reais
+- **Dissertações e teses** - Casos práticos para pesquisa
+- **Cursos técnicos** - Material didático completo
+- **Extensão universitária** - Projetos comunitários
+
+## 📚 Livro Digital: Big Data em Python
+
+*"Big Data em Python: Casos Práticos de Santa Catarina - Um guia educacional através de storytelling com casos reais"*
+
+### 📖 **5 Capítulos Narrativos com Patrick**
+1. **O Despertar dos Dados** - Patrick descobre Big Data em Florianópolis
+2. **IoT e Cidades Inteligentes** - Patrick explora sensores em São José  
+3. **Análise de Dados Turísticos** - Patrick desvenda padrões do turismo
+4. **Apache Spark em Ação** - Patrick processa dados do DETRAN-SC
+5. **Machine Learning Aplicado** - Patrick prevê preços imobiliários
+
+### 🎭 **Metodologia Narrativa Única**
+- **Patrick** como protagonista consistente em todos os capítulos
+- **Storytelling educativo** para aprendizado envolvente
+- **Menos código, mais explicação** - foco na compreensão
+- **Contexto local** mas aplicável universalmente
+- **80+ skills** essenciais para o mercado de trabalho
+
+## 🤝 Como Contribuir
+
+### 📝 **Tipos de Contribuição**
+- **Melhorar explicações** - Tornar conceitos mais claros
+- **Adicionar casos práticos** - Exemplos de sua região
+- **Corrigir erros** - Bugs, typos, links quebrados
+- **Expandir questões** - Mais questões de concursos reais
+- **Traduzir conteúdo** - Versões em outros idiomas
+
+### 🛠️ **Como Contribuir**
+```bash
+# 1. Fork o projeto no GitHub
+# 2. Clone seu fork
+git clone https://github.com/SEU-USUARIO/topicos-bigdata-python.git
+
+# 3. Crie uma branch para sua contribuição
+git checkout -b minha-contribuicao
+
+# 4. Faça suas alterações e commit
 git add .
-git commit -m "Initial commit - DataScience Pro site"
-git branch -M main
-git remote add origin https://github.com/seu-usuario/site-analise-dados.git
-git push -u origin main
+git commit -m "Adiciona: Nova explicação sobre Kafka"
+
+# 5. Push e abra Pull Request
+git push origin minha-contribuicao
 ```
 
-2. **Configure o Netlify:**
-   - Acesse o [Netlify Dashboard](https://app.netlify.com/)
-   - Clique em "New site from Git"
-   - Conecte seu repositório
-   - Configure as opções de build:
-     - **Branch to deploy**: `main`
-     - **Build command**: (deixe vazio)
-     - **Publish directory**: `site_analise_dados`
+## 🎯 Público-Alvo
 
-3. **Deploy automático:**
-   - O site será deployado automaticamente
-   - Atualizações no repositório triggeram novos deploys
+### 👨‍🎓 **Estudantes**
+- **Graduação** em Ciência da Computação, Engenharia, Administração
+- **Pós-graduação** em Big Data, Data Science, BI
+- **Cursos técnicos** em informática e análise de dados
+- **Autodidatas** interessados em tecnologia e dados
 
-### Opção 2: Deploy Manual
+### 👨‍💼 **Profissionais**
+- **Analistas de dados** iniciantes e intermediários
+- **Desenvolvedores** que querem aprender Big Data
+- **Gestores de TI** buscando conhecimento técnico
+- **Consultores** em transformação digital
 
-1. **Prepare os arquivos:**
-```bash
-# Comprima apenas o conteúdo da pasta site_analise_dados
-cd "site_analise_dados"
-# Selecione todos os arquivos (index.html, css/, js/, etc.)
-```
+### 🏛️ **Setor Público**
+- **Analistas de TI** em concursos públicos
+- **Gestores públicos** interessados em inovação
+- **Auditores** que trabalham com grandes volumes de dados
+- **Técnicos** em órgãos de controle e transparência
 
-2. **Upload no Netlify:**
-   - Acesse [Netlify Drop](https://app.netlify.com/drop)
-   - Arraste e solte a pasta ou arquivo ZIP
-   - O site será deployado instantaneamente
+## 📞 Suporte e Comunidade
 
-### Configurações Avançadas
+### 💬 **Canais de Comunicação**
+- **GitHub Issues** - [Reportar problemas](https://github.com/cordeirotelecom/topicos-bigdata-python/issues)
+- **GitHub Discussions** - [Fórum da comunidade](https://github.com/cordeirotelecom/topicos-bigdata-python/discussions)
+- **Site oficial** - [https://datascience-pro.netlify.app](https://datascience-pro.netlify.app)
 
-Crie um arquivo `netlify.toml` na raiz do projeto:
+### 📚 **Recursos Adicionais**
+- **[Guia de Instalação Completo](INSTALACAO_COMPLETA.md)** - Tutorial detalhado
+- **[Guia de IA](GUIA_INTELIGENCIA_ARTIFICIAL.md)** - Machine Learning e Deep Learning
+- **[Casos Práticos](CASOS_PRATICOS.md)** - Projetos completos prontos
+- **[Questões de Concurso](questoes-concurso-bigdata.md)** - 40+ questões reais
 
-```toml
-[build]
-  publish = "site_analise_dados"
+## 📄 Licença e Uso
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    X-Frame-Options = "DENY"
-    X-XSS-Protection = "1; mode=block"
-    X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-
-[[headers]]
-  for = "*.js"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000"
-
-[[headers]]
-  for = "*.css"
-  [headers.values]
-    Cache-Control = "public, max-age=31536000"
-
-[build.environment]
-  NODE_VERSION = "18"
-
-# Redirects para SPA
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
-```
-
-## 💡 Funcionalidades Detalhadas
-
-### 📊 Análise de Dados
-- **Upload Seguro**: Validação de tipos e tamanhos de arquivo
-- **Processamento Inteligente**: Detecção automática de tipos de dados
-- **Análise Estatística**: Métricas completas para variáveis numéricas
-- **Correlações**: Matriz de correlação visual
-- **Qualidade**: Avaliação de completude e duplicatas
-- **Outliers**: Detecção usando método IQR
-
-### 📈 Visualizações
-- **Distribuições**: Histogramas para dados numéricos
-- **Categorias**: Gráficos de barras para dados categóricos
-- **Correlações**: Heatmaps interativos
-- **Responsive**: Adaptação automática a diferentes telas
-
-### 📚 Conteúdo Educacional
-- **Metodologia Científica**: Do planejamento à publicação
-- **Ferramentas**: Excel, Python, R, SPSS
-- **Técnicas Avançadas**: Machine Learning, Deep Learning
-- **Boas Práticas**: Validação, reprodutibilidade, ética
-
-## 🎯 Casos de Uso
-
-### Para Estudantes
-- Aprender metodologia de análise de dados
-- Praticar com dados reais
-- Acessar referências acadêmicas
-- Desenvolver projetos de pesquisa
-
-### Para Pesquisadores
-- Análise exploratória rápida
-- Validação de qualidade dos dados
-- Geração de relatórios preliminares
-- Referências para metodologia
-
-### Para Profissionais
-- Prototipagem de análises
-- Apresentações para stakeholders
-- Educação de equipes
-- Benchmarking de dados
-
-## 🔧 Desenvolvimento Local
-
-1. **Clone o projeto:**
-```bash
-git clone https://github.com/seu-usuario/site-analise-dados.git
-cd site-analise-dados
-```
-
-2. **Execute localmente:**
-```bash
-# Opção 1: Servidor Python
-cd site_analise_dados
-python -m http.server 8000
-
-# Opção 2: Live Server (VS Code)
-# Instale a extensão Live Server e abra index.html
-
-# Opção 3: Node.js serve
-npx serve site_analise_dados
-```
-
-3. **Acesse:**
-```
-http://localhost:8000
-```
-
-## 📱 Responsividade
-
-O site é totalmente responsivo e funciona perfeitamente em:
-- **Desktop**: Layout completo com três colunas
-- **Tablet**: Layout adaptado com duas colunas
-- **Mobile**: Layout em coluna única com navegação otimizada
-
-## ♿ Acessibilidade
-
-- **WCAG 2.1 AA**: Conformidade com padrões de acessibilidade
-- **Navegação por Teclado**: Suporte completo
-- **Screen Readers**: Marcação semântica adequada
-- **Alto Contraste**: Esquema de cores acessível
-- **Reduced Motion**: Respeita preferências de animação
-
-## 🔒 Segurança
-
-- **CSP Headers**: Política de segurança de conteúdo
-- **HTTPS Only**: Forçar conexões seguras
-- **Input Validation**: Validação de uploads
-- **XSS Protection**: Proteção contra scripts maliciosos
-
-## 📈 Performance
-
-- **Otimizado**: CSS e JS minificados
-- **Lazy Loading**: Carregamento sob demanda
-- **Caching**: Headers de cache apropriados
-- **CDN Ready**: Compatível com redes de distribuição
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature
-3. Commit suas mudanças
-4. Push para a branch
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está licenciado sob a MIT License - veja o arquivo [LICENSE](LICENSE) para detalhes.
-
-## 👨‍💻 Autor
-
-Desenvolvido com ❤️ para a comunidade de ciência de dados.
-
-## 🔗 Links Úteis
-
-- **Demo**: [https://seu-site.netlify.app](https://seu-site.netlify.app)
-- **Documentação**: [Wiki do Projeto](https://github.com/seu-usuario/site-analise-dados/wiki)
-- **Issues**: [Reportar Problemas](https://github.com/seu-usuario/site-analise-dados/issues)
-- **Discussions**: [Fórum da Comunidade](https://github.com/seu-usuario/site-analise-dados/discussions)
+Este projeto é disponibilizado sob **licença educacional** para:
+- ✅ **Estudo pessoal e acadêmico**
+- ✅ **Uso em cursos e treinamentos não comerciais**
+- ✅ **Adaptação para projetos educacionais**
+- ✅ **Referência em trabalhos acadêmicos** (com citação)
 
 ---
 
-**DataScience Pro** - Transformando dados em conhecimento científico! 🚀📊
-=======
-# Big Data em Python: Casos Práticos de Santa Catarina
+## Big Data em Python: Casos Práticos de Santa Catarina
+
+*Um guia educacional de Big Data através de storytelling com casos reais de Florianópolis e região*
 
 *Um guia educacional de Big Data através de storytelling com casos reais de Florianópolis e região*
 
@@ -935,9 +940,22 @@ Este conteúdo é disponibilizado para fins **educacionais e não comerciais**.
 - Compartilhamento com fins educativos
 - Referência em trabalhos acadêmicos (com citação)
 
-**Desenvolvido com ❤️ em Santa Catarina para estudantes e profissionais que buscam aprender Big Data através de storytelling educativo.**
->>>>>>> 674e9719d70cbceeaa21432c530ca2e70cd98a61
+**Desenvolvido com ❤️ em Santa Catarina para estudantes e profissionais de Big Data.**
+
+---
+
+### 🎯 **Estatísticas do Projeto**
+- **15 Aulas completas** - Do básico ao avançado
+- **5 Módulos especializados** - Fundamentos, Hadoop, Spark, Pandas, ML
+- **40+ Questões de concurso** - Preparação profissional
+- **5 Capítulos narrativos** - Storytelling com Patrick
+- **20+ Exemplos práticos** - Códigos funcionais
+- **100% Português** - Conteúdo nacional
+- **Casos reais SC** - Aplicação prática local
+
+**Última atualização: 29/09/2025** ✅
 #   S i t e   r e b u i l d   0 9 / 2 5 / 2 0 2 5   1 2 : 2 1 : 5 8 
  
- #   D e p l o y   t r i g g e r   0 9 / 2 5 / 2 0 2 5   1 3 : 4 2 : 2 3  
+ #   D e p l o y   t r i g g e r   0 9 / 2 5 / 2 0 2 5   1 3 : 4 2 : 2 3 
+ 
  
